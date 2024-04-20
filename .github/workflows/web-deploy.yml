@@ -1,5 +1,5 @@
 name: Deploy Web-App to Github-Pages
-"on":
+on:
   push:
     branches:
       - main
@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - run: git config --global user.email "mail@jonascurth.de"
+      - run: git config --global user.name "joCur"
 
       - uses: oven-sh/setup-bun@v1
 

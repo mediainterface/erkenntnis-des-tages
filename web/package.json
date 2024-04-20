@@ -11,7 +11,7 @@
     "format": "prettier . --write",
     "homepage": "https://joCur.github.io/erkenntnis-des-tages",
     "predeploy": "bun run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.42.5",
