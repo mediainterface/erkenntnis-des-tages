@@ -11,9 +11,6 @@ jobs:
 
       - uses: oven-sh/setup-bun@v1
 
-      # run any `bun` or `bunx` command
-      - name: Install Dependencies
-        uses: bun install
+      - run: bun install
 
-      - name: Deploy Web-App
-        uses: bun run deploy
+      - run: bun run deploy
