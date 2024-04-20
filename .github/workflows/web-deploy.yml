@@ -8,7 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: fregante/setup-git-user@v2
+
+      - run: git config --global user.email "mail@jonascurth.de"
+      - run: git config --global user.name "joCur"
 
       - uses: oven-sh/setup-bun@v1
 
