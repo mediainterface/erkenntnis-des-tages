@@ -60,10 +60,9 @@ Deno.serve(async (req) => {
       },
     );
     const response2 = await response.json();
-    console.log(response2);
 
     return new Response(
-      JSON.stringify({ answer: response2.getchoices[0].message.content }),
+      JSON.stringify({ answer: response2.choices[0].message.content }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
