@@ -1,28 +1,27 @@
 import "https://esm.sh/@supabase/supabase-js@2";
-import { CreateCompletionRequest } from 'https://esm.sh/openai@3.1.0'
+import { CreateCompletionRequest } from "https://esm.sh/openai@3.1.0";
 
 console.log("Hello from Functions!");
 
 Deno.serve(async (req) => {
-  const { query } = await req.json()
+  const { query } = await req.json();
 
   const completionConfig: CreateCompletionRequest = {
-    model: 'text-davinci-002',
+    model: "gpt-3.5-turbo",
     prompt: query,
     max_tokens: 256,
     temperature: 0,
     stream: true,
-  }
+  };
 
-  return fetch('https://api.openai.com/v1/completions', {
-    method: 'POST',
+  return fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
     headers: {
-      Authorization: `Bearer ${Deno.env.get('OPENAI_API_KEY')}`,
-      'Content-Type': 'application/json',
+      Authorization: `Bearer ${Deno.env.get("OPENAI_API_KEY")}`,
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(completionConfig),
-  })
-
+  });
 
   // const { name } = await req.json();
   // const data = {
