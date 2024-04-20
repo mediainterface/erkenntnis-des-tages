@@ -33,5 +33,9 @@
     "prettier-plugin-organize-imports": "^3.2.4",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
+  },
+  "cli": {
+    "packageManager": "bun"
   }
 }
+
