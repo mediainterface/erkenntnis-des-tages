@@ -27,8 +27,8 @@ class _AppState extends ConsumerState<App> {
       locale: context.locale,
       onGenerateTitle: (_) => LocaleKeys.app_title.tr(),
       routerConfig: router,
-      theme: FlexThemeData.light(scheme: FlexScheme.purpleM3, useMaterial3: true, useMaterial3ErrorColors: true),
-      darkTheme: FlexThemeData.dark(scheme: FlexScheme.purpleM3, useMaterial3: true, useMaterial3ErrorColors: true),
+      theme: FlexThemeData.light(scheme: FlexScheme.jungle, useMaterial3: true, useMaterial3ErrorColors: true),
+      darkTheme: FlexThemeData.dark(scheme: FlexScheme.jungle, useMaterial3: true, useMaterial3ErrorColors: true),
     );
   }
 }
