@@ -1,18 +1,7 @@
 import "https://esm.sh/@supabase/supabase-js@2";
-import { CreateCompletionRequest } from "https://esm.sh/openai@3.1.0";
-
-console.log("Hello from Functions!");
 
 Deno.serve(async (req) => {
   const { query } = await req.json();
-
-  const completionConfig: CreateCompletionRequest = {
-    model: "gpt-3.5-turbo",
-    prompt: query,
-    max_tokens: 256,
-    temperature: 0,
-    stream: true,
-  };
 
   return fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
@@ -20,18 +9,24 @@ Deno.serve(async (req) => {
       Authorization: `Bearer ${Deno.env.get("OPENAI_API_KEY")}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(completionConfig),
+    body: JSON.stringify(
+      {
+        "model": "gpt-3.5-turbo",
+        "messages": [
+          {
+            "role": "system",
+            "content":
+              "Es existieren ausschließlich folgende Kategorien: 'Tiere und Natur', 'Essen und Gesundheit', 'Kunst und Kultur', 'Politik und Recht', 'Technik und Medien', 'Sport und Freizeit', 'Glaube und Religion', 'Wirtschaft und Geschichte', 'Psychologie und Philosophie', 'Stupid People' und 'Sonstiges'. Du musst dich für exakt eine der existierenden Kategorien entscheiden. Bitte weise folgende Icon-Kombination einer dieser Kategorien zu.",
+          },
+          {
+            "role": "user",
+            "content": query,
+          },
+        ],
+        "temperature": 0,
+      },
+    ),
   });
-
-  // const { name } = await req.json();
-  // const data = {
-  //   message: `Hello ${name}!`,
-  // };
-
-  // return new Response(
-  //   JSON.stringify(data),
-  //   { headers: { "Content-Type": "application/json" } },
-  // );
 });
 
 /* To invoke locally:
