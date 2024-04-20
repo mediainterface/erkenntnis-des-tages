@@ -59,8 +59,8 @@ Deno.serve(async (req) => {
         ),
       },
     );
-    const { data2, errors } = await response.json();
-    console.log(data2);
+    const response2 = await response.json();
+    console.log(response2);
 
     return new Response(
       JSON.stringify({ answer: data2.getchoices[0].message.content }),
