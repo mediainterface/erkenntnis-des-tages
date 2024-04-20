@@ -1,24 +1,7 @@
-import { Button } from 'antd'
-import { useBearStore } from './stores/bear.store'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './features/router/router'
 
-const App = () => {
-  const bearStore = useBearStore()
-
-  return (
-    <div>
-      {bearStore.bears}
-      <br />
-      <Button
-        type="primary"
-        onClick={() => {
-          bearStore.increase(1)
-        }}
-      >
-        Button
-      </Button>
-    </div>
-  )
-}
+const App = () => <RouterProvider router={router} />
 
 export default App
 
