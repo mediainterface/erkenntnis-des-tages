@@ -1,19 +1,18 @@
+import "https://esm.sh/@supabase/supabase-js@2";
 
-import { Deno } from "https://esm.sh/v135/@supabase/functions-js@2.3.1/src/edge-runtime.d.ts"
-
-console.log("Hello from Functions!")
+console.log("Hello from Functions!");
 
 Deno.serve(async (req) => {
-  const { name } = await req.json()
+  const { name } = await req.json();
   const data = {
     message: `Hello ${name}!`,
-  }
+  };
 
   return new Response(
     JSON.stringify(data),
     { headers: { "Content-Type": "application/json" } },
-  )
-})
+  );
+});
 
 /* To invoke locally:
 
