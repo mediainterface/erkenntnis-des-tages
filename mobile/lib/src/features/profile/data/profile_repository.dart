@@ -34,10 +34,19 @@ Future<Profile> getProfileById(GetProfileByIdRef ref, String id) async {
   return ref.watch(profileRepositoryProvider).getByIdAsync(id);
 }
 
+@riverpod
+Stream<List<Profile>> watchProfiles(WatchProfilesRef ref) {
+  return ref.watch(profileRepositoryProvider).watchAsync();
+}
+
 class ProfileRepository {
   final supabase = Supabase.instance.client;
   final table = 'profiles';
   final storage = 'user_data';
+
+  Stream<List<Profile>> watchAsync() {
+    return supabase.from(table).stream(primaryKey: ["user_id"]).map((event) => event.map((e) => Profile.fromJson(e)).toList());
+  }
 
   Future<Profile?> findByIdAsync(String id) async {
     final response = await supabase.from(table).select("*").eq('user_id', id).maybeSingle();

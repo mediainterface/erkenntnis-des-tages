@@ -204,5 +204,21 @@ class _GetProfileByIdProviderElement
   @override
   String get id => (origin as GetProfileByIdProvider).id;
 }
+
+String _$watchProfilesHash() => r'18088f784e7f1655971ed48b5b0939b21bf604e6';
+
+/// See also [watchProfiles].
+@ProviderFor(watchProfiles)
+final watchProfilesProvider = AutoDisposeStreamProvider<List<Profile>>.internal(
+  watchProfiles,
+  name: r'watchProfilesProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$watchProfilesHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef WatchProfilesRef = AutoDisposeStreamProviderRef<List<Profile>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
