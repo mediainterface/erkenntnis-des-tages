@@ -11,6 +11,10 @@ jobs:
 
       - uses: oven-sh/setup-bun@v1
 
-      - run: bun install
+      - name: Install Dependencies
+        working-directory: ./web
+        run: bun install
 
-      - run: bun run deploy
+      - name: Deploy Web-App
+        working-directory: ./web
+        run: bun run deploy
