@@ -1,5 +1,5 @@
 name: Deploy Web-App to Github-Pages
-"on":
+on:
   push:
     branches:
       - main
