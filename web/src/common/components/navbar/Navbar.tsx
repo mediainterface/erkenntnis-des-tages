@@ -1,6 +1,7 @@
 import { supabase } from '@/supabase'
+import { LogoutOutlined } from '@ant-design/icons'
 import { User } from '@supabase/supabase-js'
-import { Avatar, Flex, Typography } from 'antd'
+import { Avatar, Button, Flex, Typography } from 'antd'
 import gravatar from 'gravatar'
 import React from 'react'
 
@@ -19,12 +20,20 @@ export const Navbar: React.FC = () => {
   const userName = user?.email ?? 'keine EMail'
   const greeting = 'Hello'
   const text = `${greeting} ${userName}`
+
+  const handleLogOut = async () => {
+    await supabase.auth.signOut()
+  }
+
   return (
     <>
       <Flex justify={'flex-end'} align={'flex-start'}>
-        <Typography style={{ color: 'hotpink', marginTop: '5px', marginRight: '10px' }}>{text}</Typography>
+        <Typography style={{ color: 'hotpink', marginTop: '5px', marginRight: '15px' }}>{text}</Typography>
 
         <Avatar src={gravatarUrl} />
+        <Button type="text" icon={<LogoutOutlined />} onClick={handleLogOut} style={{ color: 'hotpink' }}>
+          Logout
+        </Button>
       </Flex>
     </>
   )
