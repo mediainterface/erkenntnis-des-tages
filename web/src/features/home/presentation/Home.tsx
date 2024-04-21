@@ -1,4 +1,3 @@
-import { Navbar } from '@/common/components/navbar/Navbar'
 import { useBearStore } from '@/stores/bear.store'
 import { Button } from 'antd'
 import React from 'react'
@@ -9,7 +8,6 @@ export const Home: React.FC = () => {
 
   return (
     <>
-      <Navbar />
       <div>
         {bearStore.bears}
         <br />
@@ -27,3 +25,4 @@ export const Home: React.FC = () => {
     </>
   )
 }
+
