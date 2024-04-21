@@ -14,11 +14,14 @@
     "deploy": "gh-pages -d build"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.3.6",
     "@supabase/supabase-js": "^2.42.5",
     "antd": "^5.16.2",
+    "feather-icons-react": "^0.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
+    "styled-components": "^6.1.8",
     "vite-tsconfig-paths": "^4.3.2",
     "zustand": "^4.5.2"
   },
@@ -42,4 +45,3 @@
     "packageManager": "bun"
   }
 }
-

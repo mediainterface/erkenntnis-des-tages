@@ -1,5 +1,5 @@
+import { Home } from '@/features/home/presentation/Home.tsx'
 import { RouteObject, createBrowserRouter } from 'react-router-dom'
-import { Home } from '../home/presentation/Home'
 import { ROUTING_PATH } from './domain/constants/routing-path.constants'
 
 const routes: RouteObject[] = [
@@ -10,4 +10,3 @@ const routes: RouteObject[] = [
 ]
 
 export const router = createBrowserRouter(routes)
-
