@@ -103,6 +103,8 @@ export const CreatePoll: React.FC = () => {
     const { data: pollOptionsResponse, error: pollOptionsError } = await supabase
       .from(TABLE_NAME.poll_options)
       .insert(pollOptions)
+      .select()
+
     if (!pollOptionsResponse || pollOptionsError) {
       console.error(pollOptionsError)
       alert(pollOptionsError?.message)
