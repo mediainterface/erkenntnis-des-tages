@@ -39,9 +39,6 @@ Deno.serve(async (req) => {
         headers: {
           "Authorization": `Bearer ${Deno.env.get("OPENAI_API_KEY")}`,
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers":
-            "authorization, x-client-info, apikey, content-type",
         },
         body: JSON.stringify(
           {
