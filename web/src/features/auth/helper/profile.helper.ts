@@ -10,7 +10,7 @@ export const getUserProfile = async (): Promise<Profile | undefined> => {
     return
   }
 
-  const { data } = await supabase.from(TABLE_NAME.profile).select()
+  const { data } = await supabase.from(TABLE_NAME.profiles).select()
   if (!data) {
     return
   }

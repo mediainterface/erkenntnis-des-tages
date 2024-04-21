@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { Profile } from '@/common/types/tables/profile.type'
 import { supabase } from '@/supabase'
 import React from 'react'
@@ -29,7 +30,7 @@ export const CreatePoll: React.FC = () => {
       if (userError || !user) {
         throw new Error('cannot get current user')
       }
-      const { data, error: profilesError } = await supabase.from('profiles').select()
+      const { data, error: profilesError } = await supabase.from(TABLE_NAME.profiles).select()
       if (profilesError) {
         throw new Error('cannot get profiles')
       }
@@ -56,6 +57,7 @@ export const CreatePoll: React.FC = () => {
     }
     performAction()
   }, [getProfiles])
+
 
   return profiles.map((profile) => <EdtInput profile={profile} />)
 }
