@@ -1,5 +1,14 @@
 {
   "app":{
     "title": "Knowledge of the Day"
+  },
+  "profile": {
+    "title": "Profile",
+    "completionHeadline": "Complete your Profile",
+    "name": "Name",
+    "pictureTitle": "Profile Picture"
+  },
+  "error": {
+    "unknown": "An unknown error occurred"
   }
 }

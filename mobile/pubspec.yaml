@@ -25,6 +25,16 @@ dependencies:
   freezed_annotation:
   json_annotation:
 
+  image_picker_widget: ^2.4.1
+  flutter_gravatar: ^2.0.2
+  fancy_shimmer_image: ^2.0.3
+  cached_network_image: ^3.3.1
+  toastification: ^1.2.1
+  shimmer: ^3.0.0
+
+  flutter_form_builder: ^9.2.1
+  form_builder_validators: ^9.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

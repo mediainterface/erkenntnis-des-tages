@@ -13,7 +13,8 @@ String _$supabaseHash() => r'd2c76c8455442fcc1da2405d92d2e55b47bcaeb6';
 final supabaseProvider = Provider<SupabaseClient>.internal(
   supabase,
   name: r'supabaseProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$supabaseHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$supabaseHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -26,7 +27,8 @@ String _$appStartupHash() => r'31b1d52d7fc5e4f79cd3bb2b5bc3d1b79420428b';
 final appStartupProvider = FutureProvider<void>.internal(
   appStartup,
   name: r'appStartupProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$appStartupHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$appStartupHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
