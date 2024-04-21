@@ -13,7 +13,7 @@ Deno.serve(async (req) => {
   }
 
   const { query } = await req.json();
-  console.log("query\n" + query);
+  console.log("query", query);
 
   try {
     const supabaseClient = createClient(
@@ -30,7 +30,7 @@ Deno.serve(async (req) => {
       "value",
     );
     if (error) throw error;
-    console.log("tags\n" + data);
+    console.log("tags", data);
 
     const response = await fetch(
       "https://api.openai.com/v1/chat/completions",
@@ -73,7 +73,7 @@ Deno.serve(async (req) => {
     };
     const chat: JSONResponse = await response.json();
     if (chat.errors) throw new Error(chat.errors[0].message);
-    console.log("chat-response\n" + chat.data);
+    console.log("chat-response", chat.data);
 
     return new Response(
       JSON.stringify({ answer: chat.data!.choices[0].message.content }),
