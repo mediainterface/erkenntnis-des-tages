@@ -1,5 +1,5 @@
 import { Profile } from '@/common/types/tables/profiles/profile.type'
-import { Avatar, Flex } from 'antd'
+import { Avatar, Flex, Form } from 'antd'
 import Input from 'antd/es/input/Input'
 import React, { useImperativeHandle } from 'react'
 
@@ -13,7 +13,7 @@ export type EdtInputHandle = {
 }
 
 export const EdtInput = React.forwardRef<EdtInputHandle, EdtInputProps>((props, ref) => {
-  const { profile, style } = props
+  const { profile } = props
   const [edtInput, setEdtInput] = React.useState('')
 
   const handleEdtInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,10 +25,11 @@ export const EdtInput = React.forwardRef<EdtInputHandle, EdtInputProps>((props, 
   }))
 
   return (
-    <Flex justify={'space-evenly'} align={'center'} style={style}>
-      <Avatar src={profile.avatar_url} />
-      <Input placeholder="Icons" value={edtInput} onChange={handleEdtInputChange} />
-    </Flex>
+    <Form.Item>
+      <Flex justify={'space-evenly'} align={'center'} gap={'middle'}>
+        <Avatar src={profile.avatar_url} />
+        <Input placeholder="Icons" value={edtInput} onChange={handleEdtInputChange} />
+      </Flex>
+    </Form.Item>
   )
 })
-

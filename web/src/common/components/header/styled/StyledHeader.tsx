@@ -1,11 +1,8 @@
-import { Header } from 'antd/es/layout/layout'
+import { Layout } from 'antd'
 import styled from 'styled-components'
 
-const StyledHeader = styled(Header)`
-  display: flex;
-  height: 64px;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
+const StyledHeader = styled(Layout.Header)`
+  background: var(--ant-color-bg-container);
+  padding: var(--ant-padding-sm) var(--ant-padding-lg);
 `
 export default StyledHeader

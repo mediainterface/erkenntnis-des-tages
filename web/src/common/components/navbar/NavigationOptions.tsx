@@ -1,19 +1,21 @@
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
 import { RoutingPath } from '@/features/router/domain/types/routing-path.type'
-import { HomeOutlined, PieChartOutlined } from '@ant-design/icons'
+import { HomeOutlined, LogoutOutlined, PieChartOutlined } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
 
-
+import { supabase } from '@/supabase.tsx'
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-
 
 export const NavigationOptions: React.FC = () => {
   const location = useLocation()
   const [current, setCurrent] = useState<RoutingPath>(location.pathname as RoutingPath)
   const navigate = useNavigate()
 
+  const handleLogOut = async () => {
+    await supabase.auth.signOut()
+  }
 
   const items: MenuProps['items'] = React.useMemo(() => {
     return [
@@ -33,9 +35,14 @@ export const NavigationOptions: React.FC = () => {
           navigate(ROUTING_PATH.createPoll)
         },
       },
+      {
+        label: 'Logout',
+        key: 'logout',
+        icon: <LogoutOutlined />,
+        onClick: () => handleLogOut(),
+      },
     ]
   }, [navigate])
-
 
   const onClick: MenuProps['onClick'] = (e) => {
     setCurrent(e.key as RoutingPath)
@@ -43,4 +50,3 @@ export const NavigationOptions: React.FC = () => {
 
   return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
 }
-

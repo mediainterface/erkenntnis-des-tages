@@ -1,9 +1,8 @@
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { Profile } from '@/common/types/tables/profiles/profile.type'
 import { supabase } from '@/supabase'
-import { Button, Spin } from 'antd'
+import { Button, Flex, Spin } from 'antd'
 import React from 'react'
-
 
 import { NewPollOption } from '@/common/types/tables/poll_options/new-poll-option.type'
 import { NewPoll } from '@/common/types/tables/polls/new-poll.type'
@@ -115,19 +114,13 @@ export const CreatePoll: React.FC = () => {
   return profiles.length === 0 ? (
     <Spin size="large" />
   ) : (
-    <>
+    <Flex vertical>
       {profiles.map((profile, index) => (
-        <EdtInput
-          key={profile.user_id}
-          profile={profile}
-          style={{ marginTop: '20px' }}
-          ref={(el) => (childRefs.current[index] = el!)}
-        />
+        <EdtInput key={profile.user_id} profile={profile} ref={(el) => (childRefs.current[index] = el!)} />
       ))}
-      <Button onClick={handleCreateNewPoll} disabled={hasCreatedAPoll}>
+      <Button style={{ alignSelf: 'center' }} type={'primary'} onClick={handleCreateNewPoll} disabled={hasCreatedAPoll}>
         Umfrage starten
       </Button>
-    </>
+    </Flex>
   )
 }
-

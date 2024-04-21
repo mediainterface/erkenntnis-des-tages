@@ -1,8 +1,9 @@
-import { Footer } from 'antd/es/modal/shared'
+import { Layout } from 'antd'
 import styled from 'styled-components'
 
-const StyledFooter = styled(Footer)`
-  text-align: center;
-  line-height: 120px;
+const StyledFooter = styled(Layout.Footer)`
+  background: var(--ant-color-bg-container);
+  padding: 0;
+  margin-top: auto;
 `
 export default StyledFooter
