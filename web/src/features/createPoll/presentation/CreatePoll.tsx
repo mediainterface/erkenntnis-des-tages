@@ -27,6 +27,7 @@ const generateOrder = (profiles: Profile[], startPoint: number, lastPoint: numbe
 export const CreatePoll: React.FC = () => {
   const [profiles, setProfiles] = React.useState<Profile[]>([])
   const [currentUser, setCurrentUser] = React.useState<User | null>(null)
+  const [hasCreatedAPoll, setHasCreatedAPoll] = React.useState(false)
 
   const getProfiles = React.useCallback(async () => {
     try {
@@ -108,6 +109,7 @@ export const CreatePoll: React.FC = () => {
       alert(pollOptionsError?.message)
       return
     }
+    setHasCreatedAPoll(true)
   }
 
   return profiles.length === 0 ? (
@@ -122,7 +124,9 @@ export const CreatePoll: React.FC = () => {
           ref={(el) => (childRefs.current[index] = el!)}
         />
       ))}
-      <Button onClick={handleCreateNewPoll}>Umfrage starten</Button>
+      <Button onClick={handleCreateNewPoll} disabled={hasCreatedAPoll}>
+        Umfrage starten
+      </Button>
     </>
   )
 }
