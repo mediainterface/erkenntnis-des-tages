@@ -16,10 +16,12 @@ export const Navbar: React.FC = () => {
     }
     getUser()
   }, [])
-  const gravatarUrl = gravatar.url('mail@jonascurth.de')
+
   const userName = user?.email ?? 'keine EMail'
   const greeting = 'Hello'
   const text = `${greeting} ${userName}`
+
+  const gravatarUrl = gravatar.url(user?.email ?? '')
 
   const handleLogOut = async () => {
     await supabase.auth.signOut()
@@ -31,6 +33,7 @@ export const Navbar: React.FC = () => {
         <Typography style={{ color: 'hotpink', marginTop: '5px', marginRight: '15px' }}>{text}</Typography>
 
         <Avatar src={gravatarUrl} />
+
         <Button type="text" icon={<LogoutOutlined />} onClick={handleLogOut} style={{ color: 'hotpink' }}>
           Logout
         </Button>
