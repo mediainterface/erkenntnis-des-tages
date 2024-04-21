@@ -1,11 +1,11 @@
 import { RouteObject, createBrowserRouter } from 'react-router-dom'
+import { AuthProvider } from '../auth/presentation/AuthProvider'
 import { Home } from '../home/presentation/Home'
-import { Login } from '../login/presentation/Login'
 import { ROUTING_PATH } from './domain/constants/routing-path.constants'
 
 const routes: RouteObject[] = [
   {
-    element: <Login />,
+    element: <AuthProvider />,
     children: [
       {
         path: ROUTING_PATH.home,

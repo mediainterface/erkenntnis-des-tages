@@ -6,12 +6,12 @@ import { ThemeSupa } from '@supabase/auth-ui-shared'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-export const Login: React.FC = () => {
+export const AuthProvider: React.FC = () => {
   const [shouldShowAuthScreen, setShouldShowAuthScreen] = React.useState(false)
   React.useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
       console.log('Auth state changed!')
-      console.log(session)
+      console.log(!!session)
       if (!session) {
         setShouldShowAuthScreen(true)
       }
