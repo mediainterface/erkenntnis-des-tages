@@ -15,12 +15,7 @@ export const AuthProvider: React.FC = () => {
 
   React.useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
-        setShouldShowAuthScreen(true)
-        return
-      }
-
-      setShouldShowAuthScreen(false)
+      setShouldShowAuthScreen(!session)
     })
 
     const checkProfile = async () => {
