@@ -29,6 +29,8 @@ Deno.serve(async (req) => {
     const { data, error } = await supabaseClient.from("poll_tags").select("*");
     if (error) throw error;
 
+    console.log(data);
+
     const response = await fetch(
       "https://api.openai.com/v1/chat/completions",
       {
@@ -59,10 +61,20 @@ Deno.serve(async (req) => {
         ),
       },
     );
-    const response2 = await response.json();
+
+    type ChatGptResponse = {
+      choices: Array<{ message: { content: string } }>;
+    };
+
+    type JSONResponse = {
+      data?: ChatGptResponse;
+      errors?: Array<{ message: string }>;
+    };
+    const chat: JSONResponse = await response.json();
+    if (chat.errors) throw new Error(chat.errors[0].message);
 
     return new Response(
-      JSON.stringify({ answer: response2.choices[0].message.content }),
+      JSON.stringify({ answer: chat.data!.choices[0].message.content }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
