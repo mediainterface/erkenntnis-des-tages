@@ -1,11 +1,31 @@
-import { Alert, Button, Card, Checkbox, CheckboxProps, Flex, Slider, Space, Typography } from 'antd'
+import { useBearStore } from '@/stores/bear.store'
 import React from 'react'
+import { Alert, Button, Card, Checkbox, CheckboxProps, Flex, Slider, Space, Typography } from 'antd'
 
 export const Home: React.FC = () => {
+  const bearStore = useBearStore()
+  const [showUnicorn, setShowUnicorn] = React.useState(false)
+
   const onChange: CheckboxProps['onChange'] = (e) => {
     console.log(`checked = ${e.target.checked}`)
   }
   return (
+    <>
+      <div>
+        {bearStore.bears}
+        <br />
+        <Button
+          type="primary"
+          onClick={() => {
+            bearStore.increase(1)
+            setShowUnicorn(!showUnicorn)
+          }}
+        >
+          Button
+        </Button>
+      </div>
+      {showUnicorn && <img src="https://cdn-icons-png.flaticon.com/128/3468/3468306.png" />}
+
     <Flex gap="middle" align="middle" vertical style={{ padding: '20px', overflowY: 'auto' }}>
       <Button type="primary">Button</Button>
       <Card>
@@ -38,5 +58,6 @@ export const Home: React.FC = () => {
         />
       </Space>
     </Flex>
+    </>
   )
 }

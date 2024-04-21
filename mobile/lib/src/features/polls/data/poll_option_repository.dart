@@ -1,6 +1,19 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../domain/poll_option.dart';
+
+part 'poll_option_repository.g.dart';
+
+@riverpod
+PollOptionRepository pollOptionRepository(PollOptionRepositoryRef ref) {
+  return PollOptionRepository();
+}
+
+@riverpod
+Future<List<PollOption>> listPollOptionsByPollId(ListPollOptionsByPollIdRef ref, String pollId) async {
+  return ref.watch(pollOptionRepositoryProvider).listByPollIdAsync(pollId);
+}
 
 class PollOptionRepository {
   final supabase = Supabase.instance.client;

@@ -8,6 +8,16 @@
     "name": "Name",
     "pictureTitle": "Profile Picture"
   },
+  "home": {
+    "title": "Home"
+  },
+  "polls": {
+    "title": "Polls",
+    "itemTitle": "Insight of the day {}"
+  },
+  "statistics": {
+    "title": "Statistics"
+  },
   "error": {
     "unknown": "An unknown error occurred"
   }

@@ -220,5 +220,19 @@ final watchProfilesProvider = AutoDisposeStreamProvider<List<Profile>>.internal(
 );
 
 typedef WatchProfilesRef = AutoDisposeStreamProviderRef<List<Profile>>;
+String _$listProfilesHash() => r'c0ae728440e882b3a1d75caecebfcc04dfe3709b';
+
+/// See also [listProfiles].
+@ProviderFor(listProfiles)
+final listProfilesProvider = AutoDisposeFutureProvider<List<Profile>>.internal(
+  listProfiles,
+  name: r'listProfilesProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$listProfilesHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef ListProfilesRef = AutoDisposeFutureProviderRef<List<Profile>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

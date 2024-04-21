@@ -25,6 +25,7 @@ mixin _$Profile {
   String get username => throw _privateConstructorUsedError;
   @JsonKey(name: "avatar_url")
   String? get avatarUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: "order_id")
   int get order => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,7 +42,7 @@ abstract class $ProfileCopyWith<$Res> {
       {@JsonKey(name: "user_id") String id,
       String username,
       @JsonKey(name: "avatar_url") String? avatarUrl,
-      int order});
+      @JsonKey(name: "order_id") int order});
 }
 
 /// @nodoc
@@ -94,7 +95,7 @@ abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
       {@JsonKey(name: "user_id") String id,
       String username,
       @JsonKey(name: "avatar_url") String? avatarUrl,
-      int order});
+      @JsonKey(name: "order_id") int order});
 }
 
 /// @nodoc
@@ -137,8 +138,11 @@ class __$$ProfileImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ProfileImpl implements _Profile {
-  const _$ProfileImpl(@JsonKey(name: "user_id") this.id, this.username,
-      @JsonKey(name: "avatar_url") this.avatarUrl, this.order);
+  const _$ProfileImpl(
+      @JsonKey(name: "user_id") this.id,
+      this.username,
+      @JsonKey(name: "avatar_url") this.avatarUrl,
+      @JsonKey(name: "order_id") this.order);
 
   factory _$ProfileImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProfileImplFromJson(json);
@@ -152,6 +156,7 @@ class _$ProfileImpl implements _Profile {
   @JsonKey(name: "avatar_url")
   final String? avatarUrl;
   @override
+  @JsonKey(name: "order_id")
   final int order;
 
   @override
@@ -195,7 +200,7 @@ abstract class _Profile implements Profile {
       @JsonKey(name: "user_id") final String id,
       final String username,
       @JsonKey(name: "avatar_url") final String? avatarUrl,
-      final int order) = _$ProfileImpl;
+      @JsonKey(name: "order_id") final int order) = _$ProfileImpl;
 
   factory _Profile.fromJson(Map<String, dynamic> json) = _$ProfileImpl.fromJson;
 
@@ -208,6 +213,7 @@ abstract class _Profile implements Profile {
   @JsonKey(name: "avatar_url")
   String? get avatarUrl;
   @override
+  @JsonKey(name: "order_id")
   int get order;
   @override
   @JsonKey(ignore: true)

@@ -30,33 +30,39 @@ class ImageListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: padding,
-      height: height,
-      child: InkWell(
-        onTap: onTap,
-        onLongPress: onLongPress,
-        borderRadius: BorderRadius.circular(Sizes.p8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (leading != null) leading!,
-            Expanded(
-              child: Padding(
-                padding: contentPadding,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (title != null) title!,
-                    if (title != null) SizedBox(height: titleContentSpacing),
-                    if (content != null) Expanded(child: content!),
-                  ],
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: Sizes.p16, vertical: Sizes.p4),
+      child: Padding(
+        padding: cardPadding,
+        child: Container(
+          padding: padding,
+          height: height,
+          child: InkWell(
+            onTap: onTap,
+            onLongPress: onLongPress,
+            borderRadius: BorderRadius.circular(Sizes.p8),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (leading != null) leading!,
+                Expanded(
+                  child: Padding(
+                    padding: contentPadding,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (title != null) title!,
+                        if (title != null) SizedBox(height: titleContentSpacing),
+                        if (content != null) Expanded(child: content!),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+                if (trailing != null) trailing!,
+              ],
             ),
-            if (trailing != null) trailing!,
-          ],
+          ),
         ),
       ),
     );

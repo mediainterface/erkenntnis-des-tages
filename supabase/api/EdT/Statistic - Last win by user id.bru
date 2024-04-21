@@ -1,0 +1,25 @@
+meta {
+  name: Statistic - Last win by user id
+  type: http
+  seq: 2
+}
+
+post {
+  url: https://rgqdcitvbekkcyyymoyz.supabase.co/functions/v1/statistic_last_win_by_user_id
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{ANON_PUBLIC_KEY}}
+}
+
+body:json {
+  {
+    "userId": "83b6ded5-7db4-4cc1-b0ab-d820c0ded3f6"
+  }
+}
