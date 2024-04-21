@@ -3,8 +3,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.7.1";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 Deno.serve(async (req) => {
@@ -64,22 +63,22 @@ Deno.serve(async (req) => {
       },
     );
 
-    type ChatGptResponse = {
-      choices: Array<{ message: { content: string } }>;
-    };
+    // type ChatGptResponse = {
+    //   choices: Array<{ message: { content: string } }>;
+    // };
 
-    type JSONResponse = {
-      data?: ChatGptResponse;
-      errors?: Array<{ message: string }>;
-    };
-    const chat: JSONResponse = await response.json();
+    // type JSONResponse = {
+    //   data?: ChatGptResponse;
+    //   errors?: Array<{ message: string }>;
+    // };
+    // const chat: JSONResponse = await response.json();
 
-    console.log(chat);
+    // if (chat.errors) throw new Error(chat.errors[0].message);
 
-    if (chat.errors) throw new Error(chat.errors[0].message);
-
+    const response2 = await response.json();
+    console.error(response2);
     return new Response(
-      JSON.stringify({ answer: chat.data!.choices[0].message.content }),
+      JSON.stringify({ answer: response2.choices[0].message.content }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
