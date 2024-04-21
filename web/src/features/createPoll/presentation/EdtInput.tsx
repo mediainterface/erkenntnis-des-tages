@@ -1,4 +1,4 @@
-import { Profile } from '@/common/types/tables/profile.type'
+import { Profile } from '@/common/types/tables/profiles/profile.type'
 import { Avatar, Flex } from 'antd'
 import Input from 'antd/es/input/Input'
 
