@@ -1,12 +1,14 @@
-import { Avatar } from 'antd'
+import { Avatar, Flex } from 'antd'
 import gravatar from 'gravatar'
 export const Navbar: React.FC = () => {
   const gravatarUrl = gravatar.url('mail@jonascurth.de')
-  console.log(gravatarUrl)
+  const userName = 'Marlelele'
   return (
     <>
-      <Avatar src={gravatarUrl} />
-      <div>{gravatarUrl}</div>
+      <Flex justify={'flex-end'} align={'flex-start'}>
+        {userName}
+        <Avatar src={gravatarUrl} />
+      </Flex>
     </>
   )
 }
