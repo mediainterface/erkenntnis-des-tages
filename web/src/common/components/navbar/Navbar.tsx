@@ -18,8 +18,8 @@ export const Navbar: React.FC = () => {
   }, [])
 
   const userName = user?.email ?? 'keine EMail'
-  const greeting = 'Hello'
-  const text = `${greeting} ${userName}`
+  const greeting = user?.email === 'griebner@mediainterface.de' ? 'Bonjour' : 'Hello'
+  const greetingText = `${greeting} ${userName}`
 
   const gravatarUrl = gravatar.url(user?.email ?? '')
 
@@ -30,7 +30,7 @@ export const Navbar: React.FC = () => {
   return (
     <>
       <Flex justify={'flex-end'} align={'flex-start'}>
-        <Typography style={{ color: 'hotpink', marginTop: '5px', marginRight: '15px' }}>{text}</Typography>
+        <Typography style={{ color: 'hotpink', marginTop: '5px', marginRight: '15px' }}>{greetingText}</Typography>
 
         <Avatar src={gravatarUrl} />
 
