@@ -2,9 +2,8 @@ import { supabase } from '@/supabase'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 
-
+import { AppLayout } from '@/common/components/layout/presentation/AppLayout.tsx'
 import React from 'react'
-import { Outlet } from 'react-router-dom'
 
 export const AuthProvider: React.FC = () => {
   const [shouldShowAuthScreen, setShouldShowAuthScreen] = React.useState(false)
@@ -24,7 +23,6 @@ export const AuthProvider: React.FC = () => {
   return shouldShowAuthScreen ? (
     <Auth supabaseClient={supabase} providers={[]} redirectTo="" appearance={{ theme: ThemeSupa }} />
   ) : (
-    <Outlet />
+    <AppLayout />
   )
 }
-
