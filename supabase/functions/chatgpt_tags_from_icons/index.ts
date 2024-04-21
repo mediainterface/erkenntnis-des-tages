@@ -26,7 +26,9 @@ Deno.serve(async (req) => {
       },
     );
 
-    const { data, error } = await supabaseClient.from("poll_tags").select("*");
+    const { data, error } = await supabaseClient.from("poll_tags").select(
+      "value",
+    );
     if (error) throw error;
 
     console.log(data);
@@ -71,6 +73,9 @@ Deno.serve(async (req) => {
       errors?: Array<{ message: string }>;
     };
     const chat: JSONResponse = await response.json();
+
+    console.log(chat);
+
     if (chat.errors) throw new Error(chat.errors[0].message);
 
     return new Response(
