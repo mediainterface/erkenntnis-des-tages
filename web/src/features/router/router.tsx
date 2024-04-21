@@ -27,6 +27,7 @@ const routes: RouteObject[] = [
         element: <Vote />,
         loader: async () => {
           //TODO: check if poll is closed
+          return null
         },
       },
     ],

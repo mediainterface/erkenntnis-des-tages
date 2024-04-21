@@ -1,9 +1,8 @@
-export type PollOption = {
+import { Poll } from '../polls/poll.type'
+
+export type PollOption = Pick<Poll, 'user_id' | 'created_at'> & {
   id: string
-  user_id: string
   poll_id: string
   content: string
-  // date iso string
-  created_at: string
 }
 
