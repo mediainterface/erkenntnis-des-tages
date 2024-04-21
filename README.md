@@ -1,1 +1,0 @@
-# erkenntnis-des-tages
