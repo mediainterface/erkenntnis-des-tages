@@ -6,11 +6,12 @@ import { Menu } from 'antd'
 
 
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 
 export const NavigationOptions: React.FC = () => {
-  const [current, setCurrent] = useState<RoutingPath>(ROUTING_PATH.home)
+  const location = useLocation()
+  const [current, setCurrent] = useState<RoutingPath>(location.pathname as RoutingPath)
   const navigate = useNavigate()
 
 
