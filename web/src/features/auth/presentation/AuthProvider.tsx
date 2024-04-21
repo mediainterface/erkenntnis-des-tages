@@ -10,8 +10,6 @@ export const AuthProvider: React.FC = () => {
   const [shouldShowAuthScreen, setShouldShowAuthScreen] = React.useState(false)
   React.useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      console.log('Auth state changed!')
-      console.log(!!session)
       if (!session) {
         setShouldShowAuthScreen(true)
       }
