@@ -9,7 +9,7 @@ type EdtInputProps = {
 }
 
 export type EdtInputHandle = {
-  getEdtInput: () => string
+  getEdtInput: () => { edt: string } & Pick<Profile, 'user_id'>
 }
 
 export const EdtInput = React.forwardRef<EdtInputHandle, EdtInputProps>((props, ref) => {
@@ -21,7 +21,7 @@ export const EdtInput = React.forwardRef<EdtInputHandle, EdtInputProps>((props, 
   }
 
   useImperativeHandle(ref, () => ({
-    getEdtInput: () => edtInput,
+    getEdtInput: () => ({ edt: edtInput, user_id: profile.user_id }),
   }))
 
   return (
