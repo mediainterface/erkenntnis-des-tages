@@ -19,6 +19,7 @@ const getLastWinByUserIdFromSupabase = async (req: Request, userId: string): Pro
         body: JSON.stringify({ user_id: userId })
     })
 
+    console.log("error: ", error);
     console.log("data: ", data);
 
     if (error) throw error;
@@ -44,7 +45,7 @@ Deno.serve(async (req) => {
     } catch (error) {
         return new Response(JSON.stringify({ error: error.message }), {
             headers: { ...corsHeaders, "Content-Type": "application/json" },
-            status: 400,
+            status: 500,
         });
     }
 });
