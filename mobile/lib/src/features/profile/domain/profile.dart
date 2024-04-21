@@ -9,7 +9,7 @@ class Profile with _$Profile {
     @JsonKey(name: "user_id") String id,
     String username,
     @JsonKey(name: "avatar_url") String? avatarUrl,
-    int order,
+    @JsonKey(name: "order_id") int order,
   ) = _Profile;
 
   factory Profile.fromJson(Map<String, dynamic> json) => _$ProfileFromJson(json);

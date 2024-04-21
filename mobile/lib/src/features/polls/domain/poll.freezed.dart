@@ -23,6 +23,8 @@ mixin _$Poll {
   String get id => throw _privateConstructorUsedError;
   @JsonKey(name: "is_closed", defaultValue: false)
   bool get isClosed => throw _privateConstructorUsedError;
+  @JsonKey(name: "user_id")
+  String get userId => throw _privateConstructorUsedError;
   @JsonKey(name: "created_at")
   DateTime get createdAt => throw _privateConstructorUsedError;
 
@@ -39,6 +41,7 @@ abstract class $PollCopyWith<$Res> {
   $Res call(
       {String id,
       @JsonKey(name: "is_closed", defaultValue: false) bool isClosed,
+      @JsonKey(name: "user_id") String userId,
       @JsonKey(name: "created_at") DateTime createdAt});
 }
 
@@ -57,6 +60,7 @@ class _$PollCopyWithImpl<$Res, $Val extends Poll>
   $Res call({
     Object? id = null,
     Object? isClosed = null,
+    Object? userId = null,
     Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
@@ -68,6 +72,10 @@ class _$PollCopyWithImpl<$Res, $Val extends Poll>
           ? _value.isClosed
           : isClosed // ignore: cast_nullable_to_non_nullable
               as bool,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -86,6 +94,7 @@ abstract class _$$PollImplCopyWith<$Res> implements $PollCopyWith<$Res> {
   $Res call(
       {String id,
       @JsonKey(name: "is_closed", defaultValue: false) bool isClosed,
+      @JsonKey(name: "user_id") String userId,
       @JsonKey(name: "created_at") DateTime createdAt});
 }
 
@@ -101,6 +110,7 @@ class __$$PollImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? isClosed = null,
+    Object? userId = null,
     Object? createdAt = null,
   }) {
     return _then(_$PollImpl(
@@ -112,6 +122,10 @@ class __$$PollImplCopyWithImpl<$Res>
           ? _value.isClosed
           : isClosed // ignore: cast_nullable_to_non_nullable
               as bool,
+      null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
       null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -126,6 +140,7 @@ class _$PollImpl implements _Poll {
   const _$PollImpl(
       this.id,
       @JsonKey(name: "is_closed", defaultValue: false) this.isClosed,
+      @JsonKey(name: "user_id") this.userId,
       @JsonKey(name: "created_at") this.createdAt);
 
   factory _$PollImpl.fromJson(Map<String, dynamic> json) =>
@@ -137,12 +152,15 @@ class _$PollImpl implements _Poll {
   @JsonKey(name: "is_closed", defaultValue: false)
   final bool isClosed;
   @override
+  @JsonKey(name: "user_id")
+  final String userId;
+  @override
   @JsonKey(name: "created_at")
   final DateTime createdAt;
 
   @override
   String toString() {
-    return 'Poll(id: $id, isClosed: $isClosed, createdAt: $createdAt)';
+    return 'Poll(id: $id, isClosed: $isClosed, userId: $userId, createdAt: $createdAt)';
   }
 
   @override
@@ -153,13 +171,14 @@ class _$PollImpl implements _Poll {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.isClosed, isClosed) ||
                 other.isClosed == isClosed) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, isClosed, createdAt);
+  int get hashCode => Object.hash(runtimeType, id, isClosed, userId, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -179,6 +198,7 @@ abstract class _Poll implements Poll {
   const factory _Poll(
       final String id,
       @JsonKey(name: "is_closed", defaultValue: false) final bool isClosed,
+      @JsonKey(name: "user_id") final String userId,
       @JsonKey(name: "created_at") final DateTime createdAt) = _$PollImpl;
 
   factory _Poll.fromJson(Map<String, dynamic> json) = _$PollImpl.fromJson;
@@ -188,6 +208,9 @@ abstract class _Poll implements Poll {
   @override
   @JsonKey(name: "is_closed", defaultValue: false)
   bool get isClosed;
+  @override
+  @JsonKey(name: "user_id")
+  String get userId;
   @override
   @JsonKey(name: "created_at")
   DateTime get createdAt;

@@ -39,13 +39,27 @@ Stream<List<Profile>> watchProfiles(WatchProfilesRef ref) {
   return ref.watch(profileRepositoryProvider).watchAsync();
 }
 
+@riverpod
+Future<List<Profile>> listProfiles(ListProfilesRef ref) async {
+  return ref.watch(profileRepositoryProvider).listAsync();
+}
+
 class ProfileRepository {
   final supabase = Supabase.instance.client;
   final table = 'profiles';
   final storage = 'user_data';
 
   Stream<List<Profile>> watchAsync() {
-    return supabase.from(table).stream(primaryKey: ["user_id"]).map((event) => event.map((e) => Profile.fromJson(e)).toList());
+    return supabase
+        .from(table)
+        .stream(primaryKey: ["user_id"])
+        .order("order_id", ascending: true)
+        .map((event) => event.map((e) => Profile.fromJson(e)).toList());
+  }
+
+  Future<List<Profile>> listAsync() async {
+    final response = await supabase.from(table).select("*").order("order_id", ascending: true).select();
+    return response.map((e) => Profile.fromJson(e)).toList();
   }
 
   Future<Profile?> findByIdAsync(String id) async {
@@ -78,7 +92,6 @@ class ProfileRepository {
           'user_id': id,
           'username': username,
           'avatar_url': avatarUrl,
-          'order': -1,
         })
         .select()
         .single();
