@@ -52,7 +52,13 @@ const getTagSuggestionFromChatGpt = async (query: string, tagsString: string): P
     );
     const chat = await chatGptResponse.json();
     if (chat.errors) throw new Error(chat.errors[0].message);
-    return chat.choices[0].message.content;
+    const suggestion: string = chat.choices[0].message.content;
+
+    if (!tagsString.includes(suggestion)) {
+        throw new Error(`Suggestion (${suggestion}) does not match provided categories.`);
+    }
+
+    return suggestion;
 }
 
 Deno.serve(async (req) => {
