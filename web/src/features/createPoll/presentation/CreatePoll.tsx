@@ -85,10 +85,8 @@ export const CreatePoll: React.FC = () => {
       return
     }
     const createPollResponse = data as Poll[]
-    console.log('poll response', createPollResponse)
 
     const allEdts = childRefs.current.map((ref) => ref.getEdtInput()).filter((input) => input.edt !== '')
-    console.log('Data from all children:', allEdts)
 
     const pollOptions: NewPollOption[] = profiles.map((profile) => {
       const edt = allEdts.find((input) => input.user_id === profile.user_id)?.edt ?? ''
@@ -110,8 +108,6 @@ export const CreatePoll: React.FC = () => {
       alert(pollOptionsError?.message)
       return
     }
-
-    console.log('options', pollOptionsResponse)
   }
 
   return profiles.length === 0 ? (
