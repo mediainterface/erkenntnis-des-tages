@@ -13,6 +13,7 @@ Deno.serve(async (req) => {
   }
 
   const { query } = await req.json();
+  console.log("query\n" + query);
 
   try {
     const supabaseClient = createClient(
@@ -29,8 +30,7 @@ Deno.serve(async (req) => {
       "value",
     );
     if (error) throw error;
-
-    console.log(data);
+    console.log("tags\n" + data);
 
     const response = await fetch(
       "https://api.openai.com/v1/chat/completions",
@@ -63,22 +63,20 @@ Deno.serve(async (req) => {
       },
     );
 
-    // type ChatGptResponse = {
-    //   choices: Array<{ message: { content: string } }>;
-    // };
+    type ChatGptResponse = {
+      choices: Array<{ message: { content: string } }>;
+    };
 
-    // type JSONResponse = {
-    //   data?: ChatGptResponse;
-    //   errors?: Array<{ message: string }>;
-    // };
-    // const chat: JSONResponse = await response.json();
+    type JSONResponse = {
+      data?: ChatGptResponse;
+      errors?: Array<{ message: string }>;
+    };
+    const chat: JSONResponse = await response.json();
+    if (chat.errors) throw new Error(chat.errors[0].message);
+    console.log("chat-response\n" + chat.data);
 
-    // if (chat.errors) throw new Error(chat.errors[0].message);
-
-    const response2 = await response.json();
-    console.error(response2);
     return new Response(
-      JSON.stringify({ answer: response2.choices[0].message.content }),
+      JSON.stringify({ answer: chat.data!.choices[0].message.content }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
@@ -91,15 +89,3 @@ Deno.serve(async (req) => {
     });
   }
 });
-
-/* To invoke locally:
-
-  1. Run `supabase start` (see: https://supabase.com/docs/reference/cli/supabase-start)
-  2. Make an HTTP request:
-
-  curl -i --location --request POST 'http://127.0.0.1:54321/functions/v1/chatgpt_tags_from_icons' \
-    --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0' \
-    --header 'Content-Type: application/json' \
-    --data '{"name":"Functions"}'
-
-*/
