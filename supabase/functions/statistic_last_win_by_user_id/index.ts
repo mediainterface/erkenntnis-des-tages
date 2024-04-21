@@ -17,6 +17,8 @@ const getLastWinByUserIdFromSupabase = async (req: Request, userId: string): Pro
         body: JSON.stringify({ user_id: userId })
     })
 
+    console.log(data);
+
     if (error) throw error;
 
     return data;
