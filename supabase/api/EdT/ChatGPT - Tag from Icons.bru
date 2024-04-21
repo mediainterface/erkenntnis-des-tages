@@ -1,0 +1,25 @@
+meta {
+  name: ChatGPT - Tag from Icons
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://rgqdcitvbekkcyyymoyz.supabase.co/functions/v1/chatgpt_tags_from_icons
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{ANON_PUBLIC_KEY}}
+}
+
+body:json {
+  {
+    "query":"🥔🤖🐱🖼"
+  }
+}
