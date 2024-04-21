@@ -32,6 +32,9 @@ Deno.serve(async (req) => {
     if (error) throw error;
     console.log("tags", data);
 
+    const tagsArray: string[] = data.map(tag => `'${tag.value}'`);
+    const tagsString: string = tagsArray.join(", ");
+
     const chatGptResponse = await fetch(
       "https://api.openai.com/v1/chat/completions",
       {
@@ -47,7 +50,7 @@ Deno.serve(async (req) => {
               {
                 "role": "system",
                 "content":
-                  "Es existieren ausschließlich folgende Kategorien: 'Tiere und Natur', 'Essen und Gesundheit', 'Kunst und Kultur', 'Politik und Recht', 'Technik und Medien', 'Sport und Freizeit', 'Glaube und Religion', 'Wirtschaft und Geschichte', 'Psychologie und Philosophie', 'Stupid People' und 'Sonstiges'. Du musst dich für exakt eine der existierenden Kategorien entscheiden. Bitte gib nur die Kategorie aus und keinen weiteren Text. Bitte weise folgende Icon-Kombination einer dieser Kategorien zu.",
+                  `Es existieren ausschließlich folgende Kategorien: ${tagsString}. Du musst dich für exakt eine der existierenden Kategorien entscheiden. Bitte gib nur die Kategorie aus und keinen weiteren Text. Bitte weise folgende Icon-Kombination einer dieser Kategorien zu.`,
               },
               {
                 "role": "user",
