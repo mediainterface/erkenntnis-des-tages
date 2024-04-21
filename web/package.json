@@ -14,10 +14,12 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.3.6",
     "@supabase/auth-ui-react": "^0.4.7",
     "@supabase/auth-ui-shared": "^0.1.8",
     "@supabase/supabase-js": "^2.42.5",
     "antd": "^5.16.2",
+    "gravatar": "^1.8.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
@@ -25,6 +27,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@types/gravatar": "^1.8.6",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
