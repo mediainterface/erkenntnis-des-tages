@@ -1,4 +1,6 @@
 export const TABLE_NAME = Object.freeze({
-  profile: 'profiles',
+  profiles: 'profiles',
+  polls: 'polls',
+  poll_options: 'poll_options',
 } as const)
 

@@ -3,6 +3,7 @@ import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 
 
+import { Navbar } from '@/common/components/navbar/Navbar'
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
 import React from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
@@ -14,12 +15,7 @@ export const AuthProvider: React.FC = () => {
 
   React.useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
-        setShouldShowAuthScreen(true)
-        return
-      }
-
-      setShouldShowAuthScreen(false)
+      setShouldShowAuthScreen(!session)
     })
 
     const checkProfile = async () => {
@@ -39,7 +35,10 @@ export const AuthProvider: React.FC = () => {
   return shouldShowAuthScreen ? (
     <Auth supabaseClient={supabase} providers={[]} redirectTo="" appearance={{ theme: ThemeSupa }} />
   ) : (
-    <Outlet />
+    <>
+      <Navbar />
+      <Outlet />
+    </>
   )
 }
 

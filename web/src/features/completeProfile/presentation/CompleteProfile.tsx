@@ -42,7 +42,7 @@ export const CompleteProfile: React.FC = () => {
       username,
     }
 
-    const response = await supabase.from(TABLE_NAME.profile).insert(newProfile)
+    const response = await supabase.from(TABLE_NAME.profiles).insert(newProfile)
     if (response.error) {
       alert(response.error.message)
       return
