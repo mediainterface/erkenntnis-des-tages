@@ -13,13 +13,13 @@ const getLastWinByUserIdFromSupabase = async (req: Request, userId: string): Pro
         },
     );
 
-    console.log(userId);
+    console.log("user uid: ", userId);
 
     const { data, error } = await supabaseClient.functions.invoke('statistic_last_win_by_user_id', {
         body: JSON.stringify({ user_id: userId })
     })
 
-    console.log(data);
+    console.log("data: ", data);
 
     if (error) throw error;
 
