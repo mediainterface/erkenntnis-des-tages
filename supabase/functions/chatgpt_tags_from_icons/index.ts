@@ -74,7 +74,7 @@ Deno.serve(async (req) => {
     };
     const chat: JSONResponse = await response.json();
 
-    console.log(chat);
+    console.log(chat.data);
 
     if (chat.errors) throw new Error(chat.errors[0].message);
 
