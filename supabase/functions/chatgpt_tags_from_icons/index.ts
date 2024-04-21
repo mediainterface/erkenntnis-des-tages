@@ -32,7 +32,7 @@ Deno.serve(async (req) => {
     if (error) throw error;
     console.log("tags", data);
 
-    const response = await fetch(
+    const chatGptResponse = await fetch(
       "https://api.openai.com/v1/chat/completions",
       {
         method: "POST",
@@ -60,20 +60,12 @@ Deno.serve(async (req) => {
       },
     );
 
-    type ChatGptResponse = {
-      choices: Array<{ message: { content: string } }>;
-    };
-
-    type JSONResponse = {
-      data?: ChatGptResponse;
-      errors?: Array<{ message: string }>;
-    };
-    const chat: JSONResponse = await response.json();
+    const chat = await chatGptResponse.json();
+    console.log("chat-response", chat);
     if (chat.errors) throw new Error(chat.errors[0].message);
-    console.log("chat-response", chat.data);
 
     return new Response(
-      JSON.stringify({ answer: chat.data!.choices[0].message.content }),
+      JSON.stringify({ answer: chat.choices[0].message.content }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
