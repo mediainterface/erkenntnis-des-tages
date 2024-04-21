@@ -37,7 +37,7 @@ export const CompleteProfile: React.FC = () => {
 
   const handleSaveUsername = async () => {
     const newProfile: CreateProfile = {
-      avatar_url: gravatar.url(user?.email ?? ''),
+      avatar_url: `https:${gravatar.url(user?.email ?? '')}`,
       user_id: user?.id ?? '',
       username,
     }
