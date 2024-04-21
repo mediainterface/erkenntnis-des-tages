@@ -1,6 +1,7 @@
 import { supabase } from '@/supabase'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
+import { Button } from 'antd'
 
 
 import React from 'react'
@@ -21,10 +22,17 @@ export const AuthProvider: React.FC = () => {
     }
   }, [])
 
+  const handleSignOut = async () => {
+    await supabase.auth.signOut()
+  }
+
   return shouldShowAuthScreen ? (
     <Auth supabaseClient={supabase} providers={[]} redirectTo="" appearance={{ theme: ThemeSupa }} />
   ) : (
-    <Outlet />
+    <>
+      <Button onClick={handleSignOut}>Logout</Button>
+      <Outlet />
+    </>
   )
 }
 
