@@ -13,24 +13,27 @@ export const AuthProvider: React.FC = () => {
   const [shouldShowAuthScreen, setShouldShowAuthScreen] = React.useState(true)
   const navigate = useNavigate()
 
-  React.useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setShouldShowAuthScreen(!session)
-    })
-
-    const checkProfile = async () => {
-      const profile = await getUserProfile()
-      if (!profile) {
-        navigate(ROUTING_PATH.completeProfile)
-      }
+  const checkProfile = React.useCallback(async () => {
+    const profile = await getUserProfile()
+    if (!profile) {
+      navigate(ROUTING_PATH.completeProfile)
     }
+  }, [navigate])
+
+  React.useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      setShouldShowAuthScreen(!session)
+      if (event === 'SIGNED_IN') {
+        checkProfile()
+      }
+    })
 
     checkProfile()
     // Cleanup listener when component unmounts
     return () => {
       authListener.subscription.unsubscribe()
     }
-  }, [navigate])
+  }, [navigate, checkProfile])
 
   return shouldShowAuthScreen ? (
     <Auth supabaseClient={supabase} providers={[]} redirectTo="" appearance={{ theme: ThemeSupa }} />

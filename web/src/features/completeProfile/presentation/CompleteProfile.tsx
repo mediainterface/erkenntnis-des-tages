@@ -1,5 +1,6 @@
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { CreateProfile } from '@/common/types/tables/profiles/create-profile.type'
+import { getUserProfile } from '@/features/auth/helper/profile.helper'
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
 import { supabase } from '@/supabase'
 import { UserOutlined } from '@ant-design/icons'
@@ -17,19 +18,28 @@ export const CompleteProfile: React.FC = () => {
   const [username, setUsername] = React.useState('')
   const navigate = useNavigate()
 
-  React.useEffect(() => {
-    const getUser = async () => {
-      const {
-        data: { user },
-        error,
-      } = await supabase.auth.getUser()
-      if (!user || error) {
-        throw new Error(error?.message)
-      }
-      setUser(user)
+  const checkProfile = React.useCallback(async () => {
+    const profile = await getUserProfile()
+    if (profile) {
+      navigate(ROUTING_PATH.home)
     }
-    getUser()
+  }, [navigate])
+
+  const getUser = React.useCallback(async () => {
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser()
+    if (!user || error) {
+      throw new Error(error?.message)
+    }
+    setUser(user)
   }, [])
+
+  React.useEffect(() => {
+    checkProfile()
+    getUser()
+  }, [checkProfile, getUser])
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value)
