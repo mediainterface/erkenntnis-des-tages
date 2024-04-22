@@ -2,11 +2,12 @@ import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { PollOption } from '@/common/types/tables/poll_options/poll-option.type'
 import { PollVote } from '@/common/types/tables/poll_votes/poll-vote.type'
 import { supabase } from '@/supabase'
+import { ShareAltOutlined } from '@ant-design/icons'
 import { User } from '@supabase/supabase-js'
-import { Button, RadioChangeEvent, Space, Spin } from 'antd'
+import { Button, Input, RadioChangeEvent, Space, Spin, Tooltip } from 'antd'
 import Radio from 'antd/es/radio/radio'
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 
 type SelectedOption = Pick<PollVote, 'poll_option_id'> & {
   index: number
@@ -17,6 +18,8 @@ export const Vote: React.FC = () => {
   const [pollOptions, setPollOptions] = React.useState<PollOption[]>([])
   const { pollId = '' } = useParams()
   const [currentUser, setCurrentUser] = React.useState<User | null>(null)
+  const location = useLocation()
+  const currentUrl = window.location.href
 
   const getPollOptions = React.useCallback(async () => {
     const { data, error } = await supabase.from('poll_options').select().eq('poll_id', pollId)
@@ -53,14 +56,16 @@ export const Vote: React.FC = () => {
       created_at: new Date().toISOString(),
       poll_option_id: selectedOption.poll_option_id,
     }
-    console.log('newVote', newVote)
     const { data, error } = await supabase.from(TABLE_NAME.votes).insert(newVote).select()
-    console.log('data', data)
     if (!data || error) {
       console.error(error)
       return
     }
     alert('Vote successfully added')
+  }
+
+  const onShareClick = () => {
+    navigator.clipboard.writeText(currentUrl)
   }
 
   return pollOptions.length === 0 ? (
@@ -78,6 +83,14 @@ export const Vote: React.FC = () => {
       </Radio.Group>
       <br />
       <Button onClick={onSetVote}>Vote</Button>
+      <Space.Compact style={{ width: '100%' }}>
+        <Input defaultValue={currentUrl} disabled={true} />
+        <Tooltip title="Copy to Clipboard">
+          <Button icon={<ShareAltOutlined />} onClick={onShareClick}>
+            Teilen
+          </Button>
+        </Tooltip>
+      </Space.Compact>
     </>
   )
 }
