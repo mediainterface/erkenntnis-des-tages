@@ -1,14 +1,16 @@
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { Profile } from '@/common/types/tables/profiles/profile.type'
 import { supabase } from '@/supabase'
-import { Button, Spin } from 'antd'
+import { Button, Spin, message } from 'antd'
 import React from 'react'
 
 
 import { NewPollOption } from '@/common/types/tables/poll_options/new-poll-option.type'
 import { NewPoll } from '@/common/types/tables/polls/new-poll.type'
 import { Poll } from '@/common/types/tables/polls/poll.type'
+import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
 import { User } from '@supabase/supabase-js'
+import { generatePath, useNavigate } from 'react-router-dom'
 import { EdtInput, EdtInputHandle } from './EdtInput'
 
 const generateOrder = (profiles: Profile[], startPoint: number, lastPoint: number): Profile[] => {
@@ -28,6 +30,8 @@ export const CreatePoll: React.FC = () => {
   const [profiles, setProfiles] = React.useState<Profile[]>([])
   const [currentUser, setCurrentUser] = React.useState<User | null>(null)
   const [hasCreatedAPoll, setHasCreatedAPoll] = React.useState(false)
+  const navigate = useNavigate()
+  const [messageApi] = message.useMessage()
 
   const getProfiles = React.useCallback(async () => {
     try {
@@ -110,6 +114,11 @@ export const CreatePoll: React.FC = () => {
       return
     }
     setHasCreatedAPoll(true)
+    messageApi.open({
+      type: 'success',
+      content: 'Umfrage wurde erfolgreich erstellt',
+    })
+    navigate(generatePath(ROUTING_PATH.vote, { pollId: createPollResponse[0].id }))
   }
 
   return profiles.length === 0 ? (
