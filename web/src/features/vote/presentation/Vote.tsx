@@ -4,7 +4,7 @@ import { PollVote } from '@/common/types/tables/poll_votes/poll-vote.type'
 import { supabase } from '@/supabase'
 import { ShareAltOutlined } from '@ant-design/icons'
 import { User } from '@supabase/supabase-js'
-import { Button, Input, RadioChangeEvent, Space, Spin, Tooltip } from 'antd'
+import { Button, Input, RadioChangeEvent, Space, Spin, Tooltip, message } from 'antd'
 import Radio from 'antd/es/radio/radio'
 import React from 'react'
 import { useParams } from 'react-router-dom'
@@ -19,6 +19,7 @@ export const Vote: React.FC = () => {
   const { pollId = '' } = useParams()
   const [currentUser, setCurrentUser] = React.useState<User | null>(null)
   const currentUrl = window.location.href
+  const [messageApi] = message.useMessage()
 
   const getPollOptions = React.useCallback(async () => {
     const { data, error } = await supabase.from('poll_options').select().eq('poll_id', pollId)
@@ -60,7 +61,10 @@ export const Vote: React.FC = () => {
       console.error(error)
       return
     }
-    alert('Vote successfully added')
+    messageApi.open({
+      type: 'success',
+      content: 'Erfolgreich abgestimmt',
+    })
   }
 
   const onShareClick = () => {
