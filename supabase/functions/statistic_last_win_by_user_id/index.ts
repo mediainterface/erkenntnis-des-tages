@@ -15,18 +15,14 @@ const getLastWinByUserIdFromSupabase = async (req: Request, userId: string): Pro
 
     console.log("user uid: ", userId);
 
-    const { data, error } = await supabaseClient.functions.invoke('statistic_last_win_by_user_id', {
-        body: {
-            user_id: userId,
-        }
-    })
+    const { data, error } = await supabaseClient.rpc('statistic_last_win_by_user_id', { userId: userId })
 
     console.log("error: ", error);
     console.log("data: ", data);
 
     if (error) throw error;
 
-    return data;
+    return new Date(2024, 11, 11);
 }
 
 Deno.serve(async (req) => {
@@ -35,16 +31,15 @@ Deno.serve(async (req) => {
         return new Response("ok", { headers: corsHeaders });
     }
 
-    const { userId } = await req.json();
-
     try {
-        //const lastWinDate: Date = await getLastWinByUserIdFromSupabase(req, userId);
-
-        return new Response(JSON.stringify({ date: "22-04-2024" }), {
+        const { userId } = await req.json();
+        const lastWinDate: Date = await getLastWinByUserIdFromSupabase(req, userId);
+        return new Response(JSON.stringify({ date: lastWinDate }), {
             headers: { ...corsHeaders, "Content-Type": "application/json" },
             status: 200,
         });
     } catch (error) {
+        console.log(error);
         return new Response(JSON.stringify({ error: error.message }), {
             headers: { ...corsHeaders, "Content-Type": "application/json" },
             status: 500,
