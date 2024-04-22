@@ -7,6 +7,7 @@ export const customTheme = {
     colorPrimary: 'hsl(265, 80%, 58%)',
     colorBgBase: '#110f17',
 
+    fontsize: 16,
     fontSizeHeading1: 28,
     fontSizeHeading2: 20,
     fontSizeHeading3: 18,
