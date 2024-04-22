@@ -1,4 +1,5 @@
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
+import { useGravatar } from '@/common/hooks/UseGravatar'
 import { CreateProfile } from '@/common/types/tables/profiles/create-profile.type'
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
 import { supabase } from '@/supabase'
@@ -8,7 +9,6 @@ import { Button } from 'antd'
 import Input from 'antd/es/input/Input'
 import Title from 'antd/es/typography/Title'
 import Typography from 'antd/es/typography/Typography'
-import gravatar from 'gravatar'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -16,6 +16,7 @@ export const CompleteProfile: React.FC = () => {
   const [user, setUser] = React.useState<User | null>(null)
   const [username, setUsername] = React.useState('')
   const navigate = useNavigate()
+  const [getGravatarUrl] = useGravatar()
 
   const getUser = React.useCallback(async () => {
     const {
@@ -38,7 +39,7 @@ export const CompleteProfile: React.FC = () => {
 
   const handleSaveUsername = async () => {
     const newProfile: CreateProfile = {
-      avatar_url: `https:${gravatar.url(user?.email ?? '')}`,
+      avatar_url: getGravatarUrl(user?.email ?? ''),
       user_id: user?.id ?? '',
       username,
     }

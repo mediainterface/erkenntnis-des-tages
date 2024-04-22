@@ -1,12 +1,14 @@
+import { useGravatar } from '@/common/hooks/UseGravatar'
 import { supabase } from '@/supabase.tsx'
 import { User } from '@supabase/supabase-js'
 import { Flex, Typography } from 'antd'
 import Avatar from 'antd/es/avatar/avatar'
-import gravatar from 'gravatar'
 import React from 'react'
 
 export const AppHeader: React.FC = () => {
   const [user, setUser] = React.useState<User | null>(null)
+  const [getGravatarUrl] = useGravatar()
+
   React.useEffect(() => {
     const getUser = async () => {
       const { data } = await supabase.auth.getUser()
@@ -17,7 +19,7 @@ export const AppHeader: React.FC = () => {
     getUser()
   }, [])
 
-  const gravatarUrl = gravatar.url(user?.email ?? '')
+  const gravatarUrl = getGravatarUrl(user?.email ?? '')
 
   return (
     <Flex justify={'space-between'}>
@@ -26,3 +28,4 @@ export const AppHeader: React.FC = () => {
     </Flex>
   )
 }
+
