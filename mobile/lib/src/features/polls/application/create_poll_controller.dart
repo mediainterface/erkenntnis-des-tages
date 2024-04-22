@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../data/poll_option_repository.dart';
 import '../data/poll_repository.dart';
+import '../domain/poll.dart';
 import 'poll_option_state_controller.dart';
 
 part 'create_poll_controller.g.dart';
@@ -9,7 +10,7 @@ part 'create_poll_controller.g.dart';
 @riverpod
 class CreatePollController extends _$CreatePollController {
   @override
-  FutureOr<bool?> build() async => null;
+  FutureOr<Poll?> build() async => null;
 
   Future<void> createPoll() async {
     state = const AsyncLoading();
@@ -21,7 +22,7 @@ class CreatePollController extends _$CreatePollController {
         await ref.watch(pollOptionRepositoryProvider).createAsync(poll.id, option.userId, option.value);
       }
 
-      return true;
+      return poll;
     });
   }
 }
