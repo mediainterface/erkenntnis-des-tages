@@ -38,9 +38,9 @@ Deno.serve(async (req) => {
     const { userId } = await req.json();
 
     try {
-        const lastWinDate: Date = await getLastWinByUserIdFromSupabase(req, userId);
+        //const lastWinDate: Date = await getLastWinByUserIdFromSupabase(req, userId);
 
-        return new Response(JSON.stringify({ date: lastWinDate }), {
+        return new Response(JSON.stringify({ date: "22-04-2024" }), {
             headers: { ...corsHeaders, "Content-Type": "application/json" },
             status: 200,
         });
