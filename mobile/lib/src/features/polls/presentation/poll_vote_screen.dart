@@ -1,8 +1,11 @@
+import 'package:edt/src/features/polls/domain/poll_option.dart';
+import 'package:edt/src/features/polls/presentation/components/vote_poll_option_widget.dart';
 import 'package:edt/src/features/startup/application/startup_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../constants/app_sizes.dart';
 import '../../../extensions/async_value_extensions.dart';
 import '../application/vote_controller.dart';
 import '../data/poll_option_repository.dart';
@@ -24,18 +27,27 @@ class PollVoteScreen extends HookConsumerWidget {
     final pollOptions = ref.watch(listPollOptionsByPollIdProvider(pollId));
     final votes = ref.watch(watchVotesByPollIdProvider(pollId));
 
-    final isLoading = pollOptions.maybeWhen(data: (_) => false, orElse: () => true) || votes.maybeWhen(data: (_) => false, orElse: () => true);
+    final isLoading =
+        pollOptions.maybeWhen(data: (_) => false, orElse: () => true) || votes.maybeWhen(data: (_) => false, orElse: () => true);
 
-    final ValueNotifier<String?> vote = useState(null);
+    final ValueNotifier<PollOption?> vote = useState(null);
 
     if (isLoading) return const Scaffold(body: Center(child: CircularProgressIndicator()));
     bool hasVoted = votes.requireValue.any((element) => element.userId == ref.watch(supabaseProvider).auth.currentUser!.id);
-    final ownVote = !hasVoted ? null : votes.requireValue.firstWhere((element) => element.userId == ref.watch(supabaseProvider).auth.currentUser!.id);
+    final ownVote =
+        !hasVoted ? null : votes.requireValue.firstWhere((element) => element.userId == ref.watch(supabaseProvider).auth.currentUser!.id);
 
     ref.listen(voteControllerProvider, (_, next) {
       next.showToastOnError(context);
       next.showToastOnSuccess(context, message: "Voted successfully!");
     });
+
+    if (hasVoted) {
+      final votedOption = pollOptions.requireValue.firstWhere((element) => element.id == ownVote?.pollOptionId);
+      if (votedOption != vote.value) {
+        vote.value = pollOptions.requireValue.firstWhere((element) => element.id == ownVote!.pollOptionId);
+      }
+    }
 
     return Scaffold(
       body: CustomScrollView(
@@ -43,23 +55,18 @@ class PollVoteScreen extends HookConsumerWidget {
           SliverAppBar(
             title: Text(poll.title),
           ),
+          const SliverToBoxAdapter(child: gapH16),
           SliverList.builder(
             itemCount: pollOptions.requireValue.length,
-            itemBuilder: (context, index) {
-              return RadioListTile<String>(
-                selected: hasVoted && ownVote!.pollOptionId == pollOptions.requireValue[index].id,
-                value: pollOptions.requireValue[index].id,
-                groupValue: vote.value,
-                title: Text(pollOptions.requireValue[index].content),
-                onChanged: hasVoted ? null : (value) => vote.value = value,
-              );
-            },
+            itemBuilder: (context, index) =>
+                VotePollOptionWidget(item: pollOptions.requireValue[index], selectedValue: vote, votedValue: ownVote),
           ),
+          const SliverToBoxAdapter(child: gapH16),
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
               child: ElevatedButton(
-                onPressed: hasVoted ? null : () => ref.read(voteControllerProvider.notifier).vote(pollId, vote.value!),
+                onPressed: hasVoted ? null : () => ref.read(voteControllerProvider.notifier).vote(pollId, vote.value!.id),
                 child: Text(hasVoted ? "Voted" : "Vote"),
               ),
             ),
