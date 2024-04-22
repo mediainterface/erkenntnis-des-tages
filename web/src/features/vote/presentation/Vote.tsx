@@ -20,6 +20,7 @@ export const Vote: React.FC = () => {
   const [currentUser, setCurrentUser] = React.useState<User | null>(null)
   const currentUrl = window.location.href
   const [messageApi] = message.useMessage()
+  const [hasVoted, setHasVoted] = React.useState(false)
 
   const getPollOptions = React.useCallback(async () => {
     const { data, error } = await supabase.from('poll_options').select().eq('poll_id', pollId)
@@ -65,6 +66,7 @@ export const Vote: React.FC = () => {
       type: 'success',
       content: 'Erfolgreich abgestimmt',
     })
+    setHasVoted(true)
   }
 
   const onShareClick = () => {
@@ -85,7 +87,9 @@ export const Vote: React.FC = () => {
         </Space>
       </Radio.Group>
       <br />
-      <Button onClick={onSetVote}>Vote</Button>
+      <Button onClick={onSetVote} disabled={hasVoted}>
+        Vote
+      </Button>
       <Space.Compact style={{ width: '100%' }}>
         <Input defaultValue={currentUrl} disabled={true} />
         <Tooltip title="Copy to Clipboard">
