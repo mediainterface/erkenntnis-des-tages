@@ -7,18 +7,17 @@ import { User } from '@supabase/supabase-js'
 import { Button, Input, RadioChangeEvent, Space, Spin, Tooltip } from 'antd'
 import Radio from 'antd/es/radio/radio'
 import React from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 type SelectedOption = Pick<PollVote, 'poll_option_id'> & {
   index: number
 }
 
 export const Vote: React.FC = () => {
-  const [selectedOption, setSelectedOption] = React.useState<SelectedOption>({ index: 1, poll_option_id: '' })
+  const [selectedOption, setSelectedOption] = React.useState<SelectedOption>({ index: -1, poll_option_id: '' })
   const [pollOptions, setPollOptions] = React.useState<PollOption[]>([])
   const { pollId = '' } = useParams()
   const [currentUser, setCurrentUser] = React.useState<User | null>(null)
-  const location = useLocation()
   const currentUrl = window.location.href
 
   const getPollOptions = React.useCallback(async () => {
