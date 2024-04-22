@@ -15,7 +15,7 @@ const getLastWinByUserIdFromSupabase = async (req: Request, userId: string): Pro
 
     console.log("user uid: ", userId);
 
-    const { data, error } = await supabaseClient.rpc('statistic_last_win_by_user_id', { userId: userId })
+    const { data, error } = await supabaseClient.rpc('statistic_last_win_by_user_id', { user_id: userId })
 
     console.log("error: ", error);
     console.log("data: ", data);
