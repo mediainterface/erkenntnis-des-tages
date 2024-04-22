@@ -4,4 +4,3 @@ export const ROUTING_PATH = Object.freeze({
   createPoll: '/createPoll',
   completeProfile: '/complete-profile',
 } as const)
-

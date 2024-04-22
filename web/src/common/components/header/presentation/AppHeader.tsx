@@ -1,11 +1,11 @@
-import { supabase } from '@/supabase'
+import { supabase } from '@/supabase.tsx'
 import { User } from '@supabase/supabase-js'
-import { Flex } from 'antd'
+import { Flex, Typography } from 'antd'
 import Avatar from 'antd/es/avatar/avatar'
 import gravatar from 'gravatar'
 import React from 'react'
 
-export const NavbarUser: React.FC = () => {
+export const AppHeader: React.FC = () => {
   const [user, setUser] = React.useState<User | null>(null)
   React.useEffect(() => {
     const getUser = async () => {
@@ -20,7 +20,8 @@ export const NavbarUser: React.FC = () => {
   const gravatarUrl = gravatar.url(user?.email ?? '')
 
   return (
-    <Flex justify={'flex-end'}>
+    <Flex justify={'space-between'}>
+      <Typography.Title>EDT </Typography.Title>
       <Avatar size="large" src={gravatarUrl} />
     </Flex>
   )
