@@ -22,7 +22,7 @@ const getLastWinByUserIdFromSupabase = async (req: Request, userId: string): Pro
 
     if (error) throw error;
 
-    return new Date(2024, 11, 11);
+    return data;
 }
 
 Deno.serve(async (req) => {
