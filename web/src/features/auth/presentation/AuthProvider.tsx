@@ -23,6 +23,9 @@ export const AuthProvider: React.FC = () => {
   React.useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       setShouldShowAuthScreen(!session)
+      if (!session) {
+        navigate(ROUTING_PATH.home)
+      }
       if (event === 'SIGNED_IN') {
         checkProfile()
       }
@@ -41,3 +44,4 @@ export const AuthProvider: React.FC = () => {
     <AppLayout />
   )
 }
+

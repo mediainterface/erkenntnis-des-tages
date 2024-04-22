@@ -1,6 +1,5 @@
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { CreateProfile } from '@/common/types/tables/profiles/create-profile.type'
-import { getUserProfile } from '@/features/auth/helper/profile.helper'
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
 import { supabase } from '@/supabase'
 import { UserOutlined } from '@ant-design/icons'
@@ -18,13 +17,6 @@ export const CompleteProfile: React.FC = () => {
   const [username, setUsername] = React.useState('')
   const navigate = useNavigate()
 
-  const checkProfile = React.useCallback(async () => {
-    const profile = await getUserProfile()
-    if (profile) {
-      navigate(ROUTING_PATH.home)
-    }
-  }, [navigate])
-
   const getUser = React.useCallback(async () => {
     const {
       data: { user },
@@ -37,9 +29,8 @@ export const CompleteProfile: React.FC = () => {
   }, [])
 
   React.useEffect(() => {
-    checkProfile()
     getUser()
-  }, [checkProfile, getUser])
+  }, [getUser])
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value)
