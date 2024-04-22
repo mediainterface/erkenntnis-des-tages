@@ -13,7 +13,7 @@ type SelectedOption = Pick<PollVote, 'poll_option_id'> & {
 }
 
 export const Vote: React.FC = () => {
-  const [selectedOption, setSelectedOption] = React.useState<SelectedOption>({ index: 0, poll_option_id: '' })
+  const [selectedOption, setSelectedOption] = React.useState<SelectedOption>({ index: 1, poll_option_id: '' })
   const [pollOptions, setPollOptions] = React.useState<PollOption[]>([])
   const { pollId = '' } = useParams()
   const [currentUser, setCurrentUser] = React.useState<User | null>(null)
@@ -70,7 +70,7 @@ export const Vote: React.FC = () => {
       <Radio.Group onChange={onChange} value={selectedOption.index}>
         <Space direction="vertical">
           {pollOptions.map((option, index) => (
-            <Radio value={index} key={option.user_id}>
+            <Radio value={index} key={option.user_id} disabled={option.user_id === currentUser?.id}>
               {option.content}
             </Radio>
           ))}
