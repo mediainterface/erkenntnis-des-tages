@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
 
   # dart run easy_localization:generate -f keys -o locale_keys.dart -O lib/src/constants -S assets/translation
-  easy_localization: ^3.0.5
+  easy_localization: ^3.0.6
   flex_color_scheme: ^7.3.1
 
   supabase_flutter: ^2.5.1
@@ -49,3 +49,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/translation/
+
+scripts:
+  translate: dart run easy_localization:generate -f keys -o locale_keys.dart -O lib/src/constants -S assets/translation

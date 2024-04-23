@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:edt/src/constants/locale_keys.dart';
 import 'package:edt/src/features/polls/domain/poll_option.dart';
 import 'package:edt/src/features/polls/presentation/components/vote_poll_option_widget.dart';
 import 'package:edt/src/features/startup/application/startup_providers.dart';
@@ -38,8 +40,8 @@ class PollVoteScreen extends HookConsumerWidget {
         !hasVoted ? null : votes.requireValue.firstWhere((element) => element.userId == ref.watch(supabaseProvider).auth.currentUser!.id);
 
     ref.listen(voteControllerProvider, (_, next) {
-      next.showToastOnError(context);
-      next.showToastOnSuccess(context, message: "Voted successfully!");
+      next.showToastOnError(context, message: LocaleKeys.polls_voteError.tr());
+      next.showToastOnSuccess(context, message: LocaleKeys.polls_voteSuccess.tr());
     });
 
     if (hasVoted) {
@@ -67,7 +69,17 @@ class PollVoteScreen extends HookConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
               child: ElevatedButton(
                 onPressed: hasVoted ? null : () => ref.read(voteControllerProvider.notifier).vote(pollId, vote.value!.id),
-                child: Text(hasVoted ? "Voted" : "Vote"),
+                child: Text((hasVoted ? LocaleKeys.polls_votedButton : LocaleKeys.polls_voteButton).tr()),
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(child: gapH8),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
+              child: ElevatedButton(
+                onPressed: !hasVoted ? null : () {},
+                child: Text(LocaleKeys.polls_resultsButton.tr()),
               ),
             ),
           )

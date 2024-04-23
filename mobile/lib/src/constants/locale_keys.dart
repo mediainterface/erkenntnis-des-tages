@@ -12,6 +12,15 @@ abstract class  LocaleKeys {
   static const home = 'home';
   static const polls_title = 'polls.title';
   static const polls_itemTitle = 'polls.itemTitle';
+  static const polls_createdSuccess = 'polls.createdSuccess';
+  static const polls_createdError = 'polls.createdError';
+  static const polls_openTitle = 'polls.openTitle';
+  static const polls_optionHint = 'polls.optionHint';
+  static const polls_voteSuccess = 'polls.voteSuccess';
+  static const polls_voteError = 'polls.voteError';
+  static const polls_voteButton = 'polls.voteButton';
+  static const polls_votedButton = 'polls.votedButton';
+  static const polls_resultsButton = 'polls.resultsButton';
   static const polls = 'polls';
   static const statistics_title = 'statistics.title';
   static const statistics = 'statistics';

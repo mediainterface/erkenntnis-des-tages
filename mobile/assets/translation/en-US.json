@@ -13,7 +13,16 @@
   },
   "polls": {
     "title": "Polls",
-    "itemTitle": "Insight of the day {}"
+    "itemTitle": "Insight of the day {}",
+    "createdSuccess": "Poll created successfully",
+    "createdError": "Error creating poll",
+    "openTitle": "Open Polls",
+    "optionHint": "Enter an Insight",
+    "voteSuccess": "Vote submitted successfully",
+    "voteError": "Error submitting vote",
+    "voteButton": "Vote",
+    "votedButton": "Voted",
+    "resultsButton": "Results"
   },
   "statistics": {
     "title": "Statistics"

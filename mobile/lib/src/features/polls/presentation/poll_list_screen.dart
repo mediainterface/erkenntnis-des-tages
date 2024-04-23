@@ -37,7 +37,7 @@ class PollListScreen extends ConsumerWidget {
                   title: Text(LocaleKeys.polls_title.tr()),
                   leading: Padding(padding: const EdgeInsets.all(Sizes.p8), child: ProfileAvatar(profile)),
                 ),
-                const SliverAppBar(automaticallyImplyLeading: false, primary: false, title: Text("OpenPolls")),
+                SliverAppBar(automaticallyImplyLeading: false, primary: false, title: Text(LocaleKeys.polls_openTitle.tr())),
                 SliverList.builder(
                   itemCount: polls.requireValue.length,
                   itemBuilder: (context, index) => PollListItem(

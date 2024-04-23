@@ -25,8 +25,8 @@ class PollCreateScreen extends ConsumerWidget {
     final isLoading = users.maybeWhen(data: (_) => false, orElse: () => true);
 
     ref.listen(createPollControllerProvider, (_, next) {
-      next.showToastOnError(context);
-      next.showToastOnSuccess(context, message: "Poll created successfully!");
+      next.showToastOnError(context, message: LocaleKeys.polls_createdError.tr());
+      next.showToastOnSuccess(context, message: LocaleKeys.polls_createdSuccess.tr());
       if (next.hasValue && next.value != null) {
         context.pushReplacementNamed(PollVoteScreen.name, pathParameters: {"id": next.value!.id});
       }

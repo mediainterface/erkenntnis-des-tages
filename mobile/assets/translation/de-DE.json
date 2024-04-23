@@ -1,0 +1,33 @@
+{
+  "app":{
+    "title": "Erkenntnis des Tages"
+  },
+  "profile": {
+    "title": "Profil",
+    "completionHeadline": "Vervollständige dein Profil",
+    "name": "Name",
+    "pictureTitle": "Profilbild"
+  },
+  "home": {
+    "title": "Home"
+  },
+  "polls": {
+    "title": "Umfragen",
+    "itemTitle": "Erkenntnis des Tages {}",
+    "createdSuccess": "Umfrage erfolgreich erstellt",
+    "createdError": "Fehler beim Erstellen der Umfrage",
+    "openTitle": "Offene Umfragen",
+    "optionHint": "Geben Sie eine Erkenntnis ein",
+    "voteSuccess": "Erfolgreich Abgestimmt",
+    "voteError": "Fehler beim Abstimmen",
+    "voteButton": "Abstimmen",
+    "votedButton": "Abgestimmt",
+    "resultsButton": "Ergebnisse"
+  },
+  "statistics": {
+    "title": "Statistiken"
+  },
+  "error": {
+    "unknown": "Ein unbekannter Fehler ist aufgetreten"
+  }
+}
