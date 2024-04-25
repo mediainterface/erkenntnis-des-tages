@@ -5,6 +5,7 @@ import 'package:edt/src/features/polls/presentation/components/vote_poll_option_
 import 'package:edt/src/features/startup/application/startup_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/app_sizes.dart';
@@ -14,6 +15,7 @@ import '../data/poll_option_repository.dart';
 import '../data/poll_repository.dart';
 import '../data/poll_vote_repository.dart';
 import '../extensions/poll_extensions.dart';
+import 'poll_result_screen.dart';
 
 class PollVoteScreen extends HookConsumerWidget {
   static const route = ":id/vote";
@@ -78,7 +80,7 @@ class PollVoteScreen extends HookConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
               child: ElevatedButton(
-                onPressed: !hasVoted ? null : () {},
+                onPressed: !hasVoted ? null : () => context.pushReplacementNamed(PollResultScreen.name, pathParameters: {"id": pollId}),
                 child: Text(LocaleKeys.polls_resultsButton.tr()),
               ),
             ),

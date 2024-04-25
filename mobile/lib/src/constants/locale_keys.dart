@@ -21,6 +21,9 @@ abstract class  LocaleKeys {
   static const polls_voteButton = 'polls.voteButton';
   static const polls_votedButton = 'polls.votedButton';
   static const polls_resultsButton = 'polls.resultsButton';
+  static const polls_results_title = 'polls.results.title';
+  static const polls_results_votes = 'polls.results.votes';
+  static const polls_results = 'polls.results';
   static const polls = 'polls';
   static const statistics_title = 'statistics.title';
   static const statistics = 'statistics';

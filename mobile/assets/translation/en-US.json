@@ -13,7 +13,7 @@
   },
   "polls": {
     "title": "Polls",
-    "itemTitle": "Insight of the day {}",
+    "itemTitle": "EdT {}",
     "createdSuccess": "Poll created successfully",
     "createdError": "Error creating poll",
     "openTitle": "Open Polls",
@@ -22,7 +22,15 @@
     "voteError": "Error submitting vote",
     "voteButton": "Vote",
     "votedButton": "Voted",
-    "resultsButton": "Results"
+    "resultsButton": "Results",
+    "results": {
+      "title": "Results",
+      "votes": {
+        "zero": "No votes",
+        "one": "{} of {} votes",
+        "other": "{} of {} votes"
+      }
+    }
   },
   "statistics": {
     "title": "Statistics"

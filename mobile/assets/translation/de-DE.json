@@ -13,7 +13,7 @@
   },
   "polls": {
     "title": "Umfragen",
-    "itemTitle": "Erkenntnis des Tages {}",
+    "itemTitle": "EdT {}",
     "createdSuccess": "Umfrage erfolgreich erstellt",
     "createdError": "Fehler beim Erstellen der Umfrage",
     "openTitle": "Offene Umfragen",
@@ -22,7 +22,15 @@
     "voteError": "Fehler beim Abstimmen",
     "voteButton": "Abstimmen",
     "votedButton": "Abgestimmt",
-    "resultsButton": "Ergebnisse"
+    "resultsButton": "Ergebnisse",
+    "results": {
+      "title": "Ergebnisse",
+      "votes": {
+        "zero": "Keine Stimmen",
+        "one": "{} von {} Stimmen",
+        "other": "{} von {} Stimmen"
+      }
+    }
   },
   "statistics": {
     "title": "Statistiken"
