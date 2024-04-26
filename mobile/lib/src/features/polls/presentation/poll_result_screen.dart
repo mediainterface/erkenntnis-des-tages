@@ -4,11 +4,14 @@ import 'package:badges/badges.dart' as badges;
 import 'package:collection/collection.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:edt/src/constants/locale_keys.dart';
+import 'package:edt/src/extensions/async_value_extensions.dart';
 import 'package:edt/src/extensions/build_context_extensions.dart';
+import 'package:edt/src/features/polls/application/close_poll_controller.dart';
 import 'package:edt/src/features/polls/data/poll_repository.dart';
 import 'package:edt/src/features/polls/data/poll_vote_repository.dart';
 import 'package:edt/src/features/polls/extensions/poll_extensions.dart';
 import 'package:edt/src/features/profile/presentation/components/profile_avatar.dart';
+import 'package:edt/src/features/startup/application/startup_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -33,6 +36,11 @@ class PollResultScreen extends ConsumerWidget {
     final isLoading =
         votes.maybeWhen(data: (_) => false, orElse: () => true) || voteOptions.maybeWhen(data: (_) => false, orElse: () => true);
 
+    ref.listen(closePollControllerProvider(pollId), (_, next) {
+      next.showToastOnError(context, message: LocaleKeys.polls_closeFailed.tr());
+      next.showToastOnSuccess(context, message: LocaleKeys.polls_closedSuccess.tr());
+    });
+
     if (isLoading) return const Scaffold(body: Center(child: CircularProgressIndicator()));
 
     final votedOptions = groupBy(votes.value!, (value) => voteOptions.value!.firstWhere((element) => element.id == value.pollOptionId));
@@ -49,6 +57,14 @@ class PollResultScreen extends ConsumerWidget {
             Text(poll.title, style: context.textTheme.bodySmall),
           ],
         ),
+        actions: [
+          IconButton(
+            icon: Icon(poll.isClosed ? Icons.lock : Icons.lock_open),
+            onPressed: poll.isClosed || poll.userId != ref.watch(supabaseProvider).auth.currentUser!.id
+                ? null
+                : () => ref.read(closePollControllerProvider(pollId).notifier).close(),
+          ),
+        ],
       ),
       body: CustomScrollView(
         slivers: [
@@ -63,16 +79,17 @@ class PollResultScreen extends ConsumerWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: ListTile(
                   leading: badges.Badge(
-                      badgeContent: Transform.rotate(
-                        angle: pi / 5,
-                        child: const FaIcon(FontAwesomeIcons.crown, size: 16, color: Colors.amber),
-                      ),
-                      showBadge: hasWon,
-                      badgeStyle: const badges.BadgeStyle(
-                        badgeColor: Colors.transparent,
-                      ),
-                      position: badges.BadgePosition.topEnd(top: -10, end: -10),
-                      child: ProfileAvatar(ref.watch(getProfileByIdProvider(option.userId)))),
+                    badgeContent: Transform.rotate(
+                      angle: pi / 5,
+                      child: const FaIcon(FontAwesomeIcons.crown, size: 16, color: Colors.amber),
+                    ),
+                    showBadge: hasWon,
+                    badgeStyle: const badges.BadgeStyle(
+                      badgeColor: Colors.transparent,
+                    ),
+                    position: badges.BadgePosition.topEnd(top: -10, end: -10),
+                    child: ProfileAvatar(ref.watch(getProfileByIdProvider(option.userId))),
+                  ),
                   title: Text(option.content, style: context.textTheme.titleLarge),
                   subtitle: Text(
                     style: context.textTheme.bodySmall!.copyWith(color: Colors.grey),

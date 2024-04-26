@@ -17,12 +17,19 @@
     "createdSuccess": "Poll created successfully",
     "createdError": "Error creating poll",
     "openTitle": "Open Polls",
+    "closedTitle": "Closed Polls",
     "optionHint": "Enter an Insight",
     "voteSuccess": "Vote submitted successfully",
     "voteError": "Error submitting vote",
     "voteButton": "Vote",
     "votedButton": "Voted",
     "resultsButton": "Results",
+    "closeFailed": "Error closing poll",
+    "closedSuccess": "Poll closed successfully",
+    "empty": {
+      "title": "No Polls",
+      "description": "Create a new poll to get started!"
+    },
     "results": {
       "title": "Results",
       "votes": {

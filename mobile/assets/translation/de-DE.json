@@ -17,12 +17,19 @@
     "createdSuccess": "Umfrage erfolgreich erstellt",
     "createdError": "Fehler beim Erstellen der Umfrage",
     "openTitle": "Offene Umfragen",
+    "closedTitle": "Geschlossene Umfragen",
     "optionHint": "Geben Sie eine Erkenntnis ein",
     "voteSuccess": "Erfolgreich Abgestimmt",
     "voteError": "Fehler beim Abstimmen",
     "voteButton": "Abstimmen",
     "votedButton": "Abgestimmt",
     "resultsButton": "Ergebnisse",
+    "closeFailed": "Fehler beim Schließen der Umfrage",
+    "closedSuccess": "Umfrage erfolgreich geschlossen",
+    "empty": {
+      "title": "Keine Umfragen vorhanden",
+      "description": "Erstelle eine eigene Umfrage oder warte auf neue Umfragen"
+    },
     "results": {
       "title": "Ergebnisse",
       "votes": {
