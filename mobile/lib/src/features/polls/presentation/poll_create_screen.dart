@@ -6,10 +6,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../constants/app_sizes.dart';
 import '../../../constants/locale_keys.dart';
 import '../../../extensions/async_value_extensions.dart';
+import '../../common/presentation/shimmer/shimmer_list.dart';
 import '../../profile/data/profile_repository.dart';
 import '../application/create_poll_controller.dart';
 import '../application/poll_option_state_controller.dart';
 import 'components/create_poll_option_widget.dart';
+import 'components/loading_poll_option_item.dart';
 import 'poll_vote_screen.dart';
 
 class PollCreateScreen extends ConsumerWidget {
@@ -32,35 +34,36 @@ class PollCreateScreen extends ConsumerWidget {
       }
     });
 
-    // todo: implement shimmer loading
-    if (isLoading) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.polls_itemTitle.tr(args: [DateFormat.yMMMd().format(DateTime.now())])),
       ),
-      body: CustomScrollView(
-        slivers: [
-          const SliverToBoxAdapter(child: gapH16),
-          SliverList.builder(
-            itemCount: users.requireValue.length,
-            itemBuilder: (context, index) => CreatePollOptionWidget(
-              user: users.requireValue[index],
-              onChange: (state) => ref.read(pollOptionStateControllerProvider.notifier).updatePollOption(state),
+      body: isLoading
+          ? const Padding(
+              padding: EdgeInsets.only(top: Sizes.p16),
+              child: ShimmerList(item: LoadingPollOptionWidget()),
+            )
+          : CustomScrollView(
+              slivers: [
+                const SliverToBoxAdapter(child: gapH16),
+                SliverList.builder(
+                  itemCount: users.requireValue.length,
+                  itemBuilder: (context, index) => CreatePollOptionWidget(
+                    user: users.requireValue[index],
+                    onChange: (state) => ref.read(pollOptionStateControllerProvider.notifier).updatePollOption(state),
+                  ),
+                ),
+                const SliverToBoxAdapter(child: gapH16),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
+                    child:
+                        ElevatedButton(onPressed: ref.watch(createPollControllerProvider.notifier).createPoll, child: const Text("Create")),
+                  ),
+                ),
+                const SliverToBoxAdapter(child: gapH16),
+              ],
             ),
-          ),
-          const SliverToBoxAdapter(child: gapH16),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
-              child: ElevatedButton(onPressed: ref.watch(createPollControllerProvider.notifier).createPoll, child: const Text("Create")),
-            ),
-          ),
-          const SliverToBoxAdapter(child: gapH16),
-        ],
-      ),
     );
   }
 }

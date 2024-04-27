@@ -22,6 +22,6 @@ class ProfileAvatar extends StatelessWidget {
                 placeholder: (context, url) => ShimmerAvatar(size: size),
                 errorWidget: (context, url, error) => ShimmerAvatar(size: size),
               ),
-        orElse: () => const ShimmerAvatar());
+        orElse: () => ShimmerAvatar(size: size));
   }
 }
