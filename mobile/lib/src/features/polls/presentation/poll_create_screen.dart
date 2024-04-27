@@ -11,7 +11,7 @@ import '../../profile/data/profile_repository.dart';
 import '../application/create_poll_controller.dart';
 import '../application/poll_option_state_controller.dart';
 import 'components/create_poll_option_widget.dart';
-import 'components/loading_poll_option_item.dart';
+import 'components/loading_create_poll_option_item.dart';
 import 'poll_vote_screen.dart';
 
 class PollCreateScreen extends ConsumerWidget {
@@ -41,7 +41,7 @@ class PollCreateScreen extends ConsumerWidget {
       body: isLoading
           ? const Padding(
               padding: EdgeInsets.only(top: Sizes.p16),
-              child: ShimmerList(item: LoadingPollOptionWidget()),
+              child: ShimmerList(item: LoadingCreatePollOptionWidget()),
             )
           : CustomScrollView(
               slivers: [

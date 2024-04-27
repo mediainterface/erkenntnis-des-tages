@@ -6,15 +6,16 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../constants/app_sizes.dart';
 import '../../../../constants/locale_keys.dart';
 
-class LoadingPollOptionWidget extends StatelessWidget {
-  const LoadingPollOptionWidget({super.key});
+class LoadingCreatePollOptionWidget extends StatelessWidget {
+  final Widget? child;
+  const LoadingCreatePollOptionWidget({this.child, super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 130,
       child: Card(
-        margin: const EdgeInsets.symmetric(horizontal: Sizes.p16, vertical: Sizes.p4),
+        margin: const EdgeInsets.symmetric(horizontal: Sizes.p16, vertical: Sizes.p8),
         child: Padding(
           padding: const EdgeInsets.only(left: Sizes.p16, right: Sizes.p16, top: Sizes.p8, bottom: Sizes.p4),
           child: Column(
@@ -28,10 +29,7 @@ class LoadingPollOptionWidget extends StatelessWidget {
                     const ProfileAvatar(AsyncLoading(), size: 30),
                     gapW16,
                     Expanded(
-                      child: TextField(
-                        enabled: false,
-                        decoration: InputDecoration(hintText: LocaleKeys.polls_optionHint.tr()),
-                      ),
+                      child: child ?? TextField(enabled: false, decoration: InputDecoration(hintText: LocaleKeys.polls_optionHint.tr())),
                     ),
                   ],
                 ),

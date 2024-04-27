@@ -22,7 +22,7 @@ class CreatePollOptionWidget extends HookConsumerWidget {
     return SizedBox(
       height: 130,
       child: Card(
-        margin: const EdgeInsets.symmetric(horizontal: Sizes.p16, vertical: Sizes.p4),
+        margin: const EdgeInsets.symmetric(horizontal: Sizes.p16, vertical: Sizes.p8),
         child: Padding(
           padding: const EdgeInsets.only(left: Sizes.p16, right: Sizes.p16, top: Sizes.p8, bottom: Sizes.p4),
           child: Column(

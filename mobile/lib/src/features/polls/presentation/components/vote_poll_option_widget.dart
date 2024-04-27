@@ -22,7 +22,7 @@ class VotePollOptionWidget extends ConsumerWidget {
     bool isOwnOption = item.userId == ref.watch(supabaseProvider).auth.currentUser!.id;
     bool isSelected = votedValue != null && votedValue!.pollOptionId == item.id;
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: Sizes.p16, vertical: Sizes.p4),
+      margin: const EdgeInsets.symmetric(horizontal: Sizes.p16, vertical: Sizes.p8),
       clipBehavior: Clip.antiAlias,
       child: RadioListTile<PollOption>(
         value: item,
