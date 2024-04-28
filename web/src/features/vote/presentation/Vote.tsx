@@ -1,13 +1,14 @@
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { PollOption } from '@/common/types/tables/poll_options/poll-option.type'
 import { PollVote } from '@/common/types/tables/poll_votes/poll-vote.type'
+import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
 import { supabase } from '@/supabase'
 import { ShareAltOutlined } from '@ant-design/icons'
 import { User } from '@supabase/supabase-js'
 import { Button, Input, RadioChangeEvent, Space, Spin, Tooltip, message } from 'antd'
 import Radio from 'antd/es/radio/radio'
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { generatePath, useNavigate, useParams } from 'react-router-dom'
 
 type SelectedOption = Pick<PollVote, 'poll_option_id'> & {
   index: number
@@ -21,6 +22,7 @@ export const Vote: React.FC = () => {
   const currentUrl = window.location.href
   const [messageApi] = message.useMessage()
   const [hasVoted, setHasVoted] = React.useState(false)
+  const navigate = useNavigate()
 
   const getPollOptions = React.useCallback(async () => {
     const { data, error } = await supabase.from('poll_options').select().eq('poll_id', pollId)
@@ -67,6 +69,7 @@ export const Vote: React.FC = () => {
       content: 'Erfolgreich abgestimmt',
     })
     setHasVoted(true)
+    navigate(generatePath(ROUTING_PATH.result, { pollId: pollId }))
   }
 
   const onShareClick = () => {
