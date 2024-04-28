@@ -6,9 +6,12 @@ import { SmileOutlined } from '@ant-design/icons'
 import { Result } from 'antd'
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { PollResult } from '../domain/type/poll-result.type'
+import { ResultOption } from './ResultOption'
 
 export const VotesResult: React.FC = () => {
   const [votesLeft, setVotesLeft] = React.useState<number>(420)
+  const [results, setResults] = React.useState<PollResult[]>([])
   const { pollId = '' } = useParams()
 
   supabase
@@ -29,16 +32,7 @@ export const VotesResult: React.FC = () => {
     )
     .subscribe()
 
-  const getResults = React.useCallback(async () => {
-    const { data: pollOptionsResponse, error: pollOptionsError } = await supabase
-      .from(TABLE_NAME.poll_options)
-      .select()
-      .eq('poll_id', pollId)
-    if (!pollOptionsResponse || pollOptionsError) {
-      throw new Error(`cannot get options from poll: ${pollId}`)
-    }
-    const pollOptions = pollOptionsResponse as PollOption[]
-
+  const getVotes = React.useCallback(async (): Promise<PollVote[]> => {
     const { data: pollVotesResponse, error: pollVotesError } = await supabase
       .from(TABLE_NAME.votes)
       .select()
@@ -46,13 +40,49 @@ export const VotesResult: React.FC = () => {
     if (!pollVotesResponse || pollVotesError) {
       throw new Error(`cannot get votes from poll: ${pollId}`)
     }
-    const pollVotes = pollVotesResponse as PollVote[]
-    setVotesLeft(pollOptions.length - pollVotes.length)
+    return pollVotesResponse as PollVote[]
   }, [pollId])
 
+  const getPollOptions = React.useCallback(async (): Promise<PollOption[]> => {
+    const { data: pollOptionsResponse, error: pollOptionsError } = await supabase
+      .from(TABLE_NAME.poll_options)
+      .select()
+      .eq('poll_id', pollId)
+    if (!pollOptionsResponse || pollOptionsError) {
+      throw new Error(`cannot get options from poll: ${pollId}`)
+    }
+    return pollOptionsResponse as PollOption[]
+  }, [pollId])
+
+  const startup = React.useCallback(async () => {
+    const pollOptions = await getPollOptions()
+    const votes = await getVotes()
+    setVotesLeft(pollOptions.length - votes.length)
+  }, [getVotes, getPollOptions])
+
   React.useEffect(() => {
-    getResults()
-  }, [getResults])
+    startup()
+  }, [startup])
+
+  const getResults = React.useCallback(async (): Promise<PollResult[]> => {
+    const votes = await getVotes()
+    const options = await getPollOptions()
+
+    return options.map((option) => {
+      const count = votes.filter((vote) => vote.poll_option_id === option.id).length
+      return { ...option, votes: count }
+    })
+  }, [getPollOptions, getVotes])
+
+  React.useEffect(() => {
+    const perform = async () => {
+      if (votesLeft === 0) {
+        setResults(await getResults())
+      }
+    }
+
+    perform()
+  }, [votesLeft, getResults])
 
   return votesLeft > 0 ? (
     <Result
@@ -60,7 +90,7 @@ export const VotesResult: React.FC = () => {
       title={`${votesLeft} ${votesLeft === 1 ? 'Person hat' : 'Personen haben'} noch nicht abgestimmt`}
     />
   ) : (
-    <p>Gewinner</p>
+    results.sort((a, b) => b.votes - a.votes).map((result) => <ResultOption {...result} />)
   )
 }
 
