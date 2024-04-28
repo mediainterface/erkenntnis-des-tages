@@ -7,7 +7,7 @@ import { getUserProfile } from '../auth/helper/profile.helper'
 import { AuthProvider } from '../auth/presentation/AuthProvider'
 import { CompleteProfile } from '../completeProfile/presentation/CompleteProfile'
 import { CreatePoll } from '../createPoll/presentation/CreatePoll'
-import { Result } from '../result/presentation/Result'
+import { VotesResult } from '../result/presentation/VotesResult'
 import { Vote } from '../vote/presentation/Vote'
 import { ROUTING_PATH } from './domain/constants/routing-path.constants'
 
@@ -50,7 +50,7 @@ const routes: RouteObject[] = [
       },
       {
         path: ROUTING_PATH.result,
-        element: <Result />,
+        element: <VotesResult />,
       },
     ],
   },
