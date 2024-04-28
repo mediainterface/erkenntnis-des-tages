@@ -2,7 +2,6 @@ import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { Poll } from '@/common/types/tables/polls/poll.type'
 import { Home } from '@/features/home/presentation/Home.tsx'
 import { supabase } from '@/supabase'
-import { message } from 'antd'
 import { RouteObject, createBrowserRouter, redirect } from 'react-router-dom'
 import { getUserProfile } from '../auth/helper/profile.helper'
 import { AuthProvider } from '../auth/presentation/AuthProvider'
@@ -36,16 +35,15 @@ const routes: RouteObject[] = [
         path: ROUTING_PATH.vote,
         element: <Vote />,
         loader: async ({ params }) => {
-          const [messageApi] = message.useMessage()
           const { data, error } = await supabase.from(TABLE_NAME.polls).select().eq('id', params.pollId).maybeSingle()
           if (!data || error) {
-            messageApi.open({ type: 'error', content: 'Umfrage konnte nicht gefunden werden' })
+            alert('Umfrage konnte nicht gefunden werden')
             return redirect(ROUTING_PATH.home)
           }
           const pollResponse = data as Poll
 
           if (pollResponse.is_closed) {
-            messageApi.open({ type: 'error', content: 'Umfrage ist bereits abgeschlossen' })
+            alert('Umfrage ist bereits abgeschlossen')
           }
           return pollResponse.is_closed ? redirect(ROUTING_PATH.home) : null
         },
