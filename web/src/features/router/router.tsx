@@ -9,6 +9,7 @@ import { CompleteProfile } from '../completeProfile/presentation/CompleteProfile
 import { CreatePoll } from '../createPoll/presentation/CreatePoll'
 import { VotesResult } from '../result/presentation/VotesResult'
 import { Vote } from '../vote/presentation/Vote'
+import { OpenPolls } from '../openPolls/presentation/OpenPolls'
 import { ROUTING_PATH } from './domain/constants/routing-path.constants'
 
 const routes: RouteObject[] = [
@@ -23,6 +24,7 @@ const routes: RouteObject[] = [
         path: ROUTING_PATH.createPoll,
         element: <CreatePoll />,
       },
+      { path: ROUTING_PATH.openPolls, element: <OpenPolls /> },
       {
         path: ROUTING_PATH.completeProfile,
         element: <CompleteProfile />,

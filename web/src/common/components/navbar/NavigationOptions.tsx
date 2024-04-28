@@ -32,7 +32,7 @@ export const NavigationOptions: React.FC = () => {
         key: ROUTING_PATH.openPolls,
         icon: <PieChartOutlined />,
         onClick: () => {
-          navigate(ROUTING_PATH.createPoll)
+          navigate(ROUTING_PATH.openPolls)
         },
       },
       {
