@@ -28,8 +28,8 @@ export const NavigationOptions: React.FC = () => {
         },
       },
       {
-        label: 'Umfrage erstellen',
-        key: ROUTING_PATH.createPoll,
+        label: 'Offene Umfragen',
+        key: ROUTING_PATH.openPolls,
         icon: <PieChartOutlined />,
         onClick: () => {
           navigate(ROUTING_PATH.createPoll)
@@ -50,3 +50,4 @@ export const NavigationOptions: React.FC = () => {
 
   return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
 }
+
