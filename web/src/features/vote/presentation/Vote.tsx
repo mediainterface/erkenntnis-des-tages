@@ -5,8 +5,7 @@ import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.co
 import { supabase } from '@/supabase'
 import { ShareAltOutlined } from '@ant-design/icons'
 import { User } from '@supabase/supabase-js'
-import { Button, Input, RadioChangeEvent, Space, Spin, Tooltip, message } from 'antd'
-import Radio from 'antd/es/radio/radio'
+import { Button, Input, Radio, RadioChangeEvent, Space, Spin, Tooltip, message } from 'antd'
 import React from 'react'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 
