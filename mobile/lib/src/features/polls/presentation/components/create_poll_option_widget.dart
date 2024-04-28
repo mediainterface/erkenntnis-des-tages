@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:edt/src/constants/locale_keys.dart';
 import 'package:edt/src/features/polls/application/poll_option_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -20,7 +22,7 @@ class CreatePollOptionWidget extends HookConsumerWidget {
     return SizedBox(
       height: 130,
       child: Card(
-        margin: const EdgeInsets.symmetric(horizontal: Sizes.p16, vertical: Sizes.p4),
+        margin: const EdgeInsets.symmetric(horizontal: Sizes.p16, vertical: Sizes.p8),
         child: Padding(
           padding: const EdgeInsets.only(left: Sizes.p16, right: Sizes.p16, top: Sizes.p8, bottom: Sizes.p4),
           child: Column(
@@ -36,7 +38,7 @@ class CreatePollOptionWidget extends HookConsumerWidget {
                     Expanded(
                       child: TextField(
                         onChanged: (value) => onChange?.call(state.value.copyWith(value: value)),
-                        decoration: const InputDecoration(hintText: "Insight"),
+                        decoration: InputDecoration(hintText: LocaleKeys.polls_optionHint.tr()),
                       ),
                     ),
                   ],

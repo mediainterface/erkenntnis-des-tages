@@ -8,6 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../features/authentication/presentation/login_screen.dart';
 import '../features/home/presentation/home_screen.dart';
+import '../features/polls/presentation/poll_result_screen.dart';
 import '../features/profile/data/profile_repository.dart';
 import '../features/profile/presentation/create_profile_screen.dart';
 import '../features/startup/application/startup_providers.dart';
@@ -85,6 +86,11 @@ GoRouter router(RouterRef ref) {
                     name: PollVoteScreen.name,
                     path: PollVoteScreen.route,
                     pageBuilder: (context, state) => NoTransitionPage(child: PollVoteScreen(state.pathParameters['id']!)),
+                  ),
+                  GoRoute(
+                    name: PollResultScreen.name,
+                    path: PollResultScreen.route,
+                    pageBuilder: (context, state) => NoTransitionPage(child: PollResultScreen(state.pathParameters['id']!)),
                   ),
                 ],
               ),

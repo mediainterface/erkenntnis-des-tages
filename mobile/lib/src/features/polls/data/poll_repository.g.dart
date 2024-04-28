@@ -21,22 +21,21 @@ final pollRepositoryProvider = AutoDisposeProvider<PollRepository>.internal(
 );
 
 typedef PollRepositoryRef = AutoDisposeProviderRef<PollRepository>;
-String _$watchOpenPollsHash() => r'0b1e1962245ee44034e2f0e420065db3cfd88816';
+String _$watchPollsHash() => r'3320a1785740c9919f6df9b9967630c79ae2c203';
 
-/// See also [watchOpenPolls].
-@ProviderFor(watchOpenPolls)
-final watchOpenPollsProvider = AutoDisposeStreamProvider<List<Poll>>.internal(
-  watchOpenPolls,
-  name: r'watchOpenPollsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$watchOpenPollsHash,
+/// See also [watchPolls].
+@ProviderFor(watchPolls)
+final watchPollsProvider = AutoDisposeStreamProvider<List<Poll>>.internal(
+  watchPolls,
+  name: r'watchPollsProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$watchPollsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef WatchOpenPollsRef = AutoDisposeStreamProviderRef<List<Poll>>;
-String _$getPollByIdHash() => r'1dafc9791275a73407b57e86bfcd6b8dabf3eb7f';
+typedef WatchPollsRef = AutoDisposeStreamProviderRef<List<Poll>>;
+String _$getPollByIdHash() => r'cc82713b19b2c82615d4e30088803d8d477150bd';
 
 /// Copied from Dart SDK
 class _SystemHash {

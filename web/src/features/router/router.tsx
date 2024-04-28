@@ -1,8 +1,9 @@
-import { RouteObject, createBrowserRouter } from 'react-router-dom'
+import { Home } from '@/features/home/presentation/Home.tsx'
+import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom'
+import { getUserProfile } from '../auth/helper/profile.helper'
 import { AuthProvider } from '../auth/presentation/AuthProvider'
 import { CompleteProfile } from '../completeProfile/presentation/CompleteProfile'
 import { CreatePoll } from '../createPoll/presentation/CreatePoll'
-import { Home } from '../home/presentation/Home'
 import { Vote } from '../vote/presentation/Vote'
 import { ROUTING_PATH } from './domain/constants/routing-path.constants'
 
@@ -21,6 +22,10 @@ const routes: RouteObject[] = [
       {
         path: ROUTING_PATH.completeProfile,
         element: <CompleteProfile />,
+        loader: async () => {
+          const profile = await getUserProfile()
+          return profile ? <Navigate to={ROUTING_PATH.home} /> : null
+        },
       },
       {
         path: ROUTING_PATH.vote,

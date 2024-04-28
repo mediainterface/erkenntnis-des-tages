@@ -20,7 +20,7 @@ class ShimmerAvatar extends StatelessWidget {
           : Shimmer.fromColors(
               baseColor: ShimmerColors.defaultShimmerBaseColor,
               highlightColor: ShimmerColors.defaultShimmerHighlightColor,
-              child: const CircleAvatar(backgroundColor: ShimmerColors.defaultShimmerBackColor),
+              child: CircleAvatar(radius: size, backgroundColor: ShimmerColors.defaultShimmerBackColor),
             ),
     );
   }

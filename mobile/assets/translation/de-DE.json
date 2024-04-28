@@ -1,0 +1,48 @@
+{
+  "app":{
+    "title": "Erkenntnis des Tages"
+  },
+  "profile": {
+    "title": "Profil",
+    "completionHeadline": "Vervollständige dein Profil",
+    "name": "Name",
+    "pictureTitle": "Profilbild"
+  },
+  "home": {
+    "title": "Home"
+  },
+  "polls": {
+    "title": "Umfragen",
+    "itemTitle": "EdT {}",
+    "createdSuccess": "Umfrage erfolgreich erstellt",
+    "createdError": "Fehler beim Erstellen der Umfrage",
+    "openTitle": "Offene Umfragen",
+    "closedTitle": "Geschlossene Umfragen",
+    "optionHint": "Geben Sie eine Erkenntnis ein",
+    "voteSuccess": "Erfolgreich Abgestimmt",
+    "voteError": "Fehler beim Abstimmen",
+    "voteButton": "Abstimmen",
+    "votedButton": "Abgestimmt",
+    "resultsButton": "Ergebnisse",
+    "closeFailed": "Fehler beim Schließen der Umfrage",
+    "closedSuccess": "Umfrage erfolgreich geschlossen",
+    "empty": {
+      "title": "Keine Umfragen vorhanden",
+      "description": "Erstelle eine eigene Umfrage oder warte auf neue Umfragen"
+    },
+    "results": {
+      "title": "Ergebnisse",
+      "votes": {
+        "zero": "Keine Stimmen",
+        "one": "{} von {} Stimmen",
+        "other": "{} von {} Stimmen"
+      }
+    }
+  },
+  "statistics": {
+    "title": "Statistiken"
+  },
+  "error": {
+    "unknown": "Ein unbekannter Fehler ist aufgetreten"
+  }
+}

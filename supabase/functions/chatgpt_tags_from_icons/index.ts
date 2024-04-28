@@ -63,9 +63,8 @@ Deno.serve(async (req) => {
         return new Response("ok", { headers: corsHeaders });
     }
 
-    const { query } = await req.json();
-
     try {
+        const { query } = await req.json();
         const tagsString = await getTagsFromSupabase(req);
         const suggestion = await getTagSuggestionFromChatGpt(query, tagsString);
         return new Response(JSON.stringify({ suggestion: suggestion }), {
@@ -73,6 +72,7 @@ Deno.serve(async (req) => {
             status: 200,
         });
     } catch (error) {
+        console.log(error);
         return new Response(JSON.stringify({ error: error.message }), {
             headers: { ...corsHeaders, "Content-Type": "application/json" },
             status: 500,
