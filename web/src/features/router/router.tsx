@@ -1,4 +1,5 @@
 import { Home } from '@/features/home/presentation/Home.tsx'
+import { WinningPage } from '@/features/winningPage/presentation/WinningPage.tsx'
 import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom'
 import { getUserProfile } from '../auth/helper/profile.helper'
 import { AuthProvider } from '../auth/presentation/AuthProvider'
@@ -19,6 +20,10 @@ const routes: RouteObject[] = [
         element: <CreatePoll />,
       },
       {
+        path: ROUTING_PATH.winningPage,
+        element: <WinningPage />,
+      },
+      {
         path: ROUTING_PATH.completeProfile,
         element: <CompleteProfile />,
         loader: async () => {
@@ -31,4 +36,3 @@ const routes: RouteObject[] = [
 ]
 
 export const router = createBrowserRouter(routes)
-
