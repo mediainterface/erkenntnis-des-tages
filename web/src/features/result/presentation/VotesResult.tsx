@@ -1,10 +1,12 @@
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
+import { useWindowSize } from '@/common/hooks/useWindowSize.tsx'
 import { PollOption } from '@/common/types/tables/poll_options/poll-option.type'
 import { PollVote } from '@/common/types/tables/poll_votes/poll-vote.type'
 import { supabase } from '@/supabase'
 import { SmileOutlined } from '@ant-design/icons'
-import { Result, Spin } from 'antd'
+import { Flex, Result, Spin } from 'antd'
 import React from 'react'
+import Confetti from 'react-confetti'
 import { useParams } from 'react-router-dom'
 import { PollResult } from '../domain/type/poll-result.type'
 import { ClosePoll } from './ClosePoll'
@@ -15,6 +17,7 @@ export const VotesResult: React.FC = () => {
   const [votesLeft, setVotesLeft] = React.useState<number>(initVotesLeft)
   const [results, setResults] = React.useState<PollResult[]>([])
   const { pollId = '' } = useParams()
+  const { width, height } = useWindowSize()
 
   supabase
     .channel('supabase_realtime')
@@ -97,11 +100,13 @@ export const VotesResult: React.FC = () => {
     />
   ) : (
     <>
-      {results.map((result) => (
-        <ResultOption {...result} key={result.id} />
-      ))}
+      <Confetti width={width} height={height} />
+      <Flex vertical gap={'middle'} style={{ marginTop: 'var(--ant-margin)' }}>
+        {results.map((result) => (
+          <ResultOption {...result} key={result.id} />
+        ))}
+      </Flex>
       <ClosePoll id={pollId} />
     </>
   )
 }
-

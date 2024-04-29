@@ -4,7 +4,7 @@ export const customTheme = {
   cssVar: true,
   algorithm: theme.darkAlgorithm,
   token: {
-    colorPrimary: 'hsl(265, 80%, 58%)',
+    colorPrimary: '#863eea',
     colorBgBase: '#110f17',
 
     fontsize: 16,
