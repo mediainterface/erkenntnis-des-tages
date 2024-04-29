@@ -1,7 +1,10 @@
 export const ROUTING_PATH = Object.freeze({
   home: '/',
   login: '/login',
-  createPoll: '/createPoll',
+  createPoll: '/create-poll',
   completeProfile: '/complete-profile',
-  winningPage: '/winning-page',
+  vote: '/:pollId/vote',
+  result: '/:pollId/result',
+  openPolls: '/open-poll',
 } as const)
+

@@ -8,8 +8,10 @@ import '../../../constants/locale_keys.dart';
 import '../../../extensions/async_value_extensions.dart';
 import '../../common/presentation/shimmer/shimmer_list.dart';
 import '../../profile/data/profile_repository.dart';
+import '../../startup/application/startup_providers.dart';
 import '../application/create_poll_controller.dart';
 import '../application/poll_option_state_controller.dart';
+import '../extensions/profile_extensions.dart';
 import 'components/create_poll_option_widget.dart';
 import 'components/loading_create_poll_option_item.dart';
 import 'poll_vote_screen.dart';
@@ -34,6 +36,10 @@ class PollCreateScreen extends ConsumerWidget {
       }
     });
 
+    if (users.hasValue) {
+      users.requireValue.sortByOrder(users.requireValue.firstWhere((e) => e.id == ref.watch(supabaseProvider).auth.currentUser!.id).order);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.polls_itemTitle.tr(args: [DateFormat.yMMMd().format(DateTime.now())])),
@@ -57,8 +63,7 @@ class PollCreateScreen extends ConsumerWidget {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
-                    child:
-                        ElevatedButton(onPressed: ref.watch(createPollControllerProvider.notifier).createPoll, child: const Text("Create")),
+                    child: ElevatedButton(onPressed: ref.watch(createPollControllerProvider.notifier).createPoll, child: const Text("Create")),
                   ),
                 ),
                 const SliverToBoxAdapter(child: gapH16),
