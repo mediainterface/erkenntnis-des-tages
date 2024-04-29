@@ -1,7 +1,7 @@
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { Profile } from '@/common/types/tables/profiles/profile.type'
 import { supabase } from '@/supabase'
-import { Flex, Form, Space } from 'antd'
+import { Badge, Flex, Form, Space, Tooltip } from 'antd'
 import Avatar from 'antd/es/avatar/avatar'
 import Typography from 'antd/es/typography/Typography'
 import React from 'react'
@@ -27,10 +27,12 @@ export const ResultOption: React.FC<PollResult> = (props) => {
     <Form.Item>
       <Flex justify="flex-start" align="center">
         <Space size={10}>
-          <Avatar size="large" src={profile?.avatar_url} />
-          <Typography>
-            [Stimmen: {votes}]: ({profile?.username}) {content}
-          </Typography>
+          <Tooltip title={profile?.username}>
+            <Badge count={votes}>
+              <Avatar size="large" src={profile?.avatar_url} />
+            </Badge>
+          </Tooltip>
+          <Typography>{content}</Typography>
         </Space>
       </Flex>
     </Form.Item>
