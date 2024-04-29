@@ -5,9 +5,7 @@ import React from 'react'
 
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
 
-
 import { NewPoll } from '@/common/types/tables/polls/new-poll.type'
-
 
 import { User } from '@supabase/supabase-js'
 import { generatePath, useNavigate } from 'react-router-dom'
@@ -16,16 +14,23 @@ import { NewPollOption } from '@/common/types/tables/poll_options/new-poll-optio
 import { Poll } from '@/common/types/tables/polls/poll.type'
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
 
-
 import { EdtInput, EdtInputHandle } from './EdtInput'
 
 const generateOrder = (profiles: Profile[], startPoint: number, lastPoint: number): Profile[] => {
   const order: Profile[] = []
   for (let i = startPoint - 1; i <= lastPoint - 1; i++) {
+    // if profile is undefined skip this one
+    if (!profiles[i]) {
+      continue
+    }
     order.push(profiles[i])
   }
 
   for (let i = 0; i < startPoint - 1; i++) {
+    // if profile is undefined skip this one
+    if (!profiles[i]) {
+      continue
+    }
     order.push(profiles[i])
   }
 
@@ -37,7 +42,6 @@ export const CreatePoll: React.FC = () => {
   const [currentUser, setCurrentUser] = React.useState<User | null>(null)
   const [hasCreatedAPoll, setHasCreatedAPoll] = React.useState(false)
   const navigate = useNavigate()
-
 
   const getProfiles = React.useCallback(async () => {
     try {
@@ -58,11 +62,9 @@ export const CreatePoll: React.FC = () => {
         throw new Error('cannot get profiles')
       }
 
-      const profilesResponse = data as Profile[]
+      const profilesResponse = (data as Profile[]).filter((profiles) => profiles.order_id !== -1)
 
-      const startOrderPoint =
-        profilesResponse.filter((profiles) => profiles.order_id !== -1).find((profile) => profile.user_id === user.id)
-          ?.order_id ?? 0
+      const startOrderPoint = profilesResponse.find((profile) => profile.user_id === user.id)?.order_id ?? 0
 
       const lastOrderPoint = profilesResponse.reduce((a, b) => {
         const highestValue = Math.max(a.order_id, b.order_id)
@@ -138,3 +140,4 @@ export const CreatePoll: React.FC = () => {
     </Flex>
   )
 }
+
