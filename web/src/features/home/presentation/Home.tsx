@@ -28,15 +28,16 @@ export const Home: React.FC = () => {
   const greeting = user?.email === 'griebner@mediainterface.de' ? 'Bonjour' : 'Hello'
   const greetingText = `${greeting} ${userName}`
   return (
-    <Card>
+    <Card style={{ height: '100%' }}>
       <Flex vertical align={'center'} gap={'large'}>
         <Typography.Text>{greetingText}</Typography.Text>
         <div style={{ maxWidth: '250px' }}>
           <img src="https://cdn-icons-png.flaticon.com/128/3468/3468306.png" alt={'unicorn'} />
         </div>
-        <Button onClick={handleCreatePoll}>Umfrage erstellen</Button>
+        <Button type={'primary'} onClick={handleCreatePoll}>
+          Umfrage erstellen
+        </Button>
       </Flex>
     </Card>
   )
 }
-
