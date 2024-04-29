@@ -28,7 +28,7 @@ export const ResultOption: React.FC<PollResult> = (props) => {
       <Flex justify="flex-start" align="center">
         <Avatar size="large" src={profile?.avatar_url} />
         <Typography>
-          [{votes}]: {content}
+          [Stimmen: {votes}]: ({profile?.username}) {content}
         </Typography>
       </Flex>
     </Form.Item>
