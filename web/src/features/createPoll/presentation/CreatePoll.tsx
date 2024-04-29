@@ -130,7 +130,7 @@ export const CreatePoll: React.FC = () => {
   return profiles.length === 0 ? (
     <Spin size="large" />
   ) : (
-    <Flex vertical>
+    <Flex vertical gap={'large'} wrap={'wrap'} align={'center'}>
       {profiles.map((profile, index) => (
         <EdtInput key={profile.user_id} profile={profile} ref={(el) => (childRefs.current[index] = el!)} />
       ))}
@@ -140,4 +140,3 @@ export const CreatePoll: React.FC = () => {
     </Flex>
   )
 }
-
