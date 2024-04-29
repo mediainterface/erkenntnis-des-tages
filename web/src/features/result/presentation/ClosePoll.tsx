@@ -45,10 +45,9 @@ export const ClosePoll: React.FC<ClosePollProps> = (props) => {
 
   return (
     isPollCreator && (
-      <Button onClick={handleClosePollClick} loading={hasClickedClose}>
+      <Button type={'primary'} onClick={handleClosePollClick} loading={hasClickedClose}>
         Umfrage schließen
       </Button>
     )
   )
 }
-
