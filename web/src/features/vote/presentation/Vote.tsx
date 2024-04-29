@@ -14,7 +14,8 @@ type SelectedOption = Pick<PollVote, 'poll_option_id'> & {
 }
 
 export const Vote: React.FC = () => {
-  const [selectedOption, setSelectedOption] = React.useState<SelectedOption>({ index: -1, poll_option_id: '' })
+  const selectedPollInitSate: SelectedOption = { index: -1, poll_option_id: '' }
+  const [selectedOption, setSelectedOption] = React.useState<SelectedOption>(selectedPollInitSate)
   const [pollOptions, setPollOptions] = React.useState<PollOption[]>([])
   const { pollId = '' } = useParams()
   const [currentUser, setCurrentUser] = React.useState<User | null>(null)
@@ -89,7 +90,7 @@ export const Vote: React.FC = () => {
         </Space>
       </Radio.Group>
       <br />
-      <Button onClick={onSetVote} disabled={hasVoted}>
+      <Button onClick={onSetVote} disabled={hasVoted || selectedOption.index === selectedPollInitSate.index}>
         Vote
       </Button>
       <Space.Compact style={{ width: '100%' }}>

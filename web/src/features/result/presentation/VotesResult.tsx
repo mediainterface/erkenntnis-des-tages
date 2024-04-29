@@ -3,14 +3,16 @@ import { PollOption } from '@/common/types/tables/poll_options/poll-option.type'
 import { PollVote } from '@/common/types/tables/poll_votes/poll-vote.type'
 import { supabase } from '@/supabase'
 import { SmileOutlined } from '@ant-design/icons'
-import { Result } from 'antd'
+import { Result, Spin } from 'antd'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { PollResult } from '../domain/type/poll-result.type'
+import { ClosePoll } from './ClosePoll'
 import { ResultOption } from './ResultOption'
 
 export const VotesResult: React.FC = () => {
-  const [votesLeft, setVotesLeft] = React.useState<number>(420)
+  const initVotesLeft = 420
+  const [votesLeft, setVotesLeft] = React.useState<number>(initVotesLeft)
   const [results, setResults] = React.useState<PollResult[]>([])
   const { pollId = '' } = useParams()
 
@@ -68,10 +70,12 @@ export const VotesResult: React.FC = () => {
     const votes = await getVotes()
     const options = await getPollOptions()
 
-    return options.map((option) => {
-      const count = votes.filter((vote) => vote.poll_option_id === option.id).length
-      return { ...option, votes: count }
-    })
+    return options
+      .map((option) => {
+        const count = votes.filter((vote) => vote.poll_option_id === option.id).length
+        return { ...option, votes: count }
+      })
+      .sort((a, b) => b.votes - a.votes)
   }, [getPollOptions, getVotes])
 
   React.useEffect(() => {
@@ -84,13 +88,20 @@ export const VotesResult: React.FC = () => {
     perform()
   }, [votesLeft, getResults])
 
-  return votesLeft > 0 ? (
+  return votesLeft === initVotesLeft ? (
+    <Spin size={'large'} />
+  ) : votesLeft > 0 ? (
     <Result
       icon={<SmileOutlined />}
       title={`${votesLeft} ${votesLeft === 1 ? 'Person hat' : 'Personen haben'} noch nicht abgestimmt`}
     />
   ) : (
-    results.sort((a, b) => b.votes - a.votes).map((result) => <ResultOption {...result} />)
+    <>
+      {results.map((result) => (
+        <ResultOption {...result} key={result.id} />
+      ))}
+      <ClosePoll id={pollId} />
+    </>
   )
 }
 

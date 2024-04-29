@@ -5,6 +5,7 @@ import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { AppLayout } from '@/common/components/layout/presentation/AppLayout.tsx'
 
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
+import { useUserStore } from '@/stores/user.store'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getUserProfile } from '../helper/profile.helper'
@@ -12,6 +13,7 @@ import { getUserProfile } from '../helper/profile.helper'
 export const AuthProvider: React.FC = () => {
   const [shouldShowAuthScreen, setShouldShowAuthScreen] = React.useState(true)
   const navigate = useNavigate()
+  const setUser = useUserStore((state) => state.setUser)
 
   const checkProfile = React.useCallback(async () => {
     const profile = await getUserProfile()
@@ -29,14 +31,16 @@ export const AuthProvider: React.FC = () => {
       if (event === 'SIGNED_IN') {
         checkProfile()
       }
+      if (session?.user) {
+        setUser(session.user)
+      }
     })
 
-    checkProfile()
     // Cleanup listener when component unmounts
     return () => {
       authListener.subscription.unsubscribe()
     }
-  }, [navigate, checkProfile])
+  }, [navigate, checkProfile, setUser])
 
   return shouldShowAuthScreen ? (
     <Auth supabaseClient={supabase} providers={[]} redirectTo="" appearance={{ theme: ThemeSupa }} />
