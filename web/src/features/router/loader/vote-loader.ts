@@ -21,7 +21,7 @@ export const voteLoader = async ({ params }: LoaderFunctionArgs) => {
     .eq('poll_id', pollId)
     .eq('user_id', user.id)
 
-  if (!pollVotes || pollVotes.length > 0) {
+  if (pollVotes && pollVotes.length === 0) {
     return null
   }
 
