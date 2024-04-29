@@ -1,10 +1,14 @@
+import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
 import { supabase } from '@/supabase.tsx'
 import { User } from '@supabase/supabase-js'
-import { Card, Flex, Typography } from 'antd'
+import { Button, Card, Flex, Typography } from 'antd'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export const Home: React.FC = () => {
   const [user, setUser] = React.useState<User | null>(null)
+  const navigate = useNavigate()
+
   React.useEffect(() => {
     const getUser = async () => {
       const { data } = await supabase.auth.getUser()
@@ -16,7 +20,11 @@ export const Home: React.FC = () => {
     getUser()
   }, [])
 
-  const userName = user?.email ?? 'keine EMail'
+  const handleCreatePoll = () => {
+    navigate(ROUTING_PATH.createPoll)
+  }
+
+  const userName = user?.email ?? 'keine E-Mail'
   const greeting = user?.email === 'griebner@mediainterface.de' ? 'Bonjour' : 'Hello'
   const greetingText = `${greeting} ${userName}`
   return (
@@ -26,7 +34,9 @@ export const Home: React.FC = () => {
         <div style={{ maxWidth: '250px' }}>
           <img src="https://cdn-icons-png.flaticon.com/128/3468/3468306.png" alt={'unicorn'} />
         </div>
+        <Button onClick={handleCreatePoll}>Umfrage erstellen</Button>
       </Flex>
     </Card>
   )
 }
+
