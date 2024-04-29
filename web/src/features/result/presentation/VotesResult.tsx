@@ -70,10 +70,12 @@ export const VotesResult: React.FC = () => {
     const votes = await getVotes()
     const options = await getPollOptions()
 
-    return options.map((option) => {
-      const count = votes.filter((vote) => vote.poll_option_id === option.id).length
-      return { ...option, votes: count }
-    })
+    return options
+      .map((option) => {
+        const count = votes.filter((vote) => vote.poll_option_id === option.id).length
+        return { ...option, votes: count }
+      })
+      .sort((a, b) => b.votes - a.votes)
   }, [getPollOptions, getVotes])
 
   React.useEffect(() => {
@@ -95,11 +97,9 @@ export const VotesResult: React.FC = () => {
     />
   ) : (
     <>
-      {results
-        .sort((a, b) => b.votes - a.votes)
-        .map((result) => (
-          <ResultOption {...result} key={result.id} />
-        ))}
+      {results.map((result) => (
+        <ResultOption {...result} key={result.id} />
+      ))}
       <ClosePoll id={pollId} />
     </>
   )
