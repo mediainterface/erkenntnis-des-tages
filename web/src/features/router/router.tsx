@@ -9,6 +9,7 @@ import { Vote } from '../vote/presentation/Vote'
 import { ROUTING_PATH } from './domain/constants/routing-path.constants'
 import { completeProfileLoader } from './loader/complete-profile-loader'
 import { pollLoader } from './loader/poll-loader'
+import { resultLoader } from './loader/result-loader'
 import { voteLoader } from './loader/vote-loader'
 
 const routes: RouteObject[] = [
@@ -35,6 +36,7 @@ const routes: RouteObject[] = [
           {
             path: ROUTING_PATH.result,
             element: <VotesResult />,
+            loader: resultLoader,
           },
         ],
       },
