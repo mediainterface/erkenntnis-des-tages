@@ -28,8 +28,9 @@ export const EdtInput = React.forwardRef<EdtInputHandle, EdtInputProps>((props, 
     <Form.Item>
       <Flex justify={'space-evenly'} align={'center'} gap={'middle'}>
         <Avatar src={profile.avatar_url} />
-        <Input placeholder="Icons" value={edtInput} onChange={handleEdtInputChange} />
+        <Input placeholder="Icons" addonBefore={profile.username} value={edtInput} onChange={handleEdtInputChange} />
       </Flex>
     </Form.Item>
   )
 })
+
