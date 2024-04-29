@@ -7,6 +7,7 @@ import { Result } from 'antd'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { PollResult } from '../domain/type/poll-result.type'
+import { ClosePoll } from './ClosePoll'
 import { ResultOption } from './ResultOption'
 
 export const VotesResult: React.FC = () => {
@@ -90,7 +91,14 @@ export const VotesResult: React.FC = () => {
       title={`${votesLeft} ${votesLeft === 1 ? 'Person hat' : 'Personen haben'} noch nicht abgestimmt`}
     />
   ) : (
-    results.sort((a, b) => b.votes - a.votes).map((result) => <ResultOption {...result} />)
+    <>
+      {results
+        .sort((a, b) => b.votes - a.votes)
+        .map((result) => (
+          <ResultOption {...result} key={result.id} />
+        ))}
+      <ClosePoll id={pollId} />
+    </>
   )
 }
 
