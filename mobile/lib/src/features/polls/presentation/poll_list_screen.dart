@@ -66,24 +66,13 @@ class PollListScreen extends ConsumerWidget {
                       padding: const EdgeInsets.only(top: Sizes.p16),
                       child: AppBar(
                         automaticallyImplyLeading: false,
+                        primary: false,
+                        scrolledUnderElevation: 0,
                         title: Text(element.isClosed ? LocaleKeys.polls_closedTitle.tr() : LocaleKeys.polls_openTitle.tr()),
                       ),
                     ),
                     itemBuilder: (context, element) => PollListItem(element),
                   ),
-                // if (openPolls.isNotEmpty)
-                //   SliverAppBar(automaticallyImplyLeading: false, primary: false, title: Text(LocaleKeys.polls_openTitle.tr())),
-                // SliverList.builder(
-                //   itemCount: closedPolls.length,
-                //   itemBuilder: (context, index) => PollListItem(closedPolls[index]),
-                // ),
-                // const SliverToBoxAdapter(child: gapH16),
-                // if (closedPolls.isNotEmpty)
-                //   SliverAppBar(automaticallyImplyLeading: false, primary: false, title: Text(LocaleKeys.polls_closedTitle.tr())),
-                // SliverList.builder(
-                //   itemCount: closedPolls.length,
-                //   itemBuilder: (context, index) => PollListItem(closedPolls[index]),
-                // ),
                 const SliverToBoxAdapter(child: gapH32),
               ],
             ),
