@@ -3,7 +3,7 @@ import { PollOption } from '@/common/types/tables/poll_options/poll-option.type'
 import { PollVote } from '@/common/types/tables/poll_votes/poll-vote.type'
 import { supabase } from '@/supabase'
 import { SmileOutlined } from '@ant-design/icons'
-import { Result } from 'antd'
+import { Result, Spin } from 'antd'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { PollResult } from '../domain/type/poll-result.type'
@@ -11,7 +11,8 @@ import { ClosePoll } from './ClosePoll'
 import { ResultOption } from './ResultOption'
 
 export const VotesResult: React.FC = () => {
-  const [votesLeft, setVotesLeft] = React.useState<number>(420)
+  const initVotesLeft = 420
+  const [votesLeft, setVotesLeft] = React.useState<number>(initVotesLeft)
   const [results, setResults] = React.useState<PollResult[]>([])
   const { pollId = '' } = useParams()
 
@@ -85,7 +86,9 @@ export const VotesResult: React.FC = () => {
     perform()
   }, [votesLeft, getResults])
 
-  return votesLeft > 0 ? (
+  return votesLeft === 420 ? (
+    <Spin size={'large'} />
+  ) : votesLeft > 0 ? (
     <Result
       icon={<SmileOutlined />}
       title={`${votesLeft} ${votesLeft === 1 ? 'Person hat' : 'Personen haben'} noch nicht abgestimmt`}
