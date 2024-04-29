@@ -86,7 +86,7 @@ export const VotesResult: React.FC = () => {
     perform()
   }, [votesLeft, getResults])
 
-  return votesLeft === 420 ? (
+  return votesLeft === initVotesLeft ? (
     <Spin size={'large'} />
   ) : votesLeft > 0 ? (
     <Result
