@@ -1,10 +1,11 @@
+import { Loader } from '@/common/components/loader/Loader'
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { useWindowSize } from '@/common/hooks/useWindowSize.tsx'
 import { PollOption } from '@/common/types/tables/poll_options/poll-option.type'
 import { PollVote } from '@/common/types/tables/poll_votes/poll-vote.type'
 import { supabase } from '@/supabase'
 import { SmileOutlined } from '@ant-design/icons'
-import { Card, Flex, Result, Spin } from 'antd'
+import { Card, Flex, Result } from 'antd'
 import React from 'react'
 import Confetti from 'react-confetti'
 import { useParams } from 'react-router-dom'
@@ -92,7 +93,7 @@ export const VotesResult: React.FC = () => {
   }, [votesLeft, getResults])
 
   return votesLeft === initVotesLeft ? (
-    <Spin size={'large'} />
+    <Loader />
   ) : votesLeft > 0 ? (
     <Result
       icon={<SmileOutlined />}
@@ -112,3 +113,4 @@ export const VotesResult: React.FC = () => {
     </>
   )
 }
+
