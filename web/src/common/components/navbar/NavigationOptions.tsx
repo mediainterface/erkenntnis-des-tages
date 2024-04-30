@@ -4,6 +4,8 @@ import { HomeOutlined, LogoutOutlined, PieChartOutlined } from '@ant-design/icon
 import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
 
+import { PERSON_X_EMAIL } from '@/common/constants/person-x-email.constants'
+import { useUserStore } from '@/stores/user.store'
 import { supabase } from '@/supabase.tsx'
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -12,6 +14,7 @@ export const NavigationOptions: React.FC = () => {
   const location = useLocation()
   const [current, setCurrent] = useState<RoutingPath>(location.pathname as RoutingPath)
   const navigate = useNavigate()
+  const user = useUserStore((state) => state.user)
 
   const handleLogOut = async () => {
     await supabase.auth.signOut()
@@ -36,13 +39,13 @@ export const NavigationOptions: React.FC = () => {
         },
       },
       {
-        label: 'Logout',
+        label: user?.email === PERSON_X_EMAIL ? 'Au revoir' : 'Logout',
         key: 'logout',
         icon: <LogoutOutlined />,
         onClick: () => handleLogOut(),
       },
     ]
-  }, [navigate])
+  }, [navigate, user?.email])
 
   const onClick: MenuProps['onClick'] = (e) => {
     setCurrent(e.key as RoutingPath)
@@ -58,3 +61,4 @@ export const NavigationOptions: React.FC = () => {
     />
   )
 }
+
