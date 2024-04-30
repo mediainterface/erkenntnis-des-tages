@@ -1,10 +1,10 @@
+import { DateFormat } from '@/common/components/date/DateFormat.tsx'
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { Poll } from '@/common/types/tables/polls/poll.type'
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
 import { supabase } from '@/supabase'
 import { PieChartOutlined } from '@ant-design/icons'
-import { Button, Flex, Form, Tooltip, Typography } from 'antd'
-import { format } from 'date-fns/format'
+import { Button, Card, Flex, Tooltip, Typography } from 'antd'
 import { getTime } from 'date-fns/fp/getTime'
 import React from 'react'
 import { generatePath, useNavigate } from 'react-router-dom'
@@ -31,25 +31,35 @@ export const OpenPolls: React.FC = () => {
 
   return (
     <Flex vertical align={'center'} gap={'large'}>
-      <Typography.Title>Offene Umfragen</Typography.Title>
-      {openPolls.map((poll) => (
-        <Form.Item>
-          <Flex justify="space-between" align="center">
-            <Typography style={{ marginRight: '10px' }}>
-              {format(new Date(poll.created_at), 'dd.MM.yyyy - H:m:s')}
-            </Typography>
-            <Tooltip title="Abstimmen">
-              <Button
-                type="primary"
-                shape="circle"
-                icon={<PieChartOutlined />}
-                onClick={() => handlePollClick(poll.id)}
-              />
-            </Tooltip>
-          </Flex>
-        </Form.Item>
-      ))}
+      <div
+        style={{
+          padding: 'var(--ant-padding) 0',
+          width: '100%',
+          position: 'sticky',
+          top: '-24px',
+          zIndex: 2,
+          background: 'linear-gradient(180deg, var(--ant-color-bg-layout) 85%, transparent',
+        }}
+      >
+        <Typography.Title>Offene Umfragen</Typography.Title>
+      </div>
+      <Flex wrap={'wrap'} justify={'center'} gap={'large'}>
+        {openPolls.map((poll) => (
+          <Card style={{ width: '300px', borderColor: poll.is_closed ? 'var(--ant-color-primary-active)' : 'inherit' }}>
+            <Flex justify="space-between" align="center">
+              <DateFormat date={new Date(poll.created_at)} />
+              <Tooltip title="Abstimmen">
+                <Button
+                  type="primary"
+                  shape="circle"
+                  icon={<PieChartOutlined />}
+                  onClick={() => handlePollClick(poll.id)}
+                />
+              </Tooltip>
+            </Flex>
+          </Card>
+        ))}
+      </Flex>
     </Flex>
   )
 }
-

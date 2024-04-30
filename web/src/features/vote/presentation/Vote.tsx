@@ -1,3 +1,4 @@
+import { DateFormat } from '@/common/components/date/DateFormat.tsx'
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { PollOption } from '@/common/types/tables/poll_options/poll-option.type'
 import { PollVote } from '@/common/types/tables/poll_votes/poll-vote.type'
@@ -5,7 +6,7 @@ import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.co
 import { supabase } from '@/supabase'
 import { ShareAltOutlined } from '@ant-design/icons'
 import { User } from '@supabase/supabase-js'
-import { Button, Input, Radio, RadioChangeEvent, Space, Spin, Tooltip, message } from 'antd'
+import { Button, Card, Divider, Flex, Input, Radio, RadioChangeEvent, Space, Spin, Tooltip, message } from 'antd'
 import React from 'react'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 
@@ -79,29 +80,40 @@ export const Vote: React.FC = () => {
   return pollOptions.length === 0 ? (
     <Spin size="large" />
   ) : (
-    <>
-      <Radio.Group onChange={onChange} value={selectedOption.index}>
-        <Space direction="vertical">
-          {pollOptions.map((option, index) => (
-            <Radio value={index} key={option.user_id} disabled={option.user_id === currentUser?.id}>
-              {option.content}
-            </Radio>
-          ))}
-        </Space>
-      </Radio.Group>
-      <br />
-      <Button onClick={onSetVote} disabled={hasVoted || selectedOption.index === selectedPollInitSate.index}>
-        Vote
-      </Button>
-      <Space.Compact style={{ width: '100%' }}>
-        <Input defaultValue={currentUrl} disabled={true} />
-        <Tooltip title="Copy to Clipboard">
-          <Button icon={<ShareAltOutlined />} onClick={onShareClick}>
-            Teilen
-          </Button>
-        </Tooltip>
-      </Space.Compact>
-    </>
+    <Card>
+      <Card.Meta
+        title={<DateFormat date={new Date(pollOptions[0].created_at)} />}
+        description={
+          <Flex gap={'small'}>
+            <Input defaultValue={currentUrl} disabled={true} />
+            <Tooltip title="Copy to Clipboard">
+              <Button icon={<ShareAltOutlined />} onClick={onShareClick}>
+                Teilen
+              </Button>
+            </Tooltip>
+          </Flex>
+        }
+      />
+      <Divider />
+      <Flex vertical gap={'middle'}>
+        <Radio.Group onChange={onChange} value={selectedOption.index}>
+          <Space direction="vertical">
+            {pollOptions.map((option, index) => (
+              <Radio value={index} key={option.user_id} disabled={option.user_id === currentUser?.id}>
+                {option.content}
+              </Radio>
+            ))}
+          </Space>
+        </Radio.Group>
+        <Button
+          style={{ alignSelf: 'flex-end' }}
+          onClick={onSetVote}
+          disabled={hasVoted || selectedOption.index === selectedPollInitSate.index}
+        >
+          Vote
+        </Button>
+      </Flex>
+      <Space.Compact style={{ width: '100%' }}></Space.Compact>
+    </Card>
   )
 }
-

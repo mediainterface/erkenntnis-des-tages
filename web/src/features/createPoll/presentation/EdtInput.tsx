@@ -1,5 +1,5 @@
 import { Profile } from '@/common/types/tables/profiles/profile.type'
-import { Avatar, Flex, Form } from 'antd'
+import { Avatar, Card, Flex } from 'antd'
 import Input from 'antd/es/input/Input'
 import React, { useImperativeHandle } from 'react'
 
@@ -25,12 +25,11 @@ export const EdtInput = React.forwardRef<EdtInputHandle, EdtInputProps>((props, 
   }))
 
   return (
-    <Form.Item>
-      <Flex justify={'space-evenly'} align={'center'} gap={'middle'}>
-        <Avatar src={profile.avatar_url} />
-        <Input placeholder="Icons" addonBefore={profile.username} value={edtInput} onChange={handleEdtInputChange} />
+    <Card style={{ width: '300px' }}>
+      <Flex vertical gap={'middle'}>
+        <Card.Meta avatar={<Avatar src={profile.avatar_url} />} title={profile.username} />
+        <Input value={edtInput} onChange={handleEdtInputChange} />
       </Flex>
-    </Form.Item>
+    </Card>
   )
 })
-

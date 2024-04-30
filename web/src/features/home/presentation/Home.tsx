@@ -28,7 +28,7 @@ export const Home: React.FC = () => {
   const greeting = user?.email === 'griebner@mediainterface.de' ? 'Bonjour' : 'Hello'
   const greetingText = `${greeting} ${userName}`
   return (
-    <Card style={{ height: '100%' }}>
+    <Card>
       <Flex vertical align={'center'} gap={'large'}>
         <Typography.Text>{greetingText}</Typography.Text>
         <div style={{ maxWidth: '250px' }}>

@@ -7,10 +7,12 @@ import { Button, message } from 'antd'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-type ClosePollProps = Pick<Poll, 'id'>
+type ClosePollProps = Pick<Poll, 'id'> & {
+  style: React.CSSProperties
+}
 
 export const ClosePoll: React.FC<ClosePollProps> = (props) => {
-  const { id } = props
+  const { id, style } = props
   const [isPollCreator, setIsPollCreator] = React.useState(false)
   const user = useUserStore((state) => state.user)
   const [messageApi] = message.useMessage()
@@ -45,7 +47,7 @@ export const ClosePoll: React.FC<ClosePollProps> = (props) => {
 
   return (
     isPollCreator && (
-      <Button type={'primary'} onClick={handleClosePollClick} loading={hasClickedClose}>
+      <Button style={style} type={'primary'} onClick={handleClosePollClick} loading={hasClickedClose}>
         Umfrage schließen
       </Button>
     )

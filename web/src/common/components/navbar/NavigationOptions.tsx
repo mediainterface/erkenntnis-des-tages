@@ -48,6 +48,13 @@ export const NavigationOptions: React.FC = () => {
     setCurrent(e.key as RoutingPath)
   }
 
-  return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
+  return (
+    <Menu
+      style={{ justifyContent: 'center' }}
+      onClick={onClick}
+      selectedKeys={[current]}
+      mode="horizontal"
+      items={items}
+    />
+  )
 }
-

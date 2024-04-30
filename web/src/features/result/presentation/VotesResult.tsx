@@ -4,7 +4,7 @@ import { PollOption } from '@/common/types/tables/poll_options/poll-option.type'
 import { PollVote } from '@/common/types/tables/poll_votes/poll-vote.type'
 import { supabase } from '@/supabase'
 import { SmileOutlined } from '@ant-design/icons'
-import { Flex, Result, Spin } from 'antd'
+import { Card, Flex, Result, Spin } from 'antd'
 import React from 'react'
 import Confetti from 'react-confetti'
 import { useParams } from 'react-router-dom'
@@ -101,12 +101,14 @@ export const VotesResult: React.FC = () => {
   ) : (
     <>
       <Confetti width={width} height={height} />
-      <Flex vertical gap={'middle'} style={{ marginTop: 'var(--ant-margin)' }}>
-        {results.map((result) => (
-          <ResultOption {...result} key={result.id} />
-        ))}
-      </Flex>
-      <ClosePoll id={pollId} />
+      <Card style={{ width: '100%' }}>
+        <Flex vertical gap={'middle'} style={{ marginTop: 'var(--ant-margin)' }}>
+          {results.map((result) => (
+            <ResultOption {...result} key={result.id} />
+          ))}
+          <ClosePoll style={{ alignSelf: 'flex-end' }} id={pollId} />
+        </Flex>
+      </Card>
     </>
   )
 }
