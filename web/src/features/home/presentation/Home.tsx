@@ -1,3 +1,4 @@
+import { PERSON_X_EMAIL } from '@/common/constants/person-x-email.constants'
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
 import { supabase } from '@/supabase.tsx'
 import { User } from '@supabase/supabase-js'
@@ -25,7 +26,7 @@ export const Home: React.FC = () => {
   }
 
   const userName = user?.email ?? 'keine E-Mail'
-  const greeting = user?.email === 'griebner@mediainterface.de' ? 'Bonjour' : 'Hello'
+  const greeting = user?.email === PERSON_X_EMAIL ? 'Bonjour' : 'Hello'
   const greetingText = `${greeting} ${userName}`
   return (
     <Card>
@@ -41,3 +42,4 @@ export const Home: React.FC = () => {
     </Card>
   )
 }
+
