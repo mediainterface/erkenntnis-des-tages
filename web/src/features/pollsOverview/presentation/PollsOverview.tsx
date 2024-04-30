@@ -11,7 +11,7 @@ import { Polls } from './Polls'
 export const PollsOverview: React.FC = () => {
   const [openPolls, setOpenPolls] = React.useState<Poll[]>([])
   const [closedPolls, setClosedPolls] = React.useState<Poll[]>([])
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [setSearchParams] = useSearchParams()
   const searchParamsKey = 'tab'
 
   supabase
