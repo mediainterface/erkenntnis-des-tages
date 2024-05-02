@@ -220,19 +220,135 @@ final watchProfilesProvider = AutoDisposeStreamProvider<List<Profile>>.internal(
 );
 
 typedef WatchProfilesRef = AutoDisposeStreamProviderRef<List<Profile>>;
-String _$listProfilesHash() => r'c0ae728440e882b3a1d75caecebfcc04dfe3709b';
+String _$listProfilesHash() => r'99904c2e3719188a2f90b71bf4e3a1082336a1f2';
 
 /// See also [listProfiles].
 @ProviderFor(listProfiles)
-final listProfilesProvider = AutoDisposeFutureProvider<List<Profile>>.internal(
-  listProfiles,
-  name: r'listProfilesProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$listProfilesHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const listProfilesProvider = ListProfilesFamily();
 
-typedef ListProfilesRef = AutoDisposeFutureProviderRef<List<Profile>>;
+/// See also [listProfiles].
+class ListProfilesFamily extends Family<AsyncValue<List<Profile>>> {
+  /// See also [listProfiles].
+  const ListProfilesFamily();
+
+  /// See also [listProfiles].
+  ListProfilesProvider call({
+    bool includeNegativeOrderId = true,
+  }) {
+    return ListProfilesProvider(
+      includeNegativeOrderId: includeNegativeOrderId,
+    );
+  }
+
+  @override
+  ListProfilesProvider getProviderOverride(
+    covariant ListProfilesProvider provider,
+  ) {
+    return call(
+      includeNegativeOrderId: provider.includeNegativeOrderId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'listProfilesProvider';
+}
+
+/// See also [listProfiles].
+class ListProfilesProvider extends AutoDisposeFutureProvider<List<Profile>> {
+  /// See also [listProfiles].
+  ListProfilesProvider({
+    bool includeNegativeOrderId = true,
+  }) : this._internal(
+          (ref) => listProfiles(
+            ref as ListProfilesRef,
+            includeNegativeOrderId: includeNegativeOrderId,
+          ),
+          from: listProfilesProvider,
+          name: r'listProfilesProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$listProfilesHash,
+          dependencies: ListProfilesFamily._dependencies,
+          allTransitiveDependencies:
+              ListProfilesFamily._allTransitiveDependencies,
+          includeNegativeOrderId: includeNegativeOrderId,
+        );
+
+  ListProfilesProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.includeNegativeOrderId,
+  }) : super.internal();
+
+  final bool includeNegativeOrderId;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<Profile>> Function(ListProfilesRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: ListProfilesProvider._internal(
+        (ref) => create(ref as ListProfilesRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        includeNegativeOrderId: includeNegativeOrderId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<Profile>> createElement() {
+    return _ListProfilesProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ListProfilesProvider &&
+        other.includeNegativeOrderId == includeNegativeOrderId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, includeNegativeOrderId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin ListProfilesRef on AutoDisposeFutureProviderRef<List<Profile>> {
+  /// The parameter `includeNegativeOrderId` of this provider.
+  bool get includeNegativeOrderId;
+}
+
+class _ListProfilesProviderElement
+    extends AutoDisposeFutureProviderElement<List<Profile>>
+    with ListProfilesRef {
+  _ListProfilesProviderElement(super.provider);
+
+  @override
+  bool get includeNegativeOrderId =>
+      (origin as ListProfilesProvider).includeNegativeOrderId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

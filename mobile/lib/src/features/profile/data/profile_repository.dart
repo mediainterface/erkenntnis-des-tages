@@ -40,8 +40,8 @@ Stream<List<Profile>> watchProfiles(WatchProfilesRef ref) {
 }
 
 @riverpod
-Future<List<Profile>> listProfiles(ListProfilesRef ref) async {
-  return ref.watch(profileRepositoryProvider).listAsync();
+Future<List<Profile>> listProfiles(ListProfilesRef ref, {bool includeNegativeOrderId = true}) async {
+  return ref.watch(profileRepositoryProvider).listAsync(includeNegativeOrderId);
 }
 
 class ProfileRepository {
@@ -57,9 +57,9 @@ class ProfileRepository {
         .map((event) => event.map((e) => Profile.fromJson(e)).toList());
   }
 
-  Future<List<Profile>> listAsync() async {
+  Future<List<Profile>> listAsync(bool includeNegativeOrderIds) async {
     final response = await supabase.from(table).select("*").order("order_id", ascending: true).select();
-    return response.map((e) => Profile.fromJson(e)).toList();
+    return response.map((e) => Profile.fromJson(e)).where((e) => includeNegativeOrderIds || e.order >= 0).toList();
   }
 
   Future<Profile?> findByIdAsync(String id) async {

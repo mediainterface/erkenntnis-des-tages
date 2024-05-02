@@ -24,7 +24,7 @@ class PollCreateScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final users = ref.watch(listProfilesProvider);
+    final users = ref.watch(listProfilesProvider(includeNegativeOrderId: false));
     final _ = ref.watch(pollOptionStateControllerProvider);
     final isLoading = users.maybeWhen(data: (_) => false, orElse: () => true);
 
@@ -63,7 +63,8 @@ class PollCreateScreen extends ConsumerWidget {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
-                    child: ElevatedButton(onPressed: ref.watch(createPollControllerProvider.notifier).createPoll, child: const Text("Create")),
+                    child:
+                        ElevatedButton(onPressed: ref.watch(createPollControllerProvider.notifier).createPoll, child: const Text("Create")),
                   ),
                 ),
                 const SliverToBoxAdapter(child: gapH16),

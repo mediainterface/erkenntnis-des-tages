@@ -28,7 +28,7 @@ class VotePollOptionWidget extends ConsumerWidget {
         value: item,
         groupValue: selectedValue.value,
         title: Text(item.content),
-        secondary: ProfileAvatar(profile),
+        secondary: ProfileAvatar(profile, size: 20),
         onChanged: (votedValue != null && !isSelected) || isOwnOption ? null : (value) => selectedValue.value = value!,
       ),
     );

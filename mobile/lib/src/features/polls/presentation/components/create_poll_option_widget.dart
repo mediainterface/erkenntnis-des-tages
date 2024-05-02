@@ -33,7 +33,15 @@ class CreatePollOptionWidget extends HookConsumerWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ProfileAvatar(AsyncData(user), size: 30),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ProfileAvatar(AsyncData(user), size: 30),
+                        gapH4,
+                        Text(user.username, overflow: TextOverflow.ellipsis),
+                      ],
+                    ),
                     gapW16,
                     Expanded(
                       child: TextField(
