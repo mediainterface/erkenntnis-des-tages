@@ -56,6 +56,7 @@ class PollCreateScreen extends ConsumerWidget {
                   itemCount: users.requireValue.length,
                   itemBuilder: (context, index) => CreatePollOptionWidget(
                     user: users.requireValue[index],
+                    isLastItem: index == users.requireValue.length - 1,
                     onChange: (state) => ref.read(pollOptionStateControllerProvider.notifier).updatePollOption(state),
                   ),
                 ),

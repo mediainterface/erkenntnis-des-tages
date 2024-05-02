@@ -12,8 +12,9 @@ import '../../../profile/presentation/components/profile_avatar.dart';
 class CreatePollOptionWidget extends HookConsumerWidget {
   final Profile user;
   final Function(PollOptionState)? onChange;
+  final bool isLastItem;
 
-  const CreatePollOptionWidget({required this.user, this.onChange, super.key});
+  const CreatePollOptionWidget({required this.user, this.onChange, this.isLastItem = false, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,6 +46,7 @@ class CreatePollOptionWidget extends HookConsumerWidget {
                     gapW16,
                     Expanded(
                       child: TextField(
+                        textInputAction: isLastItem ? TextInputAction.done : TextInputAction.next,
                         onChanged: (value) => onChange?.call(state.value.copyWith(value: value)),
                         decoration: InputDecoration(hintText: LocaleKeys.polls_optionHint.tr()),
                       ),
