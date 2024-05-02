@@ -31,11 +31,11 @@ export const NavigationOptions: React.FC = () => {
         },
       },
       {
-        label: 'Offene Umfragen',
-        key: ROUTING_PATH.openPolls,
+        label: 'Umfragen',
+        key: ROUTING_PATH.pollsOverview,
         icon: <PieChartOutlined />,
         onClick: () => {
-          navigate(ROUTING_PATH.openPolls)
+          navigate(ROUTING_PATH.pollsOverview)
         },
       },
       {

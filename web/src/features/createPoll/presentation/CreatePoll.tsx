@@ -1,6 +1,6 @@
 import { Profile } from '@/common/types/tables/profiles/profile.type'
 import { supabase } from '@/supabase'
-import { Button, Flex, Spin } from 'antd'
+import { Button, Flex } from 'antd'
 import React from 'react'
 
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
@@ -14,6 +14,7 @@ import { NewPollOption } from '@/common/types/tables/poll_options/new-poll-optio
 import { Poll } from '@/common/types/tables/polls/poll.type'
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
 
+import { Loader } from '@/common/components/loader/Loader'
 import { EdtInput, EdtInputHandle } from './EdtInput'
 
 const generateOrder = (profiles: Profile[], startPoint: number, lastPoint: number): Profile[] => {
@@ -128,7 +129,7 @@ export const CreatePoll: React.FC = () => {
   }
 
   return profiles.length === 0 ? (
-    <Spin size="large" />
+    <Loader />
   ) : (
     <Flex vertical gap={'large'} wrap={'wrap'} align={'center'}>
       {profiles.map((profile, index) => (
@@ -140,3 +141,4 @@ export const CreatePoll: React.FC = () => {
     </Flex>
   )
 }
+

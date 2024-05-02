@@ -1,4 +1,5 @@
 import { DateFormat } from '@/common/components/date/DateFormat.tsx'
+import { Loader } from '@/common/components/loader/Loader'
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { PollOption } from '@/common/types/tables/poll_options/poll-option.type'
 import { PollVote } from '@/common/types/tables/poll_votes/poll-vote.type'
@@ -6,7 +7,7 @@ import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.co
 import { supabase } from '@/supabase'
 import { ShareAltOutlined } from '@ant-design/icons'
 import { User } from '@supabase/supabase-js'
-import { Button, Card, Divider, Flex, Input, Radio, RadioChangeEvent, Space, Spin, Tooltip, message } from 'antd'
+import { Button, Card, Divider, Flex, Input, Radio, RadioChangeEvent, Space, Tooltip, message } from 'antd'
 import React from 'react'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 
@@ -78,7 +79,7 @@ export const Vote: React.FC = () => {
   }
 
   return pollOptions.length === 0 ? (
-    <Spin size="large" />
+    <Loader />
   ) : (
     <Card>
       <Card.Meta
@@ -117,3 +118,4 @@ export const Vote: React.FC = () => {
     </Card>
   )
 }
+
