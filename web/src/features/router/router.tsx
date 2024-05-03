@@ -1,5 +1,5 @@
 import { Home } from '@/features/home/presentation/Home.tsx'
-import { RouteObject, createBrowserRouter } from 'react-router-dom'
+import { RouteObject, createHashRouter } from 'react-router-dom'
 import { AuthProvider } from '../auth/presentation/AuthProvider'
 import { CompleteProfile } from '../completeProfile/presentation/CompleteProfile'
 import { CreatePoll } from '../createPoll/presentation/CreatePoll'
@@ -43,5 +43,5 @@ const routes: RouteObject[] = [
   },
 ]
 
-export const router = createBrowserRouter(routes)
+export const router = createHashRouter(routes)
 
