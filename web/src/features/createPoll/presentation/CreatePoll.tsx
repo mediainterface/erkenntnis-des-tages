@@ -63,7 +63,9 @@ export const CreatePoll: React.FC = () => {
         throw new Error('cannot get profiles')
       }
 
-      const profilesResponse = (data as Profile[]).filter((profiles) => profiles.order_id !== -1)
+      const profilesResponse = (data as Profile[])
+        .filter((profiles) => profiles.order_id !== -1)
+        .sort((a, b) => a.order_id - b.order_id)
 
       const startOrderPoint = profilesResponse.find((profile) => profile.user_id === user.id)?.order_id ?? 0
 
@@ -141,4 +143,3 @@ export const CreatePoll: React.FC = () => {
     </Flex>
   )
 }
-
