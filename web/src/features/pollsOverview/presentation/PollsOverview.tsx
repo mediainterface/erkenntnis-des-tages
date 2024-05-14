@@ -8,6 +8,8 @@ import React from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Polls } from './Polls'
 
+const sortPolls = (a: Poll, b: Poll): number => getTime(new Date(b.created_at)) - getTime(new Date(a.created_at))
+
 export const PollsOverview: React.FC = () => {
   const [openPolls, setOpenPolls] = React.useState<Poll[]>([])
   const [closedPolls, setClosedPolls] = React.useState<Poll[]>([])
@@ -29,17 +31,17 @@ export const PollsOverview: React.FC = () => {
 
         if (payload.eventType === 'DELETE') {
           if (newPoll.is_closed) {
-            setClosedPolls((state) => state.filter((poll) => poll.id !== payload.old.id))
+            setClosedPolls((state) => state.filter((poll) => poll.id !== payload.old.id).sort(sortPolls))
           } else {
-            setOpenPolls((state) => state.filter((poll) => poll.id !== payload.old.id))
+            setOpenPolls((state) => state.filter((poll) => poll.id !== payload.old.id).sort(sortPolls))
           }
           return
         }
 
         if (newPoll.is_closed) {
-          setClosedPolls((state) => [...state, newPoll])
+          setClosedPolls((state) => [...state, newPoll].sort(sortPolls))
         } else {
-          setOpenPolls((state) => [...state, newPoll])
+          setOpenPolls((state) => [...state, newPoll].sort(sortPolls))
         }
       },
     )
@@ -50,11 +52,9 @@ export const PollsOverview: React.FC = () => {
     if (!data || error) {
       return
     }
-    const sortedPolls = (data as Poll[]).sort(
-      (a, b) => getTime(new Date(b.created_at)) - getTime(new Date(a.created_at)),
-    )
-    setClosedPolls(sortedPolls.filter((poll) => poll.is_closed))
-    setOpenPolls(sortedPolls.filter((poll) => !poll.is_closed))
+    const sortedPolls = (data as Poll[]).sort(sortPolls)
+    setClosedPolls(sortedPolls.filter((poll) => poll.is_closed).sort(sortPolls))
+    setOpenPolls(sortedPolls.filter((poll) => !poll.is_closed).sort(sortPolls))
   }, [])
 
   React.useEffect(() => {
@@ -84,4 +84,3 @@ export const PollsOverview: React.FC = () => {
     <Tabs centered defaultActiveKey={tabItems[0].key} items={tabItems} onChange={onTabChanges} />
   )
 }
-
