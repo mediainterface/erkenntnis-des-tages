@@ -1,4 +1,5 @@
 import { useWindowSize } from '@/common/hooks/useWindowSize'
+import { Button } from 'antd'
 import React from 'react'
 
 const getRandomDirection = () => {
@@ -16,6 +17,7 @@ export const ThemeSwitcher: React.FC = () => {
   const { height, width } = useWindowSize()
   const pagePadding = 50
   const [position, setPosition] = React.useState({ x: width + pagePadding, y: height + pagePadding })
+  const [isMouseInside, setIsMouseInside] = React.useState(false)
   const buttonRef = React.useRef<HTMLButtonElement>(null)
 
   const moveButton = () => {
@@ -27,17 +29,30 @@ export const ThemeSwitcher: React.FC = () => {
   }
 
   return (
-    <button
-      ref={buttonRef}
+    <div
+      onMouseLeave={() => {
+        setIsMouseInside(false)
+      }}
+      onMouseEnter={() => {
+        setIsMouseInside(true)
+      }}
       style={{
         position: 'absolute',
         right: position.x,
         bottom: position.y,
-        transition: 'left 0.3s, top 0.3s', // for smooth transition
+        backgroundColor: isMouseInside ? 'hotpink' : 'lightblue',
+        padding: '40px',
       }}
-      onClick={moveButton}
     >
-      Move Me
-    </button>
+      <Button
+        ref={buttonRef}
+        style={{
+          transition: 'left 0.3s, top 0.3s', // for smooth transition
+        }}
+        onClick={moveButton}
+      >
+        Move Me
+      </Button>
+    </div>
   )
 }
