@@ -6,7 +6,7 @@ export const ThemeSwitcher: React.FC = () => {
   const { height, width } = useWindowSize()
   const pagePadding = 50
 
-  const [position, setPosition] = React.useState({ x: width + pagePadding, y: height + pagePadding })
+  const [buttonPosition, setButtonPosition] = React.useState({ x: width + pagePadding, y: height + pagePadding })
   const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 })
   const [velocity, setVelocity] = React.useState({ vx: 0, vy: 0 })
   const [isMouseInside, setIsMouseInside] = React.useState(false)
@@ -37,6 +37,12 @@ export const ThemeSwitcher: React.FC = () => {
     }
   }
 
+  const updateButtonPosition = () => {
+    setButtonPosition((prev) => {
+      return { x: prev.x + 10, y: prev.y + 10 }
+    })
+  }
+
   React.useEffect(() => {
     window.addEventListener('mousemove', handleMouseMove)
 
@@ -53,10 +59,13 @@ export const ThemeSwitcher: React.FC = () => {
       onMouseEnter={() => {
         setIsMouseInside(true)
       }}
+      onMouseMove={() => {
+        isMouseInside && updateButtonPosition()
+      }}
       style={{
         position: 'absolute',
-        right: position.x,
-        bottom: position.y,
+        right: buttonPosition.x,
+        bottom: buttonPosition.y,
         backgroundColor: isMouseInside ? 'hotpink' : 'lightblue',
         padding: '100px',
       }}
