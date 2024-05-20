@@ -5,6 +5,7 @@ import { NavigationOptions } from '@/common/components/navbar/NavigationOptions.
 
 import { AppHeader } from '@/common/components/header/presentation/AppHeader.tsx'
 import StyledHeader from '@/common/components/header/styled/StyledHeader.tsx'
+import { ThemeSwitcher } from '@/features/themeSwitcher/presentation/ThemeSwitcher'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
@@ -20,6 +21,7 @@ export const AppLayout: React.FC = () => {
       <StyledFooter>
         <NavigationOptions />
       </StyledFooter>
+      <ThemeSwitcher />
     </StyledLayout>
   )
 }
