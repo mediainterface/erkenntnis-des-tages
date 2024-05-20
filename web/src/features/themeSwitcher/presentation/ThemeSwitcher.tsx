@@ -2,31 +2,48 @@ import { useWindowSize } from '@/common/hooks/useWindowSize'
 import { Button } from 'antd'
 import React from 'react'
 
-const getRandomDirection = () => {
-  const directions = [
-    { x: 10, y: 0 }, // right
-    { x: -10, y: 0 }, // left
-    { x: 0, y: 10 }, // down
-    { x: 0, y: -10 }, // up
-  ]
-  const randomIndex = Math.floor(Math.random() * directions.length)
-  return directions[randomIndex]
-}
-
 export const ThemeSwitcher: React.FC = () => {
   const { height, width } = useWindowSize()
   const pagePadding = 50
+
   const [position, setPosition] = React.useState({ x: width + pagePadding, y: height + pagePadding })
+  const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 })
+  const [velocity, setVelocity] = React.useState({ vx: 0, vy: 0 })
   const [isMouseInside, setIsMouseInside] = React.useState(false)
+
   const buttonRef = React.useRef<HTMLButtonElement>(null)
 
-  const moveButton = () => {
-    const direction = getRandomDirection()
-    setPosition((prevPosition) => ({
-      x: prevPosition.x + direction.x,
-      y: prevPosition.y + direction.y,
-    }))
+  // Ref to store the previous mouse position and timestamp
+  const prevPosRef = React.useRef({ x: 0, y: 0, timestamp: Date.now() })
+
+  const handleMouseMove = (event: MouseEvent) => {
+    const { clientX, clientY } = event
+    const currentTime = Date.now()
+    const timeDiff = currentTime - prevPosRef.current.timestamp
+
+    if (timeDiff > 0) {
+      const deltaX = clientX - prevPosRef.current.x
+      const deltaY = clientY - prevPosRef.current.y
+
+      // Calculate velocity
+      const vx = deltaX / timeDiff
+      const vy = deltaY / timeDiff
+
+      setVelocity({ vx, vy })
+      setMousePos({ x: clientX, y: clientY })
+
+      // Update the previous position and timestamp
+      prevPosRef.current = { x: clientX, y: clientY, timestamp: currentTime }
+    }
   }
+
+  React.useEffect(() => {
+    window.addEventListener('mousemove', handleMouseMove)
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+    }
+  }, [])
 
   return (
     <div
@@ -41,15 +58,20 @@ export const ThemeSwitcher: React.FC = () => {
         right: position.x,
         bottom: position.y,
         backgroundColor: isMouseInside ? 'hotpink' : 'lightblue',
-        padding: '40px',
+        padding: '100px',
       }}
     >
+      <p>
+        Mouse Position: ({mousePos.x}, {mousePos.y})
+      </p>
+      <p>
+        Mouse Velocity: (vx: {velocity.vx.toFixed(2)}, vy: {velocity.vy.toFixed(2)}) px/ms
+      </p>
       <Button
         ref={buttonRef}
         style={{
           transition: 'left 0.3s, top 0.3s', // for smooth transition
         }}
-        onClick={moveButton}
       >
         Move Me
       </Button>
