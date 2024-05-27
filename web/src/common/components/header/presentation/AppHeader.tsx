@@ -1,30 +1,18 @@
-import { useGravatar } from '@/common/hooks/UseGravatar'
-import { supabase } from '@/supabase.tsx'
-import { User } from '@supabase/supabase-js'
-import { Flex, Typography } from 'antd'
+import { Flex, Typography } from "antd";
 import Avatar from 'antd/es/avatar/avatar'
 import React from 'react'
+import { ROUTING_PATH } from "@/features/router/domain/constants/routing-path.constants.ts";
+import { useNavigate } from "react-router-dom";
+import { useUserStore } from "@/stores/useUserStore.tsx";
 
 export const AppHeader: React.FC = () => {
-  const [user, setUser] = React.useState<User | null>(null)
-  const [getGravatarUrl] = useGravatar()
-
-  React.useEffect(() => {
-    const getUser = async () => {
-      const { data } = await supabase.auth.getUser()
-      if (data) {
-        setUser(data.user)
-      }
-    }
-    getUser()
-  }, [])
-
-  const gravatarUrl = getGravatarUrl(user?.email ?? '')
+  const navigate = useNavigate()
+  const userProfile = useUserStore((state) => state.userProfile)
 
   return (
     <Flex justify={'space-between'}>
       <Typography.Title>EDT </Typography.Title>
-      <Avatar size="large" src={gravatarUrl} />
+      <Avatar onClick={()=> navigate(ROUTING_PATH.userProfile)} size="large" src={userProfile?.avatar_url} />
     </Flex>
   )
 }

@@ -99,11 +99,10 @@ export const Vote: React.FC = () => {
       <Flex vertical gap={'middle'}>
         <Radio.Group onChange={onChange} value={selectedOption.index}>
           <Space direction="vertical">
-            {pollOptions.map((option, index) => (
-              <Radio value={index} key={option.user_id} disabled={option.user_id === currentUser?.id}>
+            {pollOptions.map((option, index) => {
+             return (<Radio value={index} key={option.user_id} disabled={option.user_id === currentUser?.id}>
                 {option.content}
-              </Radio>
-            ))}
+              </Radio>)})}
           </Space>
         </Radio.Group>
         <Button

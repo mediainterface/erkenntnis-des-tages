@@ -1,31 +1,19 @@
 import { PERSON_X_EMAIL } from '@/common/constants/person-x-email.constants'
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
-import { supabase } from '@/supabase.tsx'
-import { User } from '@supabase/supabase-js'
 import { Button, Card, Flex, Typography } from 'antd'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useUserStore } from "@/stores/useUserStore.tsx";
 
 export const Home: React.FC = () => {
-  const [user, setUser] = React.useState<User | null>(null)
+  const { user, userProfile } = useUserStore()
   const navigate = useNavigate()
-
-  React.useEffect(() => {
-    const getUser = async () => {
-      const { data } = await supabase.auth.getUser()
-      if (data) {
-        setUser(data.user)
-      }
-    }
-
-    getUser()
-  }, [])
 
   const handleCreatePoll = () => {
     navigate(ROUTING_PATH.createPoll)
   }
 
-  const userName = user?.email ?? 'keine E-Mail'
+  const userName = userProfile?.username
   const greeting = user?.email === PERSON_X_EMAIL ? 'Bonjour' : 'Hello'
   const greetingText = `${greeting} ${userName}`
   return (

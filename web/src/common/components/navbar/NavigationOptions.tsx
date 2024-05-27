@@ -5,7 +5,7 @@ import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
 
 import { PERSON_X_EMAIL } from '@/common/constants/person-x-email.constants'
-import { useUserStore } from '@/stores/user.store'
+import { useUserStore } from '@/stores/useUserStore.tsx'
 import { supabase } from '@/supabase.tsx'
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'

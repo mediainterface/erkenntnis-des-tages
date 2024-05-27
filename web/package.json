@@ -17,7 +17,7 @@
     "@ant-design/icons": "^5.3.6",
     "@supabase/auth-ui-react": "^0.4.7",
     "@supabase/auth-ui-shared": "^0.1.8",
-    "@supabase/supabase-js": "^2.42.5",
+    "@supabase/supabase-js": "^2.43.4",
     "antd": "^5.16.2",
     "date-fns": "^3.6.0",
     "gravatar": "^1.8.2",

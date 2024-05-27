@@ -1,37 +1,22 @@
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
-import { useGravatar } from '@/common/hooks/UseGravatar'
+import { useGravatar } from '@/common/hooks/useGravatar.tsx'
 import { CreateProfile } from '@/common/types/tables/profiles/create-profile.type'
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
 import { supabase } from '@/supabase'
 import { UserOutlined } from '@ant-design/icons'
-import { User } from '@supabase/supabase-js'
 import { Button } from 'antd'
 import Input from 'antd/es/input/Input'
 import Title from 'antd/es/typography/Title'
 import Typography from 'antd/es/typography/Typography'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useUserStore } from "@/stores/useUserStore.tsx";
 
 export const CompleteProfile: React.FC = () => {
-  const [user, setUser] = React.useState<User | null>(null)
+  const user = useUserStore((state) => state.user)
   const [username, setUsername] = React.useState('')
   const navigate = useNavigate()
   const [getGravatarUrl] = useGravatar()
-
-  const getUser = React.useCallback(async () => {
-    const {
-      data: { user },
-      error,
-    } = await supabase.auth.getUser()
-    if (!user || error) {
-      throw new Error(error?.message)
-    }
-    setUser(user)
-  }, [])
-
-  React.useEffect(() => {
-    getUser()
-  }, [getUser])
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value)

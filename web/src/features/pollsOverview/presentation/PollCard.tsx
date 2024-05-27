@@ -4,6 +4,7 @@ import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.co
 import { FormOutlined, PieChartOutlined } from '@ant-design/icons'
 import { Button, Card, Flex, Tooltip } from 'antd'
 import { generatePath, useNavigate } from 'react-router-dom'
+import React from "react";
 
 type PollCardProps = {
   poll: Poll
