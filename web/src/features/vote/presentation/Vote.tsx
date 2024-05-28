@@ -27,7 +27,7 @@ export const Vote: React.FC = () => {
   const navigate = useNavigate()
 
   const getPollOptions = React.useCallback(async () => {
-    const { data, error } = await supabase.from('poll_options').select().eq('poll_id', pollId)
+    const { data, error } = await supabase.from(TABLE_NAME.poll_options).select().eq('poll_id', pollId)
     if (!data || error) {
       console.error(error)
       return
