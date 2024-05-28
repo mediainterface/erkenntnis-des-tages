@@ -5,7 +5,7 @@ import { User } from '@supabase/supabase-js'
 import { Button, Flex, Typography } from 'antd'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import './test.css'
+import { GeneralOrder } from './GeneralOrder'
 
 export const Home: React.FC = () => {
   const [user, setUser] = React.useState<User | null>(null)
@@ -31,18 +31,7 @@ export const Home: React.FC = () => {
   const greetingText = `${greeting} ${userName}`
   return (
     <Flex vertical align={'center'} justify="center" gap="large" style={{ height: '100%' }}>
-      <span
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          width: '50%',
-          height: '80%',
-          borderRadius: '100%',
-          border: '1px solid white',
-          transform: 'translate(-50%, -50%)',
-        }}
-      />
+      <GeneralOrder />
       <Typography.Text>{greetingText}</Typography.Text>
       <div style={{ maxWidth: '250px' }}>
         <img src="https://cdn-icons-png.flaticon.com/128/3468/3468306.png" alt={'unicorn'} />
