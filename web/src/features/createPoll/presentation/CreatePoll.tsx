@@ -15,28 +15,8 @@ import { Poll } from '@/common/types/tables/polls/poll.type'
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
 
 import { Loader } from '@/common/components/loader/Loader'
+import { generateOrder } from '../helper/creatPollHelper'
 import { EdtInput, EdtInputHandle } from './EdtInput'
-
-const generateOrder = (profiles: Profile[], startPoint: number, lastPoint: number): Profile[] => {
-  const order: Profile[] = []
-  for (let i = startPoint - 1; i <= lastPoint - 1; i++) {
-    // if profile is undefined skip this one
-    if (!profiles[i]) {
-      continue
-    }
-    order.push(profiles[i])
-  }
-
-  for (let i = 0; i < startPoint - 1; i++) {
-    // if profile is undefined skip this one
-    if (!profiles[i]) {
-      continue
-    }
-    order.push(profiles[i])
-  }
-
-  return order
-}
 
 export const CreatePoll: React.FC = () => {
   const [profiles, setProfiles] = React.useState<Profile[]>([])
@@ -57,24 +37,11 @@ export const CreatePoll: React.FC = () => {
       }
       setCurrentUser(user)
 
-      const { data, error: profilesError } = await supabase.from(TABLE_NAME.profiles).select()
-
-      if (profilesError) {
-        throw new Error('cannot get profiles')
-      }
-
-      const profilesResponse = (data as Profile[])
-        .filter((profiles) => profiles.order_id !== -1)
-        .sort((a, b) => a.order_id - b.order_id)
-
-      const startOrderPoint = profilesResponse.find((profile) => profile.user_id === user.id)?.order_id ?? 0
-
-      const lastOrderPoint = profilesResponse.reduce((a, b) => {
-        const highestValue = Math.max(a.order_id, b.order_id)
-        return a.order_id === highestValue ? a : b
-      }).order_id
-
-      setProfiles(generateOrder(profilesResponse, startOrderPoint, lastOrderPoint))
+      setProfiles(
+        await generateOrder(user.id).catch((error) => {
+          throw error
+        }),
+      )
     } catch (error) {
       alert(error)
     }
