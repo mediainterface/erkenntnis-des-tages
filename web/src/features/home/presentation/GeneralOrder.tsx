@@ -19,17 +19,14 @@ const Circle: React.FC<CircleProps> = ({ x, y, radius }) => (
   ></div>
 )
 
-interface CircleArrangementProps {
-  largeRadius: number
-  smallRadius: number
-  smallCircleCount: number
-  centerX: number
-  centerY: number
+interface GeneralOrderProps {
+  size: number
 }
 
-export const GeneralOrder: React.FC<CircleArrangementProps> = () => {
-  const largeRadius = 500
-  const smallRadius = 100
+export const GeneralOrder: React.FC<GeneralOrderProps> = (props) => {
+  const { size } = props
+  const largeRadius = size
+  const smallRadius = size / 6
   const smallCircleCount = 10
   const centerX = 110
   const centerY = 110
@@ -50,8 +47,8 @@ export const GeneralOrder: React.FC<CircleArrangementProps> = () => {
         height: 2 * (largeRadius + smallRadius),
         position: 'absolute',
         zIndex: 0,
-        top: '42%',
-        left: '45%',
+        top: '38%',
+        left: '43%',
       }}
     >
       <Circle x={centerX} y={centerY} radius={largeRadius} />
