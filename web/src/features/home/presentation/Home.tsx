@@ -31,7 +31,7 @@ export const Home: React.FC = () => {
   const greetingText = `${greeting} ${userName}`
   return (
     <Flex vertical align={'center'} justify="center" gap="large" style={{ height: '100%' }}>
-      <GeneralOrder />
+      <GeneralOrder size={300} />
       <Typography.Text>{greetingText}</Typography.Text>
       <div style={{ maxWidth: '250px' }}>
         <img src="https://cdn-icons-png.flaticon.com/128/3468/3468306.png" alt={'unicorn'} />
