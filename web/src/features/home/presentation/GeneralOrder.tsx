@@ -11,7 +11,9 @@ type CircleProps = {
 } & Partial<Profile>
 
 const Circle: React.FC<CircleProps> = (props) => {
-  const { x, y, radius, avatar_url, username } = props
+  const { x, y, radius, avatar_url, username, order_id } = props
+  const borderStyle = order_id === 1 ? '4px solid gold' : '1px solid white'
+
   return (
     <Tooltip title={username}>
       <img
@@ -23,7 +25,7 @@ const Circle: React.FC<CircleProps> = (props) => {
           position: 'absolute',
           left: x - radius,
           top: y - radius,
-          border: '1px solid white',
+          border: borderStyle,
         }}
       />
     </Tooltip>
@@ -66,7 +68,6 @@ export const GeneralOrder: React.FC<GeneralOrderProps> = (props) => {
       const angle = i * angleStep - 1.6
       const x = centerX + largeRadius * Math.cos(angle)
       const y = centerY + largeRadius * Math.sin(angle)
-      // TODO: mark first circle
       circles.push(<Circle key={i} x={x} y={y} radius={smallRadius} {...profiles[i]} />)
     }
   }
@@ -82,7 +83,17 @@ export const GeneralOrder: React.FC<GeneralOrderProps> = (props) => {
         left: '43%',
       }}
     >
-      <Circle x={centerX} y={centerY} radius={largeRadius} />
+      <div
+        style={{
+          width: largeRadius * 2,
+          height: largeRadius * 2,
+          borderRadius: '50%',
+          position: 'absolute',
+          left: centerX - largeRadius,
+          top: centerY - largeRadius,
+          border: '1px solid white',
+        }}
+      ></div>
       {circles}
     </div>
   )
