@@ -19,12 +19,21 @@ export const sortVotesToCorrectOrder = async (pollId: Poll['id'], voteOptions: P
   }
   const poll = data as Poll
   const correctOrder = await generateOrder(poll.user_id)
-  //create a map for quick lookup of orderId by userId
-  const correctOrderMap = new Map(
-    correctOrder
-      .filter((profile) => voteOptions.some((option) => option.user_id === profile.user_id))
-      .map((profile) => [profile.user_id, profile.order_id]),
-  )
 
-  return voteOptions.sort((a, b) => (correctOrderMap.get(a.user_id) ?? 0) - (correctOrderMap.get(b.user_id) ?? 0))
+  const filteredOrder = correctOrder.filter((profile) =>
+    voteOptions.some((option) => option.user_id === profile.user_id),
+  )
+  const voteOptionsLength = voteOptions.length
+  const sortedVotes = Array<PollOption>(voteOptionsLength)
+
+  for (let i = 0; i < voteOptions.length; i++) {
+    const currentProfile = filteredOrder[i]
+    const vote = voteOptions.find((option) => option.user_id === currentProfile.user_id)
+    if (!vote) {
+      continue
+    }
+    sortedVotes[i] = vote
+  }
+
+  return sortedVotes
 }
