@@ -3,6 +3,7 @@ import { Poll } from '@/common/types/tables/polls/poll.type'
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
 import { FormOutlined, PieChartOutlined } from '@ant-design/icons'
 import { Button, Card, Flex, Tooltip } from 'antd'
+import React from 'react'
 import { generatePath, useNavigate } from 'react-router-dom'
 
 type PollCardProps = {
@@ -36,4 +37,3 @@ export const PollCard: React.FC<PollCardProps> = (props) => {
     </Card>
   )
 }
-

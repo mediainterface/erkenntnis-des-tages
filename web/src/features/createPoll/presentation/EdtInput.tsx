@@ -28,7 +28,15 @@ export const EdtInput = React.forwardRef<EdtInputHandle, EdtInputProps>((props, 
     <Card style={{ width: '300px' }}>
       <Flex vertical gap={'middle'}>
         <Card.Meta avatar={<Avatar src={profile.avatar_url} />} title={profile.username} />
-        <Input value={edtInput} onChange={handleEdtInputChange} />
+        <Input
+          value={edtInput}
+          onChange={handleEdtInputChange}
+          style={{
+            backgroundColor: 'var(--ant-layout-color-bg-body)',
+            borderRadius: '10px',
+            border: '1px solid var(--ant-color-border-secondary)',
+          }}
+        />
       </Flex>
     </Card>
   )

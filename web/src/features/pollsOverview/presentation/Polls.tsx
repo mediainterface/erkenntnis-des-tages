@@ -20,4 +20,3 @@ export const Polls: React.FC<PollsProps> = (props) => {
     </Flex>
   )
 }
-
