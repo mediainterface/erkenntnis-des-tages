@@ -1,18 +1,17 @@
-import { create } from 'zustand';
-import { supabase } from "@/supabase.tsx";
-
+import { supabase } from '@/supabase.tsx'
+import { create } from 'zustand'
 
 export type Profile = {
   user_id: string
   username: string
   avatar_url: string
   order_id: number
-};
+}
 
 type ProfileState = {
-  profiles: { [key: string]: Profile | null };
-  getProfile: (user_id: string) => Promise<Profile | null>;
-};
+  profiles: { [key: string]: Profile | null }
+  getProfile: (user_id: string) => Promise<Profile | null>
+}
 
 export const useProfilesStore = create<ProfileState>((set) => ({
   profiles: {},
@@ -21,7 +20,7 @@ export const useProfilesStore = create<ProfileState>((set) => ({
       .from('profiles') // Adjust table name if needed
       .select()
       .eq('user_id', user_id)
-      .single();
+      .single()
 
     if (data) {
       const profile = data as Profile
@@ -30,8 +29,8 @@ export const useProfilesStore = create<ProfileState>((set) => ({
           ...state.profiles,
           [user_id]: profile,
         },
-      }));
+      }))
       return profile
     }
   },
-}));
+}))

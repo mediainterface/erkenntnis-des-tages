@@ -1,11 +1,11 @@
-import { supabase } from '@/supabase'
 import { AppLayout } from '@/common/components/layout/presentation/AppLayout.tsx'
+import { LoginForm } from '@/features/auth/presentation/LoginForm.tsx'
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
 import { useUserStore } from '@/stores/useUserStore.tsx'
+import { supabase } from '@/supabase'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getUserProfile } from '../helper/profile.helper'
-import { LoginForm } from "@/features/auth/presentation/LoginForm.tsx";
 
 export const AuthProvider: React.FC = () => {
   const [shouldShowAuthScreen, setShouldShowAuthScreen] = React.useState(true)
@@ -41,19 +41,13 @@ export const AuthProvider: React.FC = () => {
     return () => {
       authListener.subscription.unsubscribe()
     }
-  }, [navigate, checkProfile, setUser,clearUser])
-
+  }, [navigate, checkProfile, setUser, clearUser, updateUserProfile])
 
   const handleLoginSuccess = (session) => {
-    setShouldShowAuthScreen(false);
-    setUser(session.user);
-    checkProfile();
-  };
+    setShouldShowAuthScreen(false)
+    setUser(session.user)
+    checkProfile()
+  }
 
-  return shouldShowAuthScreen ? (
-    <LoginForm onLoginSuccess={handleLoginSuccess} />
-  ) : (
-    <AppLayout />
-  )
+  return shouldShowAuthScreen ? <LoginForm onLoginSuccess={handleLoginSuccess} /> : <AppLayout />
 }
-

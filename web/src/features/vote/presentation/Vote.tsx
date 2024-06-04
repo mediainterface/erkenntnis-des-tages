@@ -7,7 +7,7 @@ import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.co
 import { supabase } from '@/supabase'
 import { ShareAltOutlined } from '@ant-design/icons'
 import { User } from '@supabase/supabase-js'
-import { Button, Card, Divider, Flex, Input, Radio, RadioChangeEvent, Space, Tooltip, message } from 'antd'
+import { Button, Card, Divider, Flex, Input, message, Radio, RadioChangeEvent, Space, Tooltip } from 'antd'
 import React from 'react'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
 
@@ -88,9 +88,7 @@ export const Vote: React.FC = () => {
           <Flex gap={'small'}>
             <Input defaultValue={currentUrl} disabled={true} />
             <Tooltip title="Copy to Clipboard">
-              <Button icon={<ShareAltOutlined />} onClick={onShareClick}>
-                Teilen
-              </Button>
+              <Button icon={<ShareAltOutlined />} onClick={onShareClick} />
             </Tooltip>
           </Flex>
         }
@@ -100,9 +98,23 @@ export const Vote: React.FC = () => {
         <Radio.Group onChange={onChange} value={selectedOption.index}>
           <Space direction="vertical">
             {pollOptions.map((option, index) => {
-             return (<Radio value={index} key={option.user_id} disabled={option.user_id === currentUser?.id}>
-                {option.content}
-              </Radio>)})}
+              return (
+                <Radio
+                  value={index}
+                  key={option.user_id}
+                  disabled={option.user_id === currentUser?.id}
+                  style={{
+                    backgroundColor: 'var(--ant-layout-color-bg-body)',
+                    borderRadius: '10px',
+                    border: '1px solid var(--ant-color-border-secondary)',
+                    padding: '0.3rem 0.5rem',
+                    minWidth: '277px',
+                  }}
+                >
+                  {option.content}
+                </Radio>
+              )
+            })}
           </Space>
         </Radio.Group>
         <Button
@@ -117,4 +129,3 @@ export const Vote: React.FC = () => {
     </Card>
   )
 }
-

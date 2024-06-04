@@ -2,6 +2,7 @@ import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { useGravatar } from '@/common/hooks/useGravatar.tsx'
 import { CreateProfile } from '@/common/types/tables/profiles/create-profile.type'
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
+import { useUserStore } from '@/stores/useUserStore.tsx'
 import { supabase } from '@/supabase'
 import { UserOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
@@ -10,7 +11,6 @@ import Title from 'antd/es/typography/Title'
 import Typography from 'antd/es/typography/Typography'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useUserStore } from "@/stores/useUserStore.tsx";
 
 export const CompleteProfile: React.FC = () => {
   const user = useUserStore((state) => state.user)
@@ -59,4 +59,3 @@ export const CompleteProfile: React.FC = () => {
     </>
   )
 }
-

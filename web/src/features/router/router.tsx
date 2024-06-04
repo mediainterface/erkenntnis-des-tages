@@ -1,4 +1,5 @@
 import { Home } from '@/features/home/presentation/Home.tsx'
+import { UserProfile } from '@/features/userProfile/presentation/UserProfile.tsx'
 import { RouteObject, createHashRouter } from 'react-router-dom'
 import { AuthProvider } from '../auth/presentation/AuthProvider'
 import { CompleteProfile } from '../completeProfile/presentation/CompleteProfile'
@@ -10,7 +11,6 @@ import { ROUTING_PATH } from './domain/constants/routing-path.constants'
 import { completeProfileLoader } from './loader/complete-profile-loader'
 import { resultLoader } from './loader/result-loader'
 import { voteLoader } from './loader/vote-loader'
-import { UserProfile } from "@/features/userProfile/presentation/UserProfile.tsx";
 
 const routes: RouteObject[] = [
   {
@@ -49,4 +49,3 @@ const routes: RouteObject[] = [
 ]
 
 export const router = createHashRouter(routes)
-

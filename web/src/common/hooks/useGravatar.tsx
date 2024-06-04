@@ -11,4 +11,3 @@ export const useGravatar = (): UseGravatarReturn => {
 
   return [getGravatarUrl]
 }
-

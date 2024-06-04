@@ -5,4 +5,3 @@ export const TABLE_NAME = Object.freeze({
   votes: 'poll_votes',
   userProfile: 'user_profile',
 } as const)
-
