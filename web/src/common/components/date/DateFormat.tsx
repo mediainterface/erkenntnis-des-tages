@@ -10,4 +10,3 @@ export const DateFormat: FC<DateProps> = ({ date }) => {
   const formattedDate = format(date, 'dd.MM.yyyy - HH:MM:ss')
   return <Typography style={{ marginRight: '10px' }}>{formattedDate}</Typography>
 }
-

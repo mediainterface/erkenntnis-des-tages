@@ -44,4 +44,3 @@ const routes: RouteObject[] = [
 ]
 
 export const router = createHashRouter(routes)
-

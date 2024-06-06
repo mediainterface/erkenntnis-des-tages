@@ -5,4 +5,3 @@ export const Loader: React.FC = () => (
     <Spin size="large" />
   </Space>
 )
-

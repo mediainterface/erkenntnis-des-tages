@@ -6,4 +6,3 @@ export type Poll = {
   // iso date string
   created_at: string
 }
-

@@ -18,4 +18,3 @@ export const getUserProfile = async (): Promise<Profile | undefined> => {
 
   return profileData.find((profile) => profile.user_id === user?.id)
 }
-

@@ -4,4 +4,3 @@ export type Profile = {
   user_id: string
   username: string
 }
-
