@@ -42,9 +42,9 @@ export const GeneralOrder: React.FC<GeneralOrderProps> = (props) => {
   const largeRadius = size
   const smallRadius = 50
   // const smallRadius = size / 6
-  const smallCircleCount = 2
-  const centerX = 110
-  const centerY = 110
+  const smallCircleCount = 10
+  const centerX = 320
+  const centerY = centerX
   const circles = []
   const angleStep = (2 * Math.PI) / smallCircleCount
 
@@ -69,14 +69,14 @@ export const GeneralOrder: React.FC<GeneralOrderProps> = (props) => {
       const angle = i * angleStep
       console.log(i, angle)
       const x = centerX + largeRadius * Math.cos(angle)
-      const y = centerY + largeRadius * Math.sin(angle)
+      const y = centerY + 5 + largeRadius * Math.sin(angle)
       // circles.push(<Circle key={i} x={x} y={y} radius={smallRadius} {...profiles[i]} />)
       //
       circles.push(
         <div
           key={i}
           style={{
-            background: 'yellow',
+            backgroundImage: 'yellow',
             width: 50,
             height: 50,
             borderRadius: '50%',
