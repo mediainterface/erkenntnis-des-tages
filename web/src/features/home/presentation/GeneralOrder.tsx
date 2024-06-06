@@ -1,7 +1,7 @@
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { Profile } from '@/common/types/tables/profiles/profile.type'
 import { supabase } from '@/supabase'
-import { Tooltip } from 'antd'
+import { Flex, Tooltip, Typography } from 'antd'
 import React from 'react'
 
 type CircleProps = {
@@ -40,8 +40,9 @@ export const GeneralOrder: React.FC<GeneralOrderProps> = (props) => {
   const { size } = props
   const [profiles, setProfiles] = React.useState<Profile[]>([])
   const largeRadius = size
-  const smallRadius = size / 6
-  const smallCircleCount = 10
+  const smallRadius = 50
+  // const smallRadius = size / 6
+  const smallCircleCount = 2
   const centerX = 110
   const centerY = 110
   const circles = []
@@ -65,36 +66,59 @@ export const GeneralOrder: React.FC<GeneralOrderProps> = (props) => {
 
   if (profiles.length) {
     for (let i = 0; i < smallCircleCount; i++) {
-      const angle = i * angleStep - 1.6
+      const angle = i * angleStep
+      console.log(i, angle)
       const x = centerX + largeRadius * Math.cos(angle)
       const y = centerY + largeRadius * Math.sin(angle)
-      circles.push(<Circle key={i} x={x} y={y} radius={smallRadius} {...profiles[i]} />)
+      // circles.push(<Circle key={i} x={x} y={y} radius={smallRadius} {...profiles[i]} />)
+      //
+      circles.push(
+        <div
+          key={i}
+          style={{
+            background: 'yellow',
+            width: 50,
+            height: 50,
+            borderRadius: '50%',
+            position: 'absolute',
+            border: '1px solid black',
+            // top: `calc(0% - 25px)`,
+            top: x - smallRadius,
+            // left: `calc(0% - 25px)`,
+            left: y - smallRadius,
+          }}
+        />,
+      )
     }
   }
 
   return (
-    <div
-      style={{
-        width: 2 * (largeRadius + smallRadius),
-        height: 2 * (largeRadius + smallRadius),
-        position: 'fixed',
-        zIndex: 0,
-        top: '38%',
-        left: '43%',
-      }}
-    >
+    <>
       <div
         style={{
+          backgroundColor: 'green',
           width: largeRadius * 2,
           height: largeRadius * 2,
           borderRadius: '50%',
+          zIndex: 1000,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
           position: 'absolute',
-          left: centerX - largeRadius,
-          top: centerY - largeRadius,
+          // left: centerX - largeRadius,
+          // top: centerY - largeRadius,
           border: '1px solid white',
         }}
-      ></div>
-      {circles}
-    </div>
+      >
+        <Flex vertical align={'center'} justify="center" gap="large" style={{ height: '100%' }}>
+          <Typography.Text>TEST</Typography.Text>
+          <div style={{ maxWidth: '250px' }}>
+            <img src="https://cdn-icons-png.flaticon.com/128/3468/3468306.png" alt={'unicorn'} />
+          </div>
+        </Flex>
+
+        {circles}
+      </div>
+    </>
   )
 }
