@@ -48,4 +48,3 @@ export const AuthProvider: React.FC = () => {
     <AppLayout />
   )
 }
-

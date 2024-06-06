@@ -7,4 +7,3 @@ export const ROUTING_PATH = Object.freeze({
   result: '/:pollId/result',
   pollsOverview: '/polls-overview',
 } as const)
-

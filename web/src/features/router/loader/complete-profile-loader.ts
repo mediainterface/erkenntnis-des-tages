@@ -6,4 +6,3 @@ export const completeProfileLoader = async () => {
   const profile = await getUserProfile()
   return profile ? redirect(ROUTING_PATH.home) : null
 }
-

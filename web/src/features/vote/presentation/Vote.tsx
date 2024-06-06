@@ -10,6 +10,7 @@ import { User } from '@supabase/supabase-js'
 import { Button, Card, Divider, Flex, Input, Radio, RadioChangeEvent, Space, Tooltip, message } from 'antd'
 import React from 'react'
 import { generatePath, useNavigate, useParams } from 'react-router-dom'
+import { sortVotesToCorrectOrder } from '../helper/voteHelper'
 
 type SelectedOption = Pick<PollVote, 'poll_option_id'> & {
   index: number
@@ -27,12 +28,12 @@ export const Vote: React.FC = () => {
   const navigate = useNavigate()
 
   const getPollOptions = React.useCallback(async () => {
-    const { data, error } = await supabase.from('poll_options').select().eq('poll_id', pollId)
+    const { data, error } = await supabase.from(TABLE_NAME.poll_options).select().eq('poll_id', pollId)
     if (!data || error) {
       console.error(error)
       return
     }
-    setPollOptions(data as PollOption[])
+    setPollOptions(await sortVotesToCorrectOrder(pollId, data as PollOption[]))
   }, [pollId])
 
   const getCurrentUser = React.useCallback(async () => {
@@ -118,4 +119,3 @@ export const Vote: React.FC = () => {
     </Card>
   )
 }
-
