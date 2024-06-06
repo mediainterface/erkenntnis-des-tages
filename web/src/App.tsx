@@ -4,4 +4,3 @@ import { router } from './features/router/router'
 const App = () => <RouterProvider router={router} />
 
 export default App
-

@@ -5,4 +5,3 @@ export type PollOption = Pick<Poll, 'user_id' | 'created_at'> & {
   poll_id: string
   content: string
 }
-

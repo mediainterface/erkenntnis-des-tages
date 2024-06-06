@@ -74,4 +74,3 @@ export const CompleteProfile: React.FC = () => {
     </>
   )
 }
-

@@ -27,4 +27,3 @@ export const resultLoader = async ({ params }: LoaderFunctionArgs) => {
 
   return null
 }
-

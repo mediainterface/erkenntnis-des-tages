@@ -36,4 +36,3 @@ export const PollCard: React.FC<PollCardProps> = (props) => {
     </Card>
   )
 }
-

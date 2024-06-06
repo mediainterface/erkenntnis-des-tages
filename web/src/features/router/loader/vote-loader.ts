@@ -27,4 +27,3 @@ export const voteLoader = async ({ params }: LoaderFunctionArgs) => {
 
   return redirect(generatePath(ROUTING_PATH.result, { pollId }))
 }
-
