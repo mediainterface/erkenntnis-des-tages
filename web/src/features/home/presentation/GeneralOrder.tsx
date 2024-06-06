@@ -77,7 +77,7 @@ export const GeneralOrder: React.FC<GeneralOrderProps> = (props) => {
       style={{
         width: 2 * (largeRadius + smallRadius),
         height: 2 * (largeRadius + smallRadius),
-        position: 'absolute',
+        position: 'fixed',
         zIndex: 0,
         top: '38%',
         left: '43%',
