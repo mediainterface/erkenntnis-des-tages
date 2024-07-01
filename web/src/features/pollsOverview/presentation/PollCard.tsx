@@ -6,6 +6,7 @@ import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.co
 import { supabase } from '@/supabase'
 import { FormOutlined, PieChartOutlined } from '@ant-design/icons'
 import { Avatar, Button, Card, Flex, Tooltip } from 'antd'
+import { parseISO } from 'date-fns'
 import React from 'react'
 import { generatePath, useNavigate } from 'react-router-dom'
 
@@ -34,6 +35,7 @@ export const PollCard: React.FC<PollCardProps> = (props) => {
     getUser()
   }, [getUser])
 
+
   return (
     <Card
       style={{ width: '300px', borderColor: poll.is_closed ? 'var(--ant-color-primary-active)' : 'inherit' }}
@@ -43,7 +45,7 @@ export const PollCard: React.FC<PollCardProps> = (props) => {
         <Tooltip title={profile?.username}>
           <Avatar size="large" src={profile?.avatar_url} />
         </Tooltip>
-        <DateFormat date={new Date(poll.created_at)} />
+        <DateFormat date={parseISO(poll.created_at)} />
         <Tooltip title={poll.is_closed ? 'Ergebnisse' : 'Abstimmen'}>
           <Button
             type="primary"

@@ -7,6 +7,6 @@ type DateProps = {
 }
 export const DateFormat: FC<DateProps> = ({ date }) => {
   if (!date) return
-  const formattedDate = format(date, 'dd.MM.yyyy - HH:MM:ss')
+  const formattedDate = format(date, 'dd.MM.yyyy - HH:mm:ss')
   return <Typography style={{ marginRight: '10px' }}>{formattedDate}</Typography>
 }
