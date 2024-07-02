@@ -18,10 +18,6 @@ export const PollCard: React.FC<PollCardProps> = (props) => {
   const { poll } = props
   const navigate = useNavigate()
 
-  const handlePollClick = () => {
-    navigate(generatePath(poll.is_closed ? ROUTING_PATH.result : ROUTING_PATH.vote, { pollId: poll.id }))
-  }
-
   const [profile, setProfile] = React.useState<Profile | null>(null)
 
   const getUser = React.useCallback(async () => {
@@ -35,6 +31,9 @@ export const PollCard: React.FC<PollCardProps> = (props) => {
     getUser()
   }, [getUser])
 
+  const handlePollClick = () => {
+    navigate(generatePath(poll.is_closed ? ROUTING_PATH.result : ROUTING_PATH.vote, { pollId: poll.id }))
+  }
 
   return (
     <Card
