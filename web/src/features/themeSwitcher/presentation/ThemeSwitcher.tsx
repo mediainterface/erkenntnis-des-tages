@@ -38,15 +38,6 @@ export const ThemeSwitcher: React.FC = () => {
     if (!innerRect || !wrapperRect) {
       return
     }
-    if (
-      innerRect?.left < wrapperRect?.left ||
-      innerRect?.right > wrapperRect?.right ||
-      innerRect?.top < wrapperRect?.top ||
-      innerRect?.bottom > wrapperRect?.bottom
-    ) {
-      onMouseEnter(e)
-      return
-    }
 
     // Calculate the center of the element
     const centerX = outerRect.left + outerRect.width / 2
