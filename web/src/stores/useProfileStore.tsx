@@ -3,7 +3,7 @@ import { supabase } from '@/supabase.tsx'
 import { create } from 'zustand'
 
 type ProfileState = {
-  profiles: { [key: string]: Profile | null }
+  profiles: Record<string, Profile | null>
   getProfile: (user_id: string) => Promise<Profile | undefined>
 }
 
