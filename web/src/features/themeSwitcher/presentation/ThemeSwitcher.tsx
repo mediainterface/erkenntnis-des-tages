@@ -87,19 +87,19 @@ export const ThemeSwitcher: React.FC = () => {
     let maxDistance = 0
     let parentBoxPosition = { x: 0, y: 0 }
     const windowSize = { width: window.innerWidth, height: window.innerHeight }
-    const minPaddingForNewPositions = { width: windowSize.width * 0.1, height: windowSize.height * 0.1 }
+    const minPaddingForNewPositions = { width: windowSize.width * 0.2, height: windowSize.height * 0.2 }
     const visableYPositions = {
-      min: minPaddingForNewPositions.height,
+      min: 0,
       max: windowSize.height - minPaddingForNewPositions.height,
     }
     const visableXPositions = {
-      min: minPaddingForNewPositions.width,
+      min: 0,
       max: windowSize.width - minPaddingForNewPositions.width,
     }
 
     for (let i = 0; i < 10; i++) {
-      const randomX = randomBetween(visableXPositions.min, visableXPositions.max)
-      const randomY = randomBetween(visableYPositions.min, visableYPositions.max)
+      const randomX = randomBetween(visableXPositions.min, visableXPositions.max) * -1
+      const randomY = randomBetween(visableYPositions.min, visableYPositions.max) * -1
 
       const distance = Math.sqrt(Math.pow(randomX - cursorX, 2) + Math.pow(randomY - cursorY, 2))
       if (distance > maxDistance) {
@@ -117,9 +117,8 @@ export const ThemeSwitcher: React.FC = () => {
     setOuterY(0)
   }
 
-  // TODO: start at the bottom right
   return (
-    <div style={{ position: 'absolute', top: 25, left: 25 }}>
+    <div style={{ position: 'absolute', bottom: 25, right: 25 }}>
       <div
         style={{
           display: 'inline-block',
