@@ -1,9 +1,8 @@
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { Profile } from '@/common/types/tables/profiles/profile.type'
 import { supabase } from '@/supabase'
-import { Badge, Flex, Form, Tooltip } from 'antd'
+import { Badge, Flex, Form, Tooltip, Typography } from 'antd'
 import Avatar from 'antd/es/avatar/avatar'
-import Typography from 'antd/es/typography/Typography'
 import React from 'react'
 import { PollResult } from '../domain/type/poll-result.type'
 
