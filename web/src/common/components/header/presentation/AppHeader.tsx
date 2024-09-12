@@ -8,11 +8,10 @@ import { useNavigate } from 'react-router-dom'
 export const AppHeader: React.FC = () => {
   const navigate = useNavigate()
   const userProfile = useUserStore((state) => state.userProfile)
-  console.log(userProfile)
 
   return (
     <Flex justify={'space-between'}>
-      <Typography.Title>EDT </Typography.Title>
+      <Typography.Title>EDT</Typography.Title>
       <Avatar onClick={() => navigate(ROUTING_PATH.userProfile)} size="large" src={userProfile?.avatar_url} />
     </Flex>
   )
