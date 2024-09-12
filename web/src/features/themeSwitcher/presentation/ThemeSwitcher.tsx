@@ -138,7 +138,6 @@ export const ThemeSwitcher: React.FC = () => {
         onMouseMove={onOuterMove}
         ref={outerRef}
       >
-        {/*TODO: display tooltip with "sry Henri :)"*/}
         <div
           ref={ref}
           style={{
