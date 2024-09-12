@@ -117,6 +117,7 @@ export const ThemeSwitcher: React.FC = () => {
     setOuterY(0)
   }
 
+  // TODO: start at the bottom right
   return (
     <div style={{ position: 'absolute', top: 25, left: 25 }}>
       <div
