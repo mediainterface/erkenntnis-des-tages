@@ -1,24 +1,24 @@
+import { Button } from 'antd'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 // mostly copied from: https://seangrindal.com/writing/cheeky-button?from=writing
 
 export const ThemeSwitcher: React.FC = () => {
   // Inner threshold wrapper to snap the button to a new position
   const ref = React.useRef<HTMLDivElement>(null)
-
   // Outer wrapper to move the button away from the cursor
   const outerRef = React.useRef<HTMLDivElement>(null)
-
   // Snap offset for the button
   const [x, setX] = React.useState(0)
   const [y, setY] = React.useState(0)
-
   // Slow move offset for the button
   const [outerX, setOuterX] = React.useState(0)
   const [outerY, setOuterY] = React.useState(0)
-
   // For disabling the button when it's moving
   const [disabled, setDisabled] = React.useState(false)
+
+  const navigate = useNavigate()
 
   const randomBetween = (min: number, max: number) => {
     return Math.random() * (max - min) + min
@@ -117,6 +117,10 @@ export const ThemeSwitcher: React.FC = () => {
     setOuterY(0)
   }
 
+  const handleClick = () => {
+    navigate('https://www.youtube.com/watch?v=xvFZjo5PgG0')
+  }
+
   return (
     <div style={{ position: 'absolute', bottom: 25, right: 25 }}>
       <div
@@ -141,7 +145,7 @@ export const ThemeSwitcher: React.FC = () => {
           onMouseEnter={onMouseEnter}
           onMouseMove={onMouseEnter}
         >
-          <button>Click Me</button>
+          <Button onClick={handleClick}>Click Me</Button>
         </div>
       </div>
     </div>
