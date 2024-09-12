@@ -94,7 +94,7 @@ export const ThemeSwitcher: React.FC = () => {
     // Generate 10 random positions inside the wrapper
     // and keep track of the farthest one
     let maxDistance = 0
-    let farthestPosition = { x: 0, y: 0 }
+    let parentBoxPosition = { x: 0, y: 0 }
     const visableXPositions = { min: 450, max: 1300 }
     for (let i = 0; i < 10; i++) {
       const randomX = randomBetween(visableXPositions.min, visableXPositions.max)
@@ -103,14 +103,14 @@ export const ThemeSwitcher: React.FC = () => {
       const distance = Math.sqrt(Math.pow(randomX - cursorX, 2) + Math.pow(randomY - cursorY, 2))
       if (distance > maxDistance) {
         maxDistance = distance
-        farthestPosition = { x: randomX, y: randomY }
-        console.log(farthestPosition)
+        parentBoxPosition = { x: randomX, y: randomY }
+        console.log(parentBoxPosition)
       }
     }
 
     // Set the button's translation to the farthest position
-    setX(farthestPosition.x - wrapperRect.width / 2)
-    setY(farthestPosition.y - wrapperRect.height / 2)
+    setX(parentBoxPosition.x - wrapperRect.width / 2)
+    setY(parentBoxPosition.y - wrapperRect.height / 2)
 
     // Reset the slow move offset covered next
     setOuterX(0)
