@@ -31,7 +31,19 @@ export const ResultOption: React.FC<PollResult> = (props) => {
             <Avatar size="large" src={profile?.avatar_url} />
           </Badge>
         </Tooltip>
-        <Typography>{content}</Typography>
+        <Typography.Title
+          level={4}
+          style={{
+            letterSpacing: '8px',
+            marginBottom: '0',
+            backgroundColor: 'var(--ant-layout-color-bg-body)',
+            padding: '0.3rem 0.8rem',
+            borderRadius: '10px',
+            border: '1px solid var(--ant-color-border-secondary)',
+          }}
+        >
+          {content}
+        </Typography.Title>
       </Flex>
     </Form.Item>
   )
