@@ -12,7 +12,12 @@ export const AppHeader: React.FC = () => {
   return (
     <Flex justify={'space-between'}>
       <Typography.Title>EDT</Typography.Title>
-      <Avatar onClick={() => navigate(ROUTING_PATH.userProfile)} size="large" src={userProfile?.avatar_url} />
+      <Avatar
+        style={{ cursor: 'pointer' }}
+        onClick={() => navigate(ROUTING_PATH.userProfile)}
+        size="large"
+        src={userProfile?.avatar_url}
+      />
     </Flex>
   )
 }
