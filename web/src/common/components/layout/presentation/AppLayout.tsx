@@ -17,11 +17,11 @@ export const AppLayout: React.FC = () => {
       </StyledHeader>
       <StyledContent>
         <Outlet />
-        <ThemeSwitcher />
       </StyledContent>
       <StyledFooter>
         <NavigationOptions />
       </StyledFooter>
+      <ThemeSwitcher />
     </StyledLayout>
   )
 }
