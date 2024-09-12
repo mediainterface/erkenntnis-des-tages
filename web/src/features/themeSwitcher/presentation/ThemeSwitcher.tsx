@@ -126,7 +126,7 @@ export const ThemeSwitcher: React.FC = () => {
   }
 
   return (
-    <div style={{ position: 'absolute', bottom: 25, right: 25 }}>
+    <div style={{ position: 'absolute', bottom: 30, right: 0 }}>
       <div
         style={{
           display: 'inline-block',
