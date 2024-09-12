@@ -1,3 +1,4 @@
+import { SunOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -147,7 +148,7 @@ export const ThemeSwitcher: React.FC = () => {
           onMouseEnter={onMouseEnter}
           onMouseMove={onMouseEnter}
         >
-          <Button onClick={handleClick}>Click Me</Button>
+          <Button onClick={handleClick} shape="circle" icon={<SunOutlined />} size="large" />
         </div>
       </div>
     </div>
