@@ -1,5 +1,7 @@
 import React from 'react'
 
+// mostly copied from: https://seangrindal.com/writing/cheeky-button?from=writing
+
 export const ThemeSwitcher: React.FC = () => {
   // Inner threshold wrapper to snap the button to a new position
   const ref = React.useRef<HTMLDivElement>(null)
