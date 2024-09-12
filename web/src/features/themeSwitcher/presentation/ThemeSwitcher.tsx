@@ -95,16 +95,25 @@ export const ThemeSwitcher: React.FC = () => {
     // and keep track of the farthest one
     let maxDistance = 0
     let parentBoxPosition = { x: 0, y: 0 }
-    const visableXPositions = { min: 450, max: 1300 }
+    const windowSize = { width: window.innerWidth, height: window.innerHeight }
+    const minPaddingForNewPositions = { width: windowSize.width * 0.1, height: windowSize.height * 0.1 }
+    const visableYPositions = {
+      min: minPaddingForNewPositions.height,
+      max: windowSize.height - minPaddingForNewPositions.height,
+    }
+    const visableXPositions = {
+      min: minPaddingForNewPositions.width,
+      max: windowSize.width - minPaddingForNewPositions.width,
+    }
+
     for (let i = 0; i < 10; i++) {
       const randomX = randomBetween(visableXPositions.min, visableXPositions.max)
-      const randomY = randomBetween(buttonRect.height / 2, wrapperRect.height - buttonRect.height / 2)
+      const randomY = randomBetween(visableYPositions.min, visableYPositions.max)
 
       const distance = Math.sqrt(Math.pow(randomX - cursorX, 2) + Math.pow(randomY - cursorY, 2))
       if (distance > maxDistance) {
         maxDistance = distance
         parentBoxPosition = { x: randomX, y: randomY }
-        console.log(parentBoxPosition)
       }
     }
 
@@ -118,29 +127,31 @@ export const ThemeSwitcher: React.FC = () => {
   }
 
   return (
-    <div
-      style={{
-        display: 'inline-block',
-        padding: '16px',
-        pointerEvents: disabled ? 'none' : 'auto',
-        opacity: disabled ? 0.05 : 1,
-        transform: `translate3d(${outerX + x}px, ${outerY + y}px, 0px)`,
-        transition: 'transform 120ms ease',
-      }}
-      onMouseMove={onOuterMove}
-      ref={outerRef}
-    >
-      {/*TODO: display tooltip with "sry Henri :)"*/}
+    <div style={{ position: 'absolute', top: 25, left: 25 }}>
       <div
-        ref={ref}
         style={{
           display: 'inline-block',
-          padding: '30px',
+          padding: '40px',
+          pointerEvents: disabled ? 'none' : 'auto',
+          opacity: disabled ? 0.05 : 1,
+          transform: `translate3d(${outerX + x}px, ${outerY + y}px, 0px)`,
+          transition: 'transform 120ms ease',
         }}
-        onMouseEnter={onMouseEnter}
-        onMouseMove={onMouseEnter}
+        onMouseMove={onOuterMove}
+        ref={outerRef}
       >
-        <button>Click Me</button>
+        {/*TODO: display tooltip with "sry Henri :)"*/}
+        <div
+          ref={ref}
+          style={{
+            display: 'inline-block',
+            padding: '10px',
+          }}
+          onMouseEnter={onMouseEnter}
+          onMouseMove={onMouseEnter}
+        >
+          <button>Click Me</button>
+        </div>
       </div>
     </div>
   )
