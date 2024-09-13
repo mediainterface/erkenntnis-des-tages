@@ -8,6 +8,7 @@ import Avatar from 'antd/es/avatar/avatar'
 import React from 'react'
 
 export const UserProfile: React.FC = () => {
+  const [messageApi, contextHolder] = message.useMessage()
   const [isChangeing, setIsChanging] = React.useState(false)
   const userProfile = useUserStore((state) => state.userProfile)
   const updateUserProfile = useUserStore((state) => state.updateUserProfile)
@@ -29,7 +30,7 @@ export const UserProfile: React.FC = () => {
   }
 
   const handleError = (text: string = 'Es ist ein Fehler aufgetreten') => {
-    message.error(text)
+    messageApi.error(text)
     setIsChanging(false)
   }
 
@@ -52,7 +53,7 @@ export const UserProfile: React.FC = () => {
     }
 
     updateUserProfile()
-    message.success('Das Profilbild wurde erfolgreich geändert')
+    messageApi.success('Das Profilbild wurde erfolgreich geändert')
     setIsChanging(false)
   }
 
@@ -85,7 +86,8 @@ export const UserProfile: React.FC = () => {
     } catch {
       handleError('Fehler beim Hochladen der Datei.')
     }
-    message.success('Profilbild wurde erfolgreich hochgeladen')
+
+    messageApi.success('Profilbild wurde erfolgreich hochgeladen')
     updateAvatarUrl()
   }
 
@@ -101,23 +103,26 @@ export const UserProfile: React.FC = () => {
   const BadgeIcon = isChangeing ? LoadingOutlined : UploadOutlined
 
   return (
-    <Flex style={{ justifyContent: 'center', alignItems: 'start', paddingTop: '5rem' }}>
-      <Card style={{ width: 300 }}>
-        <Flex align="center" gap={'large'}>
-          <Badge count={<BadgeIcon {...iconProps} />}>
-            <Avatar size={80} src={userProfile.avatar_url} />
-          </Badge>
-          <Descriptions items={items} title="Infos" />
-        </Flex>
-        {/* Hidden file input */}
-        <input
-          type="file"
-          ref={fileInputRef}
-          style={{ display: 'none' }}
-          onChange={handleFileChange}
-          accept="image/jpeg"
-        />
-      </Card>
-    </Flex>
+    <>
+      {contextHolder}
+      <Flex style={{ justifyContent: 'center', alignItems: 'start', paddingTop: '5rem' }}>
+        <Card style={{ width: 300 }}>
+          <Flex align="center" gap={'large'}>
+            <Badge count={<BadgeIcon {...iconProps} />}>
+              <Avatar size={80} src={userProfile.avatar_url} />
+            </Badge>
+            <Descriptions items={items} title="Infos" />
+          </Flex>
+          {/* Hidden file input */}
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
+            accept="image/jpeg"
+          />
+        </Card>
+      </Flex>
+    </>
   )
 }
