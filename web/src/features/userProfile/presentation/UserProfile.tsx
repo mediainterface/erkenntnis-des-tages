@@ -28,7 +28,7 @@ export const UserProfile: React.FC = () => {
     }
   }
 
-  const handleError = (text?: string) => {
+  const handleError = (text: string = 'Es ist ein Fehler aufgetreten') => {
     message.error(text)
     setIsChanging(false)
   }
@@ -37,7 +37,7 @@ export const UserProfile: React.FC = () => {
     const { data } = supabase.storage.from(bucketName).getPublicUrl(bucketFilePath)
 
     if (!data) {
-      handleError()
+      handleError('Das neue Profilbild konnte nicht geladen werden.')
       return
     }
 
@@ -47,9 +47,10 @@ export const UserProfile: React.FC = () => {
       .eq('user_id', userProfile.user_id)
 
     if (error) {
-      handleError('Das neue Profilbild konnte leider nicht gesetzt werden. Bitte versuche es nochmal')
+      handleError('Das neue Profilbild konnte leider nicht gesetzt werden. Bitte versuche es nochmal.')
       return
     }
+
     updateUserProfile()
     message.success('Das Profilbild wurde erfolgreich geändert')
     setIsChanging(false)
@@ -57,22 +58,35 @@ export const UserProfile: React.FC = () => {
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
+
     if (!file) {
-      handleError()
+      handleError('Keine Datei ausgewählt.')
       return
     }
-    const { data, error } = await supabase.storage.from(bucketName).upload(bucketFilePath, file, {
-      cacheControl: '3600',
-      upsert: false,
-    })
-    if (error) {
-      handleError('Fehler beim Hochladen der Datei')
-      return
+
+    try {
+      if (userProfile.avatar_url.includes('gravatar')) {
+        // Upload new avatar because the user is currently using Gravatar
+        const { error } = await supabase.storage
+          .from(bucketName)
+          .upload(bucketFilePath, file, { cacheControl: '3600', upsert: true })
+
+        if (error) {
+          throw error
+        }
+      } else {
+        // User already has a custom avatar, so update it
+        const { error } = await supabase.storage.from(bucketName).update(bucketFilePath, file, { cacheControl: '3600' })
+
+        if (error) {
+          throw error
+        }
+      }
+    } catch {
+      handleError('Fehler beim Hochladen der Datei.')
     }
-    if (data) {
-      message.success('Profilbild wurde erfolgreich hochgeladen')
-      updateAvatarUrl()
-    }
+    message.success('Profilbild wurde erfolgreich hochgeladen')
+    updateAvatarUrl()
   }
 
   const items: DescriptionsProps['items'] = [
