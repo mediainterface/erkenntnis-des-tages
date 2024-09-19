@@ -1,7 +1,6 @@
 import { SunOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 
 // mostly copied from: https://seangrindal.com/writing/cheeky-button?from=writing
 
@@ -21,8 +20,6 @@ export const ThemeSwitcher: React.FC = () => {
   const [outerY, setOuterY] = React.useState(0)
   // For disabling the button when it's moving
   const [disabled, setDisabled] = React.useState(false)
-
-  const navigate = useNavigate()
 
   const randomBetween = (min: number, max: number) => {
     return Math.random() * (max - min) + min
@@ -121,9 +118,6 @@ export const ThemeSwitcher: React.FC = () => {
     setOuterY(0)
   }
 
-  const handleClick = () => {
-    navigate('https://www.youtube.com/watch?v=xvFZjo5PgG0')
-  }
 
   return (
     <div style={{ position: 'absolute', bottom: 30, right: 0 }}>
@@ -148,7 +142,7 @@ export const ThemeSwitcher: React.FC = () => {
           onMouseEnter={onMouseEnter}
           onMouseMove={onMouseEnter}
         >
-          <Button onClick={handleClick} shape="circle" icon={<SunOutlined />} size="large" />
+          <Button shape="circle" icon={<SunOutlined />} size="large" href={'https://www.youtube.com/watch?v=xvFZjo5PgG0'} />
         </div>
       </div>
     </div>
