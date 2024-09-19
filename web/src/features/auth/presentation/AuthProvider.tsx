@@ -1,14 +1,14 @@
 import { supabase } from '@/supabase'
-import { Auth } from '@supabase/auth-ui-react'
-import { ThemeSupa } from '@supabase/auth-ui-shared'
 
 import { AppLayout } from '@/common/components/layout/presentation/AppLayout.tsx'
 
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
 import { useUserStore } from '@/stores/user.store'
+import { Session } from '@supabase/supabase-js'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getUserProfile } from '../helper/profile.helper'
+import { LoginForm } from './LoginForm'
 
 export const AuthProvider: React.FC = () => {
   const [shouldShowAuthScreen, setShouldShowAuthScreen] = React.useState(true)
@@ -42,9 +42,14 @@ export const AuthProvider: React.FC = () => {
     }
   }, [navigate, checkProfile, setUser])
 
-  return shouldShowAuthScreen ? (
-    <Auth supabaseClient={supabase} providers={[]} redirectTo="" appearance={{ theme: ThemeSupa }} />
-  ) : (
-    <AppLayout />
-  )
+  const handleLoginSuccess = (session: Session | null) => {
+    if (!session) {
+      return
+    }
+    setShouldShowAuthScreen(false)
+    setUser(session.user)
+    checkProfile()
+  }
+
+  return shouldShowAuthScreen ? <LoginForm onSuccess={handleLoginSuccess} /> : <AppLayout />
 }
