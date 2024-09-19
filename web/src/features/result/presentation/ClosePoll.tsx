@@ -1,7 +1,7 @@
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { Poll } from '@/common/types/tables/polls/poll.type'
 import { ROUTING_PATH } from '@/features/router/domain/constants/routing-path.constants'
-import { useUserStore } from '@/stores/user.store'
+import { useUserStore } from '@/stores/useUserStore'
 import { supabase } from '@/supabase'
 import { Button, message } from 'antd'
 import React from 'react'

@@ -5,6 +5,7 @@ import { CompleteProfile } from '../completeProfile/presentation/CompleteProfile
 import { CreatePoll } from '../createPoll/presentation/CreatePoll'
 import { PollsOverview } from '../pollsOverview/presentation/PollsOverview'
 import { VotesResult } from '../result/presentation/VotesResult'
+import { UserProfile } from '../userProfile/presentation/UserProfile'
 import { Vote } from '../vote/presentation/Vote'
 import { ROUTING_PATH } from './domain/constants/routing-path.constants'
 import { completeProfileLoader } from './loader/complete-profile-loader'
@@ -38,6 +39,10 @@ const routes: RouteObject[] = [
         path: ROUTING_PATH.completeProfile,
         element: <CompleteProfile />,
         loader: completeProfileLoader,
+      },
+      {
+        path: ROUTING_PATH.userProfile,
+        element: <UserProfile />,
       },
     ],
   },
