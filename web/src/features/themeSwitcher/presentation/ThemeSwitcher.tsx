@@ -121,9 +121,6 @@ export const ThemeSwitcher: React.FC = () => {
     setOuterY(0)
   }
 
-  const handleClick = () => {
-    navigate('https://www.youtube.com/watch?v=xvFZjo5PgG0')
-  }
 
   return (
     <div style={{ position: 'absolute', bottom: 30, right: 0 }}>
@@ -148,7 +145,7 @@ export const ThemeSwitcher: React.FC = () => {
           onMouseEnter={onMouseEnter}
           onMouseMove={onMouseEnter}
         >
-          <Button onClick={handleClick} shape="circle" icon={<SunOutlined />} size="large" />
+          <Button shape="circle" icon={<SunOutlined />} size="large" href={'https://www.youtube.com/watch?v=xvFZjo5PgG0'} />
         </div>
       </div>
     </div>
