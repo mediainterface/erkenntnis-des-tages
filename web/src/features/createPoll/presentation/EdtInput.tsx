@@ -27,21 +27,29 @@ export const EdtInput = React.forwardRef<EdtInputHandle, EdtInputProps>((props, 
     getEdtInput: () => ({ edt: edtInput, user_id: profile.user_id }),
   }))
 
+  const handleEmojiSelection = (emoji: { native: string }): void => {
+    setEdtInput(edtInput + emoji.native)
+  }
+
   return (
-    <Card style={{ width: '300px' }}>
-      <Flex vertical gap={'middle'}>
-        <Card.Meta avatar={<Avatar src={profile.avatar_url} />} title={profile.username} />
-        {/*TODO: adjust icon button*/}
-        <Button
-          onClick={() => {
-            setShowEmojiSelection(!showEmojiSelection)
-          }}
-        >
-          trigger
-        </Button>
-        <Input value={edtInput} onChange={handleEdtInputChange} />
-        {showEmojiSelection && <Picker data={data} onEmojiSelect={console.log} theme={'dark'} locale={'de'} />}
-      </Flex>
-    </Card>
+    <>
+      <Card style={{ width: '300px' }}>
+        <Flex vertical gap={'middle'}>
+          <Card.Meta avatar={<Avatar src={profile.avatar_url} />} title={profile.username} />
+          <Flex gap={'small'}>
+            {/*TODO: adjust icon button*/}
+            <Button
+              onClick={() => {
+                setShowEmojiSelection(!showEmojiSelection)
+              }}
+            >
+              trigger
+            </Button>
+            <Input value={edtInput} onChange={handleEdtInputChange} />
+          </Flex>
+        </Flex>
+      </Card>
+      {showEmojiSelection && <Picker data={data} onEmojiSelect={handleEmojiSelection} theme={'dark'} locale={'de'} />}
+    </>
   )
 })
