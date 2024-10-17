@@ -1,5 +1,7 @@
 import { Profile } from '@/common/types/tables/profiles/profile.type'
-import { Avatar, Card, Flex } from 'antd'
+import data from '@emoji-mart/data'
+import Picker from '@emoji-mart/react'
+import { Avatar, Button, Card, Flex } from 'antd'
 import Input from 'antd/es/input/Input'
 import React, { useImperativeHandle } from 'react'
 
@@ -15,6 +17,7 @@ export type EdtInputHandle = {
 export const EdtInput = React.forwardRef<EdtInputHandle, EdtInputProps>((props, ref) => {
   const { profile } = props
   const [edtInput, setEdtInput] = React.useState('')
+  const [showEmojiSelection, setShowEmojiSelection] = React.useState(false)
 
   const handleEdtInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEdtInput(event.target.value)
@@ -28,7 +31,16 @@ export const EdtInput = React.forwardRef<EdtInputHandle, EdtInputProps>((props, 
     <Card style={{ width: '300px' }}>
       <Flex vertical gap={'middle'}>
         <Card.Meta avatar={<Avatar src={profile.avatar_url} />} title={profile.username} />
+        {/*TODO: adjust icon button*/}
+        <Button
+          onClick={() => {
+            setShowEmojiSelection(!showEmojiSelection)
+          }}
+        >
+          trigger
+        </Button>
         <Input value={edtInput} onChange={handleEdtInputChange} />
+        {showEmojiSelection && <Picker data={data} onEmojiSelect={console.log} theme={'dark'} locale={'de'} />}
       </Flex>
     </Card>
   )
