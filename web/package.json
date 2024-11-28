@@ -14,13 +14,13 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.4.0",
+    "@ant-design/icons": "^5.5.1",
     "@emoji-mart/data": "^1.2.1",
     "@emoji-mart/react": "^1.1.1",
     "@supabase/auth-ui-react": "^0.4.7",
     "@supabase/auth-ui-shared": "^0.1.8",
     "@supabase/supabase-js": "^2.42.5",
-    "antd": "^5.16.2",
+    "antd": "^5.22.2",
     "date-fns": "^3.6.0",
     "emoji-mart": "^5.6.0",
     "gravatar": "^1.8.2",
