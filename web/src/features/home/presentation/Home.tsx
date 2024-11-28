@@ -30,7 +30,7 @@ export const Home: React.FC = () => {
   const greeting = user?.email === PERSON_X_EMAIL ? 'Bonjour' : 'Hello'
   const greetingText = `${greeting} ${userName}`
   return (
-    <>
+    <Flex vertical gap={'middle'}>
       <Card>
         <Flex vertical align={'center'} gap={'large'}>
           <Typography.Text>{greetingText}</Typography.Text>
@@ -43,6 +43,6 @@ export const Home: React.FC = () => {
         </Flex>
       </Card>
       <EdtOrder />
-    </>
+    </Flex>
   )
 }
