@@ -1,12 +1,17 @@
+import { Loader } from '@/common/components/loader/Loader'
 import { TABLE_NAME } from '@/common/constants/table-name.constants'
 import { Poll } from '@/common/types/tables/polls/poll.type'
 import { Profile } from '@/common/types/tables/profiles/profile.type'
 import { generateOrder } from '@/features/createPoll/helper/creatPollHelper'
 import { supabase } from '@/supabase'
+import { ArrowDownOutlined } from '@ant-design/icons'
+import { Avatar, Flex, Typography, theme } from 'antd'
 import React from 'react'
 
 export const EdtOrder: React.FC = () => {
   const [profiles, setProfiles] = React.useState<Profile[]>([])
+
+  const { token } = theme.useToken()
 
   const getLastPollCreator = async (): Promise<string> => {
     let pollcreator = ''
@@ -60,6 +65,22 @@ export const EdtOrder: React.FC = () => {
     getProfiles()
   }, [getProfiles])
 
-  //TODO: sort based on the last poll
-  return profiles.map((p) => <p>{p.username}</p>)
+  return (
+    <Flex vertical align="center">
+      <Typography.Title level={3}>Wer fängt heute an?</Typography.Title>
+      {profiles.length === 0 ? (
+        <Loader />
+      ) : (
+        profiles.map((profile, index) => (
+          <Flex vertical align="center" gap={'small'}>
+            <Flex align="center" justify="left" gap="small">
+              <Avatar src={profile.avatar_url} />
+              <Typography.Text>{profile.username}</Typography.Text>
+            </Flex>
+            {index < profiles.length - 1 && <ArrowDownOutlined style={{ color: token.colorTextDisabled }} />}
+          </Flex>
+        ))
+      )}
+    </Flex>
+  )
 }
