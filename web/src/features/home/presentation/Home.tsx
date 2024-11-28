@@ -5,6 +5,7 @@ import { User } from '@supabase/supabase-js'
 import { Button, Card, Flex, Typography } from 'antd'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { EdtOrder } from './EdtOrder'
 
 export const Home: React.FC = () => {
   const [user, setUser] = React.useState<User | null>(null)
@@ -39,6 +40,7 @@ export const Home: React.FC = () => {
           Umfrage erstellen
         </Button>
       </Flex>
+      <EdtOrder />
     </Card>
   )
 }
