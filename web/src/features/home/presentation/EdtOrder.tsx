@@ -4,7 +4,7 @@ import { Poll } from '@/common/types/tables/polls/poll.type'
 import { Profile } from '@/common/types/tables/profiles/profile.type'
 import { generateOrder } from '@/features/createPoll/helper/creatPollHelper'
 import { supabase } from '@/supabase'
-import { ArrowDownOutlined } from '@ant-design/icons'
+import { ArrowRightOutlined } from '@ant-design/icons'
 import { Avatar, Space, Typography, theme } from 'antd'
 import React from 'react'
 
@@ -71,14 +71,20 @@ export const EdtOrder: React.FC = () => {
       {profiles.length === 0 ? (
         <Loader />
       ) : (
-        <Space direction="vertical" align="center">
+        <Space direction="horizontal" align="center" size="middle">
           {profiles.map((profile, index) => (
             <React.Fragment key={profile.user_id}>
-              <Space align="center">
+              <Space direction="vertical" align="center" size="small">
                 <Avatar src={profile.avatar_url} />
                 <Typography.Text>{profile.username}</Typography.Text>
               </Space>
-              {index < profiles.length - 1 && <ArrowDownOutlined style={{ color: token.colorTextDisabled }} />}
+              {index < profiles.length - 1 && (
+                <ArrowRightOutlined
+                  style={{
+                    color: token.colorTextDisabled,
+                  }}
+                />
+              )}
             </React.Fragment>
           ))}
         </Space>
