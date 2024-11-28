@@ -126,7 +126,7 @@ export const CreatePoll: React.FC = () => {
     <>
       <Flex align="center" justify="center" style={{ paddingBottom: paddingXS }}>
         <Button
-          style={{ width: '300px' }}
+          style={{ width: '300px', cursor: 'help' }}
           block
           type="default"
           onClick={() => {
