@@ -1,7 +1,8 @@
 import { Profile } from '@/common/types/tables/profiles/profile.type'
+import { SmileOutlined } from '@ant-design/icons'
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
-import { Avatar, Button, Card, Flex } from 'antd'
+import { Avatar, Button, Card, Flex, Tooltip } from 'antd'
 import Input from 'antd/es/input/Input'
 import React, { useImperativeHandle } from 'react'
 
@@ -37,14 +38,15 @@ export const EdtInput = React.forwardRef<EdtInputHandle, EdtInputProps>((props, 
         <Flex vertical gap={'middle'}>
           <Card.Meta avatar={<Avatar src={profile.avatar_url} />} title={profile.username} />
           <Flex gap={'small'}>
-            {/*TODO: adjust icon button*/}
-            <Button
-              onClick={() => {
-                setShowEmojiSelection(!showEmojiSelection)
-              }}
-            >
-              trigger
-            </Button>
+            <Tooltip title="tolle icons :)" placement="left">
+              <Button
+                onClick={() => {
+                  setShowEmojiSelection(!showEmojiSelection)
+                }}
+                shape="circle"
+                icon={<SmileOutlined />}
+              />
+            </Tooltip>
             <Input value={edtInput} onChange={handleEdtInputChange} />
           </Flex>
         </Flex>
