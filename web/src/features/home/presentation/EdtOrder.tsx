@@ -5,7 +5,7 @@ import { Profile } from '@/common/types/tables/profiles/profile.type'
 import { generateOrder } from '@/features/createPoll/helper/creatPollHelper'
 import { supabase } from '@/supabase'
 import { ArrowDownOutlined } from '@ant-design/icons'
-import { Avatar, Flex, Typography, theme } from 'antd'
+import { Avatar, Space, Typography, theme } from 'antd'
 import React from 'react'
 
 export const EdtOrder: React.FC = () => {
@@ -66,21 +66,23 @@ export const EdtOrder: React.FC = () => {
   }, [getProfiles])
 
   return (
-    <Flex vertical align="center">
+    <Space direction="vertical" align="center" style={{ width: '100%' }}>
       <Typography.Title level={3}>Wer fängt heute an?</Typography.Title>
       {profiles.length === 0 ? (
         <Loader />
       ) : (
-        profiles.map((profile, index) => (
-          <Flex vertical align="center" gap={'small'}>
-            <Flex align="center" justify="left" gap="small">
-              <Avatar src={profile.avatar_url} />
-              <Typography.Text>{profile.username}</Typography.Text>
-            </Flex>
-            {index < profiles.length - 1 && <ArrowDownOutlined style={{ color: token.colorTextDisabled }} />}
-          </Flex>
-        ))
+        <Space direction="vertical" align="center">
+          {profiles.map((profile, index) => (
+            <React.Fragment key={profile.user_id}>
+              <Space align="center">
+                <Avatar src={profile.avatar_url} />
+                <Typography.Text>{profile.username}</Typography.Text>
+              </Space>
+              {index < profiles.length - 1 && <ArrowDownOutlined style={{ color: token.colorTextDisabled }} />}
+            </React.Fragment>
+          ))}
+        </Space>
       )}
-    </Flex>
+    </Space>
   )
 }
