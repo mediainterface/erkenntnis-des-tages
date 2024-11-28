@@ -1,8 +1,8 @@
 import { Profile } from '@/common/types/tables/profiles/profile.type'
-import { SmileOutlined } from '@ant-design/icons'
+import { CloseOutlined, SmileOutlined } from '@ant-design/icons'
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
-import { Avatar, Button, Card, Flex, Tooltip } from 'antd'
+import { Avatar, Button, Card, Flex, Tooltip, theme } from 'antd'
 import Input from 'antd/es/input/Input'
 import React, { useImperativeHandle } from 'react'
 
@@ -20,6 +20,10 @@ export const EdtInput = React.forwardRef<EdtInputHandle, EdtInputProps>((props, 
   const [edtInput, setEdtInput] = React.useState('')
   const [showEmojiSelection, setShowEmojiSelection] = React.useState(false)
 
+  const {
+    token: { colorErrorText },
+  } = theme.useToken()
+
   const handleEdtInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEdtInput(event.target.value)
   }
@@ -33,25 +37,29 @@ export const EdtInput = React.forwardRef<EdtInputHandle, EdtInputProps>((props, 
   }
 
   return (
-    <>
+    <div style={{ position: 'relative', display: 'inline-block' }}>
       <Card style={{ width: '300px' }}>
         <Flex vertical gap={'middle'}>
           <Card.Meta avatar={<Avatar src={profile.avatar_url} />} title={profile.username} />
           <Flex gap={'small'}>
-            <Tooltip title="tolle icons :)" placement="left">
+            <Tooltip title="tolle icons :)">
               <Button
                 onClick={() => {
                   setShowEmojiSelection(!showEmojiSelection)
                 }}
-                shape="circle"
-                icon={<SmileOutlined />}
+                shape={'circle'}
+                icon={showEmojiSelection ? <CloseOutlined style={{ color: colorErrorText }} /> : <SmileOutlined />}
               />
             </Tooltip>
             <Input value={edtInput} onChange={handleEdtInputChange} />
           </Flex>
         </Flex>
       </Card>
-      {showEmojiSelection && <Picker data={data} onEmojiSelect={handleEmojiSelection} theme={'dark'} locale={'de'} />}
-    </>
+      {showEmojiSelection && (
+        <div style={{ position: 'absolute', left: '-355px', top: '0' }}>
+          <Picker data={data} onEmojiSelect={handleEmojiSelection} theme={'dark'} locale={'de'} />
+        </div>
+      )}
+    </div>
   )
 })
