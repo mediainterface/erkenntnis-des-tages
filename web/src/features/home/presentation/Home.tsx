@@ -5,6 +5,7 @@ import { User } from '@supabase/supabase-js'
 import { Button, Card, Flex, Typography } from 'antd'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { EdtOrder } from './EdtOrder'
 
 export const Home: React.FC = () => {
   const [user, setUser] = React.useState<User | null>(null)
@@ -29,16 +30,19 @@ export const Home: React.FC = () => {
   const greeting = user?.email === PERSON_X_EMAIL ? 'Bonjour' : 'Hello'
   const greetingText = `${greeting} ${userName}`
   return (
-    <Card>
-      <Flex vertical align={'center'} gap={'large'}>
-        <Typography.Text>{greetingText}</Typography.Text>
-        <div style={{ maxWidth: '250px' }}>
-          <img src="https://cdn-icons-png.flaticon.com/128/3468/3468306.png" alt={'unicorn'} />
-        </div>
-        <Button type={'primary'} onClick={handleCreatePoll}>
-          Umfrage erstellen
-        </Button>
-      </Flex>
-    </Card>
+    <Flex vertical gap={'middle'}>
+      <Card>
+        <Flex vertical align={'center'} gap={'large'}>
+          <Typography.Text>{greetingText}</Typography.Text>
+          <div style={{ maxWidth: '250px' }}>
+            <img src="https://cdn-icons-png.flaticon.com/128/3468/3468306.png" alt={'unicorn'} />
+          </div>
+          <Button type={'primary'} onClick={handleCreatePoll}>
+            Umfrage erstellen
+          </Button>
+        </Flex>
+      </Card>
+      <EdtOrder />
+    </Flex>
   )
 }
