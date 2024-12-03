@@ -1,6 +1,6 @@
 import { Profile } from '@/common/types/tables/profiles/profile.type'
 import { CloseOutlined, QuestionOutlined, SmileOutlined } from '@ant-design/icons'
-import data from '@emoji-mart/data'
+import all from '@emoji-mart/data/sets/15/all.json'
 import Picker from '@emoji-mart/react'
 import { Avatar, Button, Card, Flex, Tooltip, Tour, TourProps, Typography, theme } from 'antd'
 import Input from 'antd/es/input/Input'
@@ -94,7 +94,7 @@ export const EdtInput = React.forwardRef<EdtInputHandle, EdtInputProps>((props, 
         </Card>
         {showEmojiSelection && (
           <div style={{ position: 'absolute', left: '-355px', top: '0' }}>
-            <Picker data={data} onEmojiSelect={handleEmojiSelection} theme={'dark'} locale={'de'} />
+            <Picker data={all} onEmojiSelect={handleEmojiSelection} set="google" theme={'dark'} locale={'de'} />
           </div>
         )}
       </div>
